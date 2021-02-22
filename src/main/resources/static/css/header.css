@@ -1,0 +1,48 @@
+.header-top{
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.header-top i{
+    display: block;
+    padding-right: 10px;
+    color: #e2e2e2;
+
+}
+.header-top p{
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    color: gray;
+}
+.header-top-settings{
+    display: flex;
+}
+
+.header-middle {
+    height: 200px;
+    display: flex;
+    align-content: center;
+    background-color: #ebbec8;
+    justify-content: center;
+    color: white;
+}
+.header-middle h1 {
+    font-size: 45px;
+    font-family: 'roboto', sans-serif;
+
+
+}
+.header-middle p{
+    font-family: 'Dancing Script', cursive;
+    font-size: 45px;
+    margin-top: -20px;
+
+
+}
+span { 
+    font-family: Arial; 
+    text-align: center;
+}
