@@ -1,0 +1,48 @@
+.btn {
+    border: 2px solid #ebbec8;
+    border-radius: 5px;
+    padding: 16px 16px;
+    width: 250px;
+    text-align: center;
+    display: inline-block;
+    font-size: 25px;
+    font-family: 'Nunito', sans-serif;
+    color: #2E3E60;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 15px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.btn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+
+  }
+  
+  .btn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+
+  }
+  
+  .btn:hover span {
+    padding-right: 25px;
+  }
+  
+  .btn:hover span:after {
+    opacity: 1;
+    right: 0;
+
+  }
+  .btn:hover {
+    background-color: #ebbec8;
+    opacity: 40%;
+    border: 2px solid #fff2f5;
+  }
