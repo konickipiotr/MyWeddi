@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -48,12 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/login", "/registration", "/forgotpassword", "/css/**", "/img/**",
-                        "/swagger-ui.html", "/swagger-resources/**", "/v2/api-docs",
-                        "/webjars/**", "/h2-console/**").permitAll()
+                .antMatchers("/login", "/registration", "/forgotpassword", "/css/**", "/img/**", "/h2-console/**").permitAll()
                 .antMatchers("/firstlogin").hasAnyAuthority("ACCESS_ACTIVE", "ACCESS_FIRSTLOGIN")
-                .antMatchers("/**").hasAnyRole("GUEST", "OWNER", "ADMIN")
+                .antMatchers("/**").hasAnyRole("GUEST")
                 .antMatchers("/**").hasAuthority("ACCESS_ACTIVE")
+
+                .antMatchers("/owner/**").hasAnyRole("OWNER")
+                .antMatchers("/owner/**").hasAuthority("ACCESS_ACTIVE")
 
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/admin/**").hasAuthority("ACCESS_ACTIVE")
@@ -83,5 +85,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
 
         http.headers().frameOptions().sameOrigin();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
     }
 }
