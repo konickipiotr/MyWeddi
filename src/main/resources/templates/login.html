@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <form class="login_form" th:action="@{/login}" method="post">
-  <div id="logout_message" th:if="${param.logout}">
-    Zostałeś wylogowany
-  </div>
-  <!-- Login: <input type="text" name="username" value="p@p"><br>  -->
-  Login: <input type="text" name="username" value="sa"><br>
-  <!-- Hasło: <input type="password" name="password" value="xxxxxx1"><br>  -->
-  Hasło: <input type="password" name="password" value="11"><br>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/loginpage.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+    <title>MyWeddi</title>
+</head>
+<body>
+    <div class="welcome">
+        <h1>Witaj w aplikacji MyWeddi.pl</h1>
+    </div>
+    <div class="heart">
+        <img src="/img/heart.png" width="100" height="100">
+    </div>
 
-  <button type="submit">Zaloguj</button><br>
+    <form th:action="@{/login}" method="post"  class="formlogin">
 
-</form>
-  </body>
+        <div class="login">
+            <div>
+            <label for="username">Login</label>
+            <input type="text" name="username" id="username">
+            </div>
+
+            <div>
+            <label for="password">Hasło</label>
+            <input type="password" name="password" id="password">
+            </div>
+        </div>
+
+        <div class="enter">
+            <button type="submit" class="enterbtn"><span>Z A L O G U J</span></button>
+        </div>
+
+    </form>
+
+
+</body>
 </html>
