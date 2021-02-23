@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/css/header.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> 
-    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
-    <title>MyWeddi</title>
 </head>
+
 <body>
-
-        <div class ="header-top">
-            <div> 
-                <p>MyWeddi.pl</p>
-            </div>
-            <div class="header-top-settings">
-                <i class="fas fa-cog fa-2x"></i>
-                <i class="fas fa-sign-out-alt fa-2x"></i>
-            </div>
-
-
-        </div>
-
-        <div class="header-middle">
-            <span>
-                <h1>Patrycja i Piotr 19.06.2021</h1>
-                <p>Pobieramy się!</p>
-            </span> 
-        </div>
-
+  <header th:fragment="header">
+    <div class="header-middle">
+      <span>
+        <h1>Patrycja i Piotr 19.06.2021</h1>
+        <p>Pobieramy się!</p>
+      </span>
+    </div>
+  </header>
 </body>
+
 </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+  <header th:fragment="top">
+    <div class="header-top">
+      <div>
+        <p>MyWeddi.pl</p>
+      </div>
+      <div class="header-top-settings">
+        <i class="fas fa-cog fa-2x"></i>
+        <a th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+      </div>
+    </div>
+  </header>
+</body>
+
+</html>

@@ -30,11 +30,11 @@ public class HomeController {
         String view = "";
         Role role = Role.valueOf(user.getRole());
         switch (role){
-            case ADMIN: view = "home"; break;
-            case OWNER:  view = "homO"; break;
-            case GUEST:  view = "homeG"; break;
-            case DJ:  view = "homeD"; break;
-            case PHOTOGRAPHER:  view = "homeF"; break;
+            case ADMIN: view = "redirect:/admin"; break;
+            case OWNER:  view = "redirect:/owner"; break;
+            case GUEST:  view = "redirect:/guest"; break;
+            case DJ:  view = "redirect:/dj"; break;
+            case PHOTOGRAPHER:  view = "redirect:/photographer"; break;
         }
         return view;
     }

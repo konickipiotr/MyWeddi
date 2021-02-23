@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+
+  </head>
+  <body>
+    <header th:replace="top :: top">
+    </header>
+    <div class="container" style="display: flex;">
+      <aside th:replace="menu :: menu"></aside>
+      <!-- ************************************************** -->
+
+      <section>
+        <h1>dj</h1>
+
+        content
+      </section>
+
+      <!-- ************************************************** -->
+    </div>
+    <footer th:replace="footer :: footer"></footer>
+  </body>
+</html>
