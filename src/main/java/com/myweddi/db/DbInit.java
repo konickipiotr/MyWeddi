@@ -4,7 +4,7 @@ import com.myweddi.info.ChurchInfo;
 import com.myweddi.info.ChurchRepository;
 import com.myweddi.info.WeddingInfo;
 import com.myweddi.info.WeddingInfoRepository;
-import com.myweddi.user.User;
+import com.myweddi.user.UserAuth;
 import com.myweddi.user.UserStatus;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +36,19 @@ public class DbInit implements CommandLineRunner {
         this.weddingInfoRepository.deleteAll();
         this.churchRepository.deleteAll();
 
-        User ua1 = new User("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
+        UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);
 
-        User ua2 = new User("so", passwordEncoder.encode("11"), "OWNER", UserStatus.ACTIVE);
+        UserAuth ua2 = new UserAuth("so", passwordEncoder.encode("11"), "OWNER", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua2);
 
-        User ua3 = new User("sg", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
+        UserAuth ua3 = new UserAuth("sg", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua3);
 
-        User ua4 = new User("sd", passwordEncoder.encode("11"), "DJ", UserStatus.ACTIVE);
+        UserAuth ua4 = new UserAuth("sd", passwordEncoder.encode("11"), "DJ", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua4);
 
-        User ua5 = new User("sf", passwordEncoder.encode("11"), "PHOTOGRAPHER", UserStatus.ACTIVE);
+        UserAuth ua5 = new UserAuth("sf", passwordEncoder.encode("11"), "PHOTOGRAPHER", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua5);
 
         ChurchInfo churchInfo1 = new ChurchInfo();

@@ -1,7 +1,7 @@
 package com.myweddi;
 
 import com.myweddi.user.Role;
-import com.myweddi.user.User;
+import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +24,11 @@ public class HomeController {
 
     @GetMapping
     public String home(Principal principal){
-        User user = userAuthRepository.findByUsername(principal.getName());
-        System.out.println(user);
+        UserAuth userAuth = userAuthRepository.findByUsername(principal.getName());
+        System.out.println(userAuth);
 
         String view = "";
-        Role role = Role.valueOf(user.getRole());
+        Role role = Role.valueOf(userAuth.getRole());
         switch (role){
             case ADMIN: view = "redirect:/admin"; break;
             case OWNER:  view = "redirect:/owner"; break;
