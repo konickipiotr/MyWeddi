@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class User implements UserDetails {
+public class UserAuth implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -25,14 +25,18 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    private String firstname;
-    private String lastname;
-
-    public User(String username, String password, String role, UserStatus status) {
+    public UserAuth(String username, String password, String role, UserStatus status) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.status = status;
+    }
+
+    public UserAuth(RegistrationForm rf) {
+        this.username = rf.getUsername();
+        this.password = rf.getPassword();
+        this.role = "OWNER";
+        this.status = UserStatus.FIRSTLOGIN;
     }
 
     @Override

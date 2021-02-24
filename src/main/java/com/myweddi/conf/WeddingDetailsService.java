@@ -1,6 +1,6 @@
 package com.myweddi.conf;
 
-import com.myweddi.user.User;
+import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +16,9 @@ public class WeddingDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userAuthRepository.findByUsername(username);
-        if(user == null)
+        UserAuth userAuth = userAuthRepository.findByUsername(username);
+        if(userAuth == null)
             throw new UsernameNotFoundException("User: "+ username + "doesn't exist");
-        return user;
+        return userAuth;
     }
 }

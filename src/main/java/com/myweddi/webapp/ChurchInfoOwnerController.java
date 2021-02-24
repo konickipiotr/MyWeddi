@@ -2,7 +2,7 @@ package com.myweddi.webapp;
 
 import com.myweddi.conf.Global;
 import com.myweddi.info.ChurchInfo;
-import com.myweddi.user.User;
+import com.myweddi.user.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
@@ -24,9 +24,9 @@ public class ChurchInfoOwnerController {
 
     @GetMapping("/{weddingid}")
     public String getChurchInfo(@PathVariable("weddingid") Long weddingid, HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
+        UserAuth userAuth = (UserAuth) session.getAttribute("user");
         String url = Global.domain + "/api/churchinfo";
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(userAuth.getUsername(), userAuth.getPassword()));
 
         ResponseEntity<ChurchInfo> response = restTemplate.getForEntity(url, ChurchInfo.class, weddingid);
         if(response.getStatusCode().is2xxSuccessful()){
