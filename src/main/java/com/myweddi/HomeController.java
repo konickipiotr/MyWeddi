@@ -1,21 +1,30 @@
 package com.myweddi;
 
-import com.myweddi.user.Role;
-import com.myweddi.user.UserAuth;
+import com.myweddi.user.*;
+import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
-    @Autowired
     private UserAuthRepository userAuthRepository;
+    private HostRepository hostRepository;
+    private GuestRepository guestRepository;
+
+    @Autowired
+    public HomeController(UserAuthRepository userAuthRepository, HostRepository hostRepository, GuestRepository guestRepository) {
+        this.userAuthRepository = userAuthRepository;
+        this.hostRepository = hostRepository;
+        this.guestRepository = guestRepository;
+    }
 
     @GetMapping("/login")
     public String login(){
@@ -23,19 +32,34 @@ public class HomeController {
     }
 
     @GetMapping
-    public String home(Principal principal){
+    public String home(Principal principal, HttpSession session){
         UserAuth userAuth = userAuthRepository.findByUsername(principal.getName());
         System.out.println(userAuth);
 
         String view = "";
         Role role = Role.valueOf(userAuth.getRole());
+
+        Host host = null;
         switch (role){
             case ADMIN: view = "redirect:/admin"; break;
-            case OWNER:  view = "redirect:/owner"; break;
-            case GUEST:  view = "redirect:/guest"; break;
+            case OWNER:{
+                host = this.hostRepository.findById(userAuth.getId()).get();
+                session.setAttribute("bridename", host.getBrideName());
+                session.setAttribute("groomname", host.getGroomName());
+                view = "redirect:/owner";
+            } break;
+            case GUEST:{
+                Guest guest = null;
+                guest = this.guestRepository.findById(userAuth.getId()).get();
+                host = this.hostRepository.findById(guest.getWeddingid()).get();
+                session.setAttribute("bridename", host.getBrideName());
+                session.setAttribute("groomname", host.getGroomName());
+                view = "redirect:/guest";
+            } break;
             case DJ:  view = "redirect:/dj"; break;
             case PHOTOGRAPHER:  view = "redirect:/photographer"; break;
         }
+
         return view;
     }
 

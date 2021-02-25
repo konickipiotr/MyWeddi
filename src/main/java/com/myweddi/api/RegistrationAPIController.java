@@ -8,24 +8,25 @@ import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/registration")
-public class RegistrationController {
+@RequestMapping("/api/registration")
+public class RegistrationAPIController {
 
     private UserAuthRepository userAuthRepository;
     private HostRepository hostRepository;
 
     @Autowired
-    public RegistrationController(UserAuthRepository userAuthRepository, HostRepository hostRepository) {
+    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository) {
         this.userAuthRepository = userAuthRepository;
         this.hostRepository = hostRepository;
     }
 
     @PostMapping
-    public ResponseEntity addHost(@RequestBody RegistrationForm rf){
+    public ResponseEntity addHost( @RequestBody RegistrationForm rf){
         UserAuth userAuth = this.userAuthRepository.findByUsername(rf.getUsername());
 
         if(userAuth != null){
@@ -35,5 +36,10 @@ public class RegistrationController {
         userAuth  = this.userAuthRepository.save(userAuth);
         this.hostRepository.save(new Host(userAuth.getId(), rf));
         return new ResponseEntity<RegistrationForm>(HttpStatus.OK);
+    }
+
+    @GetMapping
+    public String ddd(){
+        return "elooooo";
     }
 }

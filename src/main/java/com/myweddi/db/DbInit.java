@@ -4,8 +4,8 @@ import com.myweddi.info.ChurchInfo;
 import com.myweddi.info.ChurchRepository;
 import com.myweddi.info.WeddingInfo;
 import com.myweddi.info.WeddingInfoRepository;
-import com.myweddi.user.UserAuth;
-import com.myweddi.user.UserStatus;
+import com.myweddi.user.*;
+import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,13 +21,17 @@ public class DbInit implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
     private ChurchRepository churchRepository;
     private WeddingInfoRepository weddingInfoRepository;
+    private HostRepository hostRepository;
+    private GuestRepository guestRepository;
 
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.churchRepository = churchRepository;
         this.weddingInfoRepository = weddingInfoRepository;
+        this.hostRepository = hostRepository;
+        this.guestRepository = guestRepository;
     }
 
     @Override
@@ -35,6 +39,8 @@ public class DbInit implements CommandLineRunner {
         this.userAuthRepository.deleteAll();
         this.weddingInfoRepository.deleteAll();
         this.churchRepository.deleteAll();
+        this.hostRepository.deleteAll();
+        this.guestRepository.deleteAll();
 
         UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);
@@ -68,6 +74,19 @@ public class DbInit implements CommandLineRunner {
         weddingInfo1.setName("Górski Poranek");
         weddingInfo1.setWebAppPath("https://e-turysta.pl/zdjecia/galeria-glowna/maxw772maxh580/79/Gorski-Poranek-Stronie-Slaskie-799261.jpg");
         this.weddingInfoRepository.save(weddingInfo1);
+
+
+        Host h1 = new Host();
+        h1.setId(ua2.getId());
+        h1.setBridefirstname("Anna");
+        h1.setBridelastname("Nowak");
+        h1.setBrideemail("anna@nowak.pl");
+        h1.setBridephone("54651321");
+        h1.setGroomfirstname("Jan");
+        h1.setGroomlastname("Kowalski");
+        h1.setGroomemail("jan@kowalski.pl");
+        h1.setGroomphone("34234234");
+        this.hostRepository.save(h1);
 
 
     }

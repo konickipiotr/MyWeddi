@@ -7,6 +7,7 @@ public class RegistrationForm {
 
     private String username;
     private String password;
+    private String password2;
     private String bridefirstname;
     private String bridelastname;
     private String brideemail;

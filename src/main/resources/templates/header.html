@@ -8,7 +8,7 @@
   <header th:fragment="header">
     <div class="header-middle">
       <span>
-        <h1>Patrycja i Piotr 19.06.2021</h1>
+        <h1 th:text="${session.bridename + ' i ' + session.groomname + ' 19.06.2021'}"></h1>
         <p>Pobieramy się!</p>
       </span>
     </div>

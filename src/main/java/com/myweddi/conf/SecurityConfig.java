@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/login", "/registration", "/forgotpassword", "/css/**", "/img/**", "/h2-console/**").permitAll()
+                .antMatchers("/login", "/registration", "/forgotpassword", "/h2-console/**").permitAll()
                 .antMatchers("/firstlogin").hasAnyAuthority("ACCESS_ACTIVE", "ACCESS_FIRSTLOGIN")
                 .antMatchers("/**").hasAnyRole("GUEST")
                 .antMatchers("/**").hasAuthority("ACCESS_ACTIVE")
@@ -66,8 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dj/**").hasRole("DJ")
                 .antMatchers("/dj/**").hasAuthority("ACCESS_ACTIVE")
 
-
-
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
@@ -80,7 +78,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authenticationProvider(apiAuthenticationProvider())
                 .authorizeRequests()
-                .antMatchers("/api/**").hasAnyRole("ADMIN","USER")
+                //.antMatchers("/api/**").permitAll()
+                //.antMatchers("/api/registration").permitAll()
+                //.antMatchers("/api/**").hasAnyRole("ADMIN","USER")
                 .and()
                 .httpBasic();
 
@@ -94,6 +94,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-resources/**",
                 "/configuration/security",
                 "/swagger-ui.html",
-                "/webjars/**");
+                "/webjars/**",
+                "/css/**",
+                "/img/**", "/api/**");
     }
 }

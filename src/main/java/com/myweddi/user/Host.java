@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-@NoArgsConstructor
 public class Host extends User {
 
     @Id
@@ -23,7 +22,12 @@ public class Host extends User {
     private String groomemail;
     private String groomphone;
 
+    public Host(){
+        super();
+        this.firstname = "Państow Młodzi";
+    }
     public Host(Long id, RegistrationForm rf) {
+        super();
         this.id = id;
         this.bridefirstname = rf.getBridefirstname();
         this.bridelastname = rf.getBridelastname();
@@ -34,5 +38,13 @@ public class Host extends User {
         this.groomemail = rf.getGroomemail();
         this.groomphone = rf.getGroomphone();
         this.firstname = "Państow Młodzi";
+    }
+
+    public String getBrideName(){
+        return bridefirstname + " " + bridelastname;
+    }
+
+    public String getGroomName(){
+        return groomfirstname + " " + groomlastname;
     }
 }
