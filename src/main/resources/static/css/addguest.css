@@ -68,7 +68,7 @@ margin-top: 55px;
 .table_addguest td, .table_addguest th{
     border: 1px solid #ddd;
     padding: 8px;
-  }
+}
   
 .table_addguest tr:nth-child(even){
     background-color: rgb(218, 160, 200);
@@ -82,4 +82,4 @@ margin-top: 55px;
     text-align: left;
     background-color: #582d58;
     color: white;
-  }
+}
