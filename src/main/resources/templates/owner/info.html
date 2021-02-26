@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../static/css/info.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+    <title>MyWeddi</title>
+</head>
+<body>
+<form>
+    <div class="generalinfo">
+    <div class="dateofwedding">
+        <label for="date">Data ślubu</label>
+        <input type="datetime-local" name="date" id="date" minlength="3" required >
+    </div>
+    <div class="infoofwedding">
+        <label for="textarea">INFO</label>
+        <textarea id="textareaa" name="textareaa" rows="4" cols="50"></textarea>
+    </div>
+</div>
+<div class="churchandplacedisplay">
+<div class = "churchinfo">
+    <div>
+        <label for="text">Kościół</label>
+        <input type="text" name="text" id="text" minlength="3" required>
+    </div>
+    <div>
+        <label for="text">Adres Kościoła</label>
+        <input type="text" name="text" id="text" minlength="3" required>
+    </div>
+    <div>
+        <label for="number">Współrzędne X</label>
+        <input type="number" name="number" id="number" min="-180" max="180" step="0.000001" minlength="3" required>
+    </div>
+    <div>
+        <label for="number">Współrzędne Y</label>
+        <input type="number" name="number" id="number" min="-90" max="90" step="0.0000001" minlength="3" required>
+    </div>
+</div>
+<div class="weddingplaceinfo">
+    <div>
+        <label for="text">Sala</label>
+        <input type="text" name="date" id="text" minlength="3" required>
+    </div>
+    <div>
+        <label for="text">Adres Sali</label>
+        <input type="text" name="date" id="text" minlength="3" required>
+    </div>
+    <div>
+        <label for="number">Współrzędne X</label>
+        <input type="number" name="number" id="number" min="-180" max="180" step="0.000001" minlength="3" required>
+    </div>
+    <div>
+        <label for="number">Współrzędne Y</label>
+        <input type="number" name="number" id="number" min="-90" max="90" step="0.0000001" minlength="3" required>
+    </div>
+</div>
+</div>
+<div class ="downofinfo">
+    <div class="uploadpictureinfo">
+        <label for="file">Dodaj zdjęcie</label>
+        <input type="file" name="file" id="file">
+    </div>
+
+    <div class="enterbtninfo">
+        <button type="submit" class="btn"><span>Z R O B I O N E</span></button>
+    </div>
+</div>
+</form>
+</body>
