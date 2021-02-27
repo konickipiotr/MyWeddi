@@ -1,76 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../static/css/info.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
-    <title>MyWeddi</title>
-</head>
-<body>
-<form>
-    <div class="generalinfo">
-    <div class="dateofwedding">
-        <label for="date">Data ślubu</label>
-        <input type="datetime-local" name="date" id="date" minlength="3" required >
-    </div>
-    <div class="infoofwedding">
-        <label for="textarea">INFO</label>
-        <textarea id="textareaa" name="textareaa" rows="4" cols="50"></textarea>
-    </div>
-</div>
-<div class="churchandplacedisplay">
-<div class = "churchinfo">
-    <div>
-        <label for="text">Kościół</label>
-        <input type="text" name="text" id="text" minlength="3" required>
-    </div>
-    <div>
-        <label for="text">Adres Kościoła</label>
-        <input type="text" name="text" id="text" minlength="3" required>
-    </div>
-    <div>
-        <label for="number">Współrzędne X</label>
-        <input type="number" name="number" id="number" min="-180" max="180" step="0.000001" minlength="3" required>
-    </div>
-    <div>
-        <label for="number">Współrzędne Y</label>
-        <input type="number" name="number" id="number" min="-90" max="90" step="0.0000001" minlength="3" required>
-    </div>
-</div>
-<div class="weddingplaceinfo">
-    <div>
-        <label for="text">Sala</label>
-        <input type="text" name="date" id="text" minlength="3" required>
-    </div>
-    <div>
-        <label for="text">Adres Sali</label>
-        <input type="text" name="date" id="text" minlength="3" required>
-    </div>
-    <div>
-        <label for="number">Współrzędne X</label>
-        <input type="number" name="number" id="number" min="-180" max="180" step="0.000001" minlength="3" required>
-    </div>
-    <div>
-        <label for="number">Współrzędne Y</label>
-        <input type="number" name="number" id="number" min="-90" max="90" step="0.0000001" minlength="3" required>
-    </div>
-</div>
-</div>
-<div class ="downofinfo">
-    <div class="uploadpictureinfo">
-        <label for="file">Dodaj zdjęcie</label>
-        <input type="file" name="file" id="file">
-    </div>
+  <title>MyWeddi</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="enterbtninfo">
-        <button type="submit" class="btn"><span>Z R O B I O N E</span></button>
-    </div>
-</div>
-</form>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/info.css">
+
+</head>
+
+<body>
+  <header th:replace="top :: top">
+  </header>
+  <header th:replace="header :: header">
+  </header>
+  <div class="container" style="display: flex;">
+    <aside class="menu" th:replace="menu :: menu"></aside>
+    <!-- ************************************************** -->
+
+    <section class="content">
+      <form th:action="@{/host/info/church}" method="post" th:object="${churchInfo}">
+        <input type="hidden" name="weddingid" th:value="${churchInfo.weddingid}" />
+        <p th:if="${massage != null}" th:class="${class}" th:text="${message}"></p>
+        <div class="generalinfo">
+          <div class="dateofwedding">
+            <label for="ceremenytime">Data ślubu</label>
+            <input type="datetime-local" name="ceremenytime" id="ceremenytime" minlength="3" th:field="*{ceremenytime}" required>
+          </div>
+          <div class="infoofwedding">
+            <label for="info">INFO</label>
+            <textarea id="info" name="info" rows="4" cols="50" th:text="${churchInfo.info}"></textarea>
+          </div>
+        </div>
+        <div class="churchandplacedisplay">
+          <div class="churchinfo">
+            <div>
+              <label for="nameC">Kościół</label>
+              <input type="text" name="name" id="nameC" minlength="3" th:field="*{name}" required>
+            </div>
+            <div>
+              <label for="address">Adres Kościoła</label>
+              <input type="text" name="address" id="address" minlength="3" th:field="*{address}" required>
+            </div>
+            <div>
+              <label for="latitude">Współrzędne X</label>
+              <input type="number" name="latitude" id="latitude" min="-180" max="180" step="0.000001" minlength="3" th:field="*{latitude}" required>
+            </div>
+            <div>
+              <label for="longitude">Współrzędne Y</label>
+              <input type="number" name="longitude" id="longitude" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
+            </div>
+            <div class="downofinfo">
+              <div class="uploadpictureinfo">
+                <label for="file">Dodaj zdjęcie</label>
+                <input type="file" name="file" id="file">
+              </div>
+            </div>
+            <div class="enterbtninfo">
+              <button type="submit" class="btn"><span>Z R O B I O N E</span></button>
+            </div>
+          </div>
+      </form>
+      <form method="post" th:object="${weddingInfo}">
+        <input type="hidden" name="weddingid" th:field="*{weddingid}" />
+        <div class="weddingplaceinfo">
+          <div>
+            <label for="name">Sala</label>
+            <input type="text" name="name" id="name" minlength="3" th:field="*{name}" required>
+          </div>
+          <div>
+            <label for="addressS">Adres Sali</label>
+            <input type="text" name="address" id="addressS" minlength="3" th:field="*{address}" required>
+          </div>
+          <div>
+            <label for="latitudeS">Współrzędne X</label>
+            <input type="number" name="latitude" id="latitudeS" min="-180" max="180" step="0.000001" minlength="3" th:field="*{latitude}" required>
+          </div>
+          <div>
+            <label for="longitudeS">Współrzędne Y</label>
+            <input type="number" name="longitude" id="longitudeS" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
+          </div>
+          <div class="downofinfo">
+            <div class="uploadpictureinfo">
+              <label for="file">Dodaj zdjęcie</label>
+              <input type="file" name="file" id="file">
+            </div>
+          </div>
+          <div class="enterbtninfo">
+            <button type="submit" class="btn"><span>Z R O B I O N E</span></button>
+          </div>
+        </div>
+  </div>
+
+  </form>
+  </section>
+  <!-- ************************************************** -->
+  </div>
+  <footer th:replace="footer :: footer"></footer>
 </body>

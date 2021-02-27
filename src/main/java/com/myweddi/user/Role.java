@@ -2,7 +2,7 @@ package com.myweddi.user;
 
 public enum Role {
     ADMIN,
-    OWNER,
+    HOST,
     GUEST,
     PHOTOGRAPHER,
     DJ

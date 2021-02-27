@@ -1,7 +1,6 @@
-package com.myweddi.webapp.owner.registration;
+package com.myweddi.webapp.host.registration;
 
 import com.myweddi.user.RegistrationForm;
-import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

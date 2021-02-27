@@ -38,8 +38,4 @@ public class RegistrationAPIController {
         return new ResponseEntity<RegistrationForm>(HttpStatus.OK);
     }
 
-    @GetMapping
-    public String ddd(){
-        return "elooooo";
-    }
 }

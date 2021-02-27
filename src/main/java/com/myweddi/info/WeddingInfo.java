@@ -1,6 +1,7 @@
 package com.myweddi.info;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -10,16 +11,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class WeddingInfo {
     @Id
     private long weddingid;
     private String name;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime weddingtime;
     private double longitude;
     private double latitude;
-    @Lob
-    private String info;
+    private String address;
     private String realPath;
     private String webAppPath;
+
+    public WeddingInfo(long weddingid) {
+        this.weddingid = weddingid;
+    }
 }

@@ -54,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").hasAnyRole("GUEST")
                 .antMatchers("/**").hasAuthority("ACCESS_ACTIVE")
 
-                .antMatchers("/owner/**").hasAnyRole("OWNER")
-                .antMatchers("/owner/**").hasAuthority("ACCESS_ACTIVE")
+                .antMatchers("/host/**").hasAnyRole("HOST")
+                .antMatchers("/host/**").hasAuthority("ACCESS_ACTIVE")
 
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/admin/**").hasAuthority("ACCESS_ACTIVE")

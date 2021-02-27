@@ -42,7 +42,7 @@ public class HomeController {
         Host host = null;
         switch (role){
             case ADMIN: view = "redirect:/admin"; break;
-            case OWNER:{
+            case HOST:{
                 host = this.hostRepository.findById(userAuth.getId()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());

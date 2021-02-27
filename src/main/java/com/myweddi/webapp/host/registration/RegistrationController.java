@@ -1,4 +1,4 @@
-package com.myweddi.webapp.owner.registration;
+package com.myweddi.webapp.host.registration;
 
 import com.myweddi.conf.Global;
 import com.myweddi.user.RegistrationForm;
@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

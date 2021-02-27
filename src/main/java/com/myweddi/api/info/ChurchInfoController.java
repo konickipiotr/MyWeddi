@@ -1,4 +1,4 @@
-package com.myweddi.api;
+package com.myweddi.api.info;
 
 import com.myweddi.info.ChurchInfo;
 import com.myweddi.info.ChurchRepository;
@@ -17,15 +17,16 @@ public class ChurchInfoController {
     private ChurchRepository churchRepository;
 
     @PostMapping
-    public void addChurchInfo(@RequestBody ChurchInfo churchInfo){
+    public ResponseEntity<ChurchInfo>  addChurchInfo(@RequestBody ChurchInfo churchInfo){
         this.churchRepository.save(churchInfo);
+        return new ResponseEntity<ChurchInfo>(churchInfo, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ChurchInfo> getChurchInf(@PathVariable("id") Long weddingid){
         Optional<ChurchInfo> oChurch = this.churchRepository.findById(weddingid);
         if(oChurch.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<ChurchInfo>(new ChurchInfo(), HttpStatus.ACCEPTED);
 
         return new ResponseEntity<ChurchInfo>(oChurch.get(), HttpStatus.OK);
     }

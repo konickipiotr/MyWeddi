@@ -1,4 +1,4 @@
-package com.myweddi.api;
+package com.myweddi.api.info;
 
 import com.myweddi.info.WeddingInfo;
 import com.myweddi.info.WeddingInfoRepository;
@@ -25,7 +25,7 @@ public class WeddingInfoController {
     public ResponseEntity<WeddingInfo> getChurchInf(@PathVariable("id") Long weddingid){
         Optional<WeddingInfo> oWedding = this.weddingInfoRepository.findById(weddingid);
         if(oWedding.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
         return new ResponseEntity<WeddingInfo>(oWedding.get(), HttpStatus.OK);
     }

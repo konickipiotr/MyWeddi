@@ -2,3 +2,21 @@
   color: #d11414;
   text-align: center;
 }
+
+.accept-message{
+  color: #00b64e;
+  text-align: center;
+}
+
+.container{
+  width: 100%;
+  display: flex;
+}
+.menu{
+  width: 20%;
+  padding-top: 20px;
+}
+
+.content{
+  width: 80%;
+}

@@ -1,4 +1,4 @@
-body{
+.content{
     background-color: rgb(184, 103, 159);
 }
 .generalinfo{
@@ -41,7 +41,6 @@ body{
     width: 30%;
     padding: 5px;
     font-family: 'Nunito', sans-serif;
-    color: blck;
     font-size: 1.2em;
     border-style:none;
     text-align: center;
@@ -63,7 +62,6 @@ body{
     display: block;
     padding: 5px;
     font-family: 'Nunito', sans-serif;
-    color: white;
     border-style:none;
     width: 500px;
 }
@@ -71,7 +69,6 @@ body{
     display: block;
     padding: 5px;
     font-family: 'Nunito', sans-serif;
-    color: white;
     border-style:none;
     width: 500px;
 }
@@ -102,7 +99,6 @@ body{
     width: 30%;
     padding: 5px;
     font-family: 'Nunito', sans-serif;
-    color: white;
     font-size: 1.2em;
     border-style:none;
 }
