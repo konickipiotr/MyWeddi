@@ -1,0 +1,85 @@
+body{
+    background-color: rgb(184, 103, 159);
+}
+.enterbtn_addguest button{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:2px solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    background-color: rgb(161, 84, 137);
+    text-align:center;
+    transition: all 0.2s;
+    color:#000000;
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+}
+.enterbtn_addguest button:hover{
+    color: black;
+    background-color: white;
+    opacity: 50%;
+}
+.AddGuest h1{
+    display: block;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 40px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 10px;
+}
+.AddGuest label{
+    display: block;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 10px;
+}
+.AddGuest input{
+    width: 300px;
+    height: 25px;
+    padding: 5px;
+    margin-top: 10px;
+}
+.listofguest{
+margin-top: 55px;
+}
+.addguest_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.addguest_form td{
+    padding-left: 5px;
+    text-align: center;
+}
+.table_addguest{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.table_addguest td, .table_addguest th{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+.table_addguest tr:nth-child(even){
+    background-color: rgb(218, 160, 200);
+}
+.table_addguest tr:hover{
+    opacity:50%;
+}  
+.table_addguest th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #582d58;
+    color: white;
+}
