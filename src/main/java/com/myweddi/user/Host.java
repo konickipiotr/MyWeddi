@@ -1,15 +1,13 @@
 package com.myweddi.user;
 
-import com.myweddi.user.reposiotry.User;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 @Data
-public class Host extends User {
+public class Host {
 
     @Id
     private Long id;
@@ -21,13 +19,16 @@ public class Host extends User {
     private String groomlastname;
     private String groomemail;
     private String groomphone;
+    private String firstname;
+    private String lastname;
+    private String photo;
+    private String role;
 
     public Host(){
-        super();
         this.firstname = "Państow Młodzi";
+        this.role = "HOST";
     }
     public Host(Long id, RegistrationForm rf) {
-        super();
         this.id = id;
         this.bridefirstname = rf.getBridefirstname();
         this.bridelastname = rf.getBridelastname();
@@ -38,6 +39,11 @@ public class Host extends User {
         this.groomemail = rf.getGroomemail();
         this.groomphone = rf.getGroomphone();
         this.firstname = "Państow Młodzi";
+        this.role = "HOST";
+    }
+
+    public String getName(){
+        return this.firstname + " " + this.lastname;
     }
 
     public String getBrideName(){

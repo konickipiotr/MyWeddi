@@ -6,6 +6,7 @@ import com.myweddi.info.WeddingInfo;
 import com.myweddi.info.WeddingInfoRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.HostRepository;
+import com.myweddi.user.reposiotry.OneTimeRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,15 +24,18 @@ public class DbInit implements CommandLineRunner {
     private WeddingInfoRepository weddingInfoRepository;
     private HostRepository hostRepository;
     private GuestRepository guestRepository;
+    private OneTimeRepository oneTimeRepository;
+
 
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.churchRepository = churchRepository;
         this.weddingInfoRepository = weddingInfoRepository;
         this.hostRepository = hostRepository;
         this.guestRepository = guestRepository;
+        this.oneTimeRepository = oneTimeRepository;
     }
 
     @Override
@@ -41,6 +45,7 @@ public class DbInit implements CommandLineRunner {
         this.churchRepository.deleteAll();
         this.hostRepository.deleteAll();
         this.guestRepository.deleteAll();
+        this.oneTimeRepository.deleteAll();
 
         UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);

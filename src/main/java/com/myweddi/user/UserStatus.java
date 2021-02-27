@@ -4,5 +4,4 @@ public enum UserStatus {
     DISABLE,
     ACTIVE,
     FIRSTLOGIN,
-    CONFIRMED
 }

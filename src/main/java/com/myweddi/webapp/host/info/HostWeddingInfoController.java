@@ -24,10 +24,14 @@ import java.security.Principal;
 @RequestMapping("/host/info")
 public class HostWeddingInfoController {
 
-    @Autowired
     private UserAuthRepository userAuthRepository;
-    @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    public HostWeddingInfoController(UserAuthRepository userAuthRepository, RestTemplate restTemplate) {
+        this.userAuthRepository = userAuthRepository;
+        this.restTemplate = restTemplate;
+    }
 
     @GetMapping
     public String toInfoFrom(Model model, Principal principal){
@@ -55,7 +59,7 @@ public class HostWeddingInfoController {
         }
 
         model.addAttribute("menu", Menu.hostMenu);
-        return "owner/info";
+        return "host/info";
     }
 
     @PostMapping("/church")
@@ -78,6 +82,6 @@ public class HostWeddingInfoController {
         System.out.println(churchInfo);
         model.addAttribute("churchInfo", churchInfo);
         model.addAttribute("menu", Menu.hostMenu);
-        return "owner/info";
+        return "host/info";
     }
 }

@@ -20,7 +20,10 @@ public class Menu {
 
         hostMenu.put("home", "/host");
         hostMenu.put("Informacje", "/host/info");
-        
+        hostMenu.put("Goście", "/host/guest");
+
+
+
 
     }
 }

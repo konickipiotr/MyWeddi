@@ -1,4 +1,4 @@
-body{
+.content{
     background-color: rgb(184, 103, 159);
 }
 .enterbtn_addguest button{
@@ -69,13 +69,13 @@ margin-top: 55px;
     border: 1px solid #ddd;
     padding: 8px;
 }
-  
+
 .table_addguest tr:nth-child(even){
     background-color: rgb(218, 160, 200);
 }
 .table_addguest tr:hover{
     opacity:50%;
-}  
+}
 .table_addguest th {
     padding-top: 12px;
     padding-bottom: 12px;

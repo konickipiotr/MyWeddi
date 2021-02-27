@@ -46,7 +46,7 @@ public class HomeController {
                 host = this.hostRepository.findById(userAuth.getId()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());
-                view = "redirect:/owner";
+                view = "redirect:/host";
             } break;
             case GUEST:{
                 Guest guest = null;
