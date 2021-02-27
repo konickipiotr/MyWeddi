@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../static/css/guestview.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+    <title>MyWeddi</title>
+</head>
+<body>
+
+    <header th:replace="top :: top">
+    </header>
+    <header th:replace="header :: header">
+    </header>
+    <div class="container" style="display: flex;">
+      <aside th:replace="menu :: menu"></aside>
+      <!-- ************************************************** -->
+
+      <section>
+        <h1>guest</h1>
+
+        content
+      </section>
+
+      <!-- ************************************************** -->
+    </div>
+    <footer th:replace="footer :: footer"></footer>
+
+    <div class=contentof_guestview>
+        <div class="contentof_guestview_welcome">
+            <div>
+                <p>Pobieramy się! Będzie nam bardzo miło jeśli tego wyjątkowego, dla nas, dnia będziecie razem z nami bawić się do białego rana. I dzień później teź ;D Poniżej znajdziecie informacje o uroczystości I przyjęciu. Po lewej stronie możecie skorzyctać z menu, które przeniesie was do rezerwacji prezentów, wirtualej galerii (wrzucajcie tam zdjęcia), podglądu na ułożenie stołów. Możecie też dodawać posty I potwierdzić obecność przechodząc do swojego profilu :)   </p>
+            </div>
+
+            <div>
+                <img src="../../static/img/cake.png" width="200" height="300">
+            </div>
+        </div>
+        <div class="welcome_guestview">
+            <div class="churchinfo_guestview">
+                <p>Kościół pod wezwaniem NŚMP <br> Godzina ceremonii: 17:00 <br> Adres ceremonii:<br> Kochanowskiego 1A <br> </p>
+            </div>
+            <div class="weddinginfo_guestview">
+                <p>Zajazd Górski poranek <br> Godzina przyjęcia: 18:00 <br> Adres przyjęcia:<br> Kochanowskiego 1A <br> </p>
+             </div>
+        </div>
+        <div class="middle_of_guestview">
+            <div class="photos_guestview">
+                <img src="../../static/img/parafia.jpg" width="400" height="350">
+            </div>
+            <div class="photos_guestview">
+                <img src="../../static/img/gorskiporanek.jpg" width="400" height="350">
+             </div>
+        </div>
+        <div class="middle_of_guestview">
+            <div class="infos_guestview">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2548.9565220516606!2d16.871053300676273!3d50.29273945649738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4711e2a5b792efa3%3A0xa7ec42b62211d89e!2sParafia%20pw.%20M.B.%20Kr%C3%B3lowej%20Polski%20i%20%C5%9Bw.%20Maternusa!5e0!3m2!1spl!2spl!4v1614455709356!5m2!1spl!2spl" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="middle_of_guestview">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.4927293906544!2d16.87836965067584!3d50.28272960721687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4711e2b48a25904d%3A0x594477d9c0634619!2sG%C3%B3rski%20Poranek!5e0!3m2!1spl!2spl!4v1614455898106!5m2!1spl!2spl" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="down_of_guestview"> 
+            <p>Tutaj będzie miejsce na informacje które wpisze sobie para młoda <br> NP. Prosimy o potwierdzenie obecności do dnia 15.05.2021 <br> Można konraktować się z nami przez wiadomości w aplikacji <br> lub przez nr tel <br> Piotr 665 665 555 <br> Patrycja 555 555 555</p>
+        </div>
+    </div>
+</body>
