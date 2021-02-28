@@ -45,7 +45,8 @@ public class GuestService {
         userAuth.setRole("GUEST");
         userAuth.setUsername(getUsername(guest));
         userAuth.setPassword(passwordEncoder.encode(passowrd));
-        userAuth.setStatus(UserStatus.FIRSTLOGIN);
+        //userAuth.setStatus(UserStatus.FIRSTLOGIN);
+        userAuth.setStatus(UserStatus.ACTIVE); // TODO temporary
         this.userAuthRepository.save(userAuth);
 
         guest.setId(userAuth.getId());

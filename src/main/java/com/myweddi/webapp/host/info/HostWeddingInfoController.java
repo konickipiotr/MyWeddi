@@ -1,23 +1,28 @@
 package com.myweddi.webapp.host.info;
 
 import com.myweddi.conf.Global;
+import com.myweddi.exception.FailedSaveFileException;
 import com.myweddi.info.ChurchInfo;
 import com.myweddi.info.WeddingInfo;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
+import com.myweddi.utils.MultipartInputStreamFileResource;
 import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -63,25 +68,62 @@ public class HostWeddingInfoController {
     }
 
     @PostMapping("/church")
-    public String saveChurchInfo(ChurchInfo churchInfo, Model model, Principal principal){
+    public String saveChurchInfo(@RequestParam("image") MultipartFile[] file, ChurchInfo churchInfo, Model model, Principal principal){
         UserAuth user = userAuthRepository.findByUsername(principal.getName());
         churchInfo.setWeddingid(user.getId());
         String path = Global.domain + "/api/churchinfo";
         restTemplate.getInterceptors().clear();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
         ResponseEntity<ChurchInfo> response = restTemplate.postForEntity(path, churchInfo, ChurchInfo.class);
-        if(response.getStatusCode() == HttpStatus.OK){
-            churchInfo = response.getBody();
-            model.addAttribute("message", "Zapisano");
-            model.addAttribute("class", "error_message");
-        }else {
-            churchInfo = churchInfo;
-            model.addAttribute("message", "Coś poszło nie tak przy zapisie");
-            model.addAttribute("class", "accept-message");
+
+
+        String addFilepath =   Global.domain + "/api/churchinfo/photo/"+ user.getId();
+        LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        for (MultipartFile f : file) {
+            if (!f.isEmpty()) {
+                try {
+                    body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
+                } catch (IOException e) {
+                    throw new FailedSaveFileException();
+                }
+            }
         }
-        System.out.println(churchInfo);
-        model.addAttribute("churchInfo", churchInfo);
-        model.addAttribute("menu", Menu.hostMenu);
-        return "host/info";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        restTemplate.postForObject(addFilepath, requestEntity, String.class);
+
+
+        return "redirect:/host/info";
+    }
+
+    @PostMapping("/wedding")
+    public String saveWeddingInfo(@RequestParam("image") MultipartFile[] file, WeddingInfo weddingInfo, Model model, Principal principal, RedirectAttributes ra){
+        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+        weddingInfo.setWeddingid(user.getId());
+        String path = Global.domain + "/api/weddinginfo";
+        restTemplate.getInterceptors().clear();
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
+        ResponseEntity<WeddingInfo> response = restTemplate.postForEntity(path, weddingInfo, WeddingInfo.class);
+
+        String addFilepath =   "/api/weddinginfo/"+ user.getId() + "/photo";
+        LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        for (MultipartFile f : file) {
+            if (!f.isEmpty()) {
+                try {
+                    body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
+                } catch (IOException e) {
+                    throw new FailedSaveFileException();
+                }
+            }
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        restTemplate.postForObject(addFilepath, requestEntity, String.class);
+
+        return "redirect:/host/info";
     }
 }

@@ -62,22 +62,25 @@ public class DbInit implements CommandLineRunner {
         UserAuth ua5 = new UserAuth("sf", passwordEncoder.encode("11"), "PHOTOGRAPHER", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua5);
 
-//        ChurchInfo churchInfo1 = new ChurchInfo();
-//        churchInfo1.setWeddingid(ua2.getId());
-//        churchInfo1.setCeremenytime(LocalDateTime.of(2021,06,16,17,00));
-//        churchInfo1.setLatitude(50.2942664809475);
-//        churchInfo1.setLongitude(16.872804810691733);
-//        churchInfo1.setName("Kościół M.B. Królowej Polski i św. Maternusa");
-//        churchInfo1.setRealPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
-//        this.churchRepository.save(churchInfo1);
-//
-//        WeddingInfo weddingInfo1 = new WeddingInfo();
-//        weddingInfo1.setWeddingid(ua2.getId());
-//        weddingInfo1.setLatitude(50.28273942394719);
-//        weddingInfo1.setLongitude(16.88049911450626);
-//        weddingInfo1.setName("Górski Poranek");
-//        weddingInfo1.setWebAppPath("https://e-turysta.pl/zdjecia/galeria-glowna/maxw772maxh580/79/Gorski-Poranek-Stronie-Slaskie-799261.jpg");
-//        this.weddingInfoRepository.save(weddingInfo1);
+        ChurchInfo churchInfo1 = new ChurchInfo();
+        churchInfo1.setWeddingid(ua2.getId());
+        churchInfo1.setCeremenytime(LocalDateTime.of(2021,06,16,17,00));
+        churchInfo1.setLatitude(50.294266);
+        churchInfo1.setLongitude(16.8728048);
+        churchInfo1.setAddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
+        churchInfo1.setName("Kościół M.B. Królowej Polski i św. Maternusa");
+        churchInfo1.setRealPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
+        churchInfo1.setWebAppPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
+        this.churchRepository.save(churchInfo1);
+
+        WeddingInfo weddingInfo1 = new WeddingInfo();
+        weddingInfo1.setWeddingid(ua2.getId());
+        weddingInfo1.setLatitude(50.2827394);
+        weddingInfo1.setLongitude(16.880499);
+        weddingInfo1.setAddress("Kochanowskiego 13, 57-550 Stronie Ślaskie");
+        weddingInfo1.setName("Górski Poranek");
+        weddingInfo1.setWebAppPath("https://e-turysta.pl/zdjecia/galeria-glowna/maxw772maxh580/79/Gorski-Poranek-Stronie-Slaskie-799261.jpg");
+        this.weddingInfoRepository.save(weddingInfo1);
 
 
         Host h1 = new Host();
@@ -92,6 +95,13 @@ public class DbInit implements CommandLineRunner {
         h1.setGroomphone("34234234");
         this.hostRepository.save(h1);
 
-
+        Guest g1 = new Guest();
+        g1.setId(ua3.getId());
+        g1.setWeddingid(ua2.getId());
+        g1.setRole("GUEST");
+        g1.setFirstname("Jola");
+        g1.setLastname("Patola");
+        g1.setStatus(GuestStatus.NOTCONFIRMED);
+        this.guestRepository.save(g1);
     }
 }

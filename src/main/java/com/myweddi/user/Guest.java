@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class Guest{
 
     @Id
-    @GeneratedValue
     private Long id;
     private Long weddingid;
     private String email;

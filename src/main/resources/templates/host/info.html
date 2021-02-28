@@ -28,7 +28,7 @@
     <!-- ************************************************** -->
 
     <section class="content">
-      <form th:action="@{/host/info/church}" method="post" th:object="${churchInfo}">
+      <form th:action="@{/host/info/church}" method="post" th:object="${churchInfo}" enctype="multipart/form-data">
         <input type="hidden" name="weddingid" th:value="${churchInfo.weddingid}" />
         <p th:if="${massage != null}" th:class="${class}" th:text="${message}"></p>
         <div class="generalinfo">
@@ -42,7 +42,7 @@
           </div>
         </div>
         <div class="churchandplacedisplay">
-          <div class="churchinfo">
+          <div class="column-info">
             <div>
               <label for="nameC">Kościół</label>
               <input type="text" name="name" id="nameC" minlength="3" th:field="*{name}" required>
@@ -59,10 +59,14 @@
               <label for="longitude">Współrzędne Y</label>
               <input type="number" name="longitude" id="longitude" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
             </div>
+            <div th:if="${churchInfo.webAppPath != null}">
+              <img th:src="@{${churchInfo.webAppPath}}" />
+            </div>
             <div class="downofinfo">
               <div class="uploadpictureinfo">
-                <label for="file">Dodaj zdjęcie</label>
-                <input type="file" name="file" id="file">
+                <label th:if="${churchInfo.webAppPath != null}" for="imagechurch">Dodaj zdjęcie</label>
+                <label th:unless="${churchInfo.webAppPath != null}" for="imagechurch">Zmień zdjęcie</label>
+                <input type="file" name="image" id="imagechurch" multiple>
               </div>
             </div>
             <div class="enterbtninfo">
@@ -70,9 +74,9 @@
             </div>
           </div>
       </form>
-      <form method="post" th:object="${weddingInfo}">
+      <form th:action="@{/host/info/wedding}" method="post" th:object="${weddingInfo}" enctype="multipart/form-data">
         <input type="hidden" name="weddingid" th:field="*{weddingid}" />
-        <div class="weddingplaceinfo">
+        <div class="column-info">
           <div>
             <label for="name">Sala</label>
             <input type="text" name="name" id="name" minlength="3" th:field="*{name}" required>
@@ -89,10 +93,14 @@
             <label for="longitudeS">Współrzędne Y</label>
             <input type="number" name="longitude" id="longitudeS" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
           </div>
+          <div th:if="${weddingInfo.webAppPath != null}">
+            <img class="place-photo" th:src="@{${weddingInfo.webAppPath}}" />
+          </div>
           <div class="downofinfo">
             <div class="uploadpictureinfo">
-              <label for="file">Dodaj zdjęcie</label>
-              <input type="file" name="file" id="file">
+              <label th:unless="${weddingInfo.webAppPath != null}" for="imagewedding">Dodaj zdjęcie</label>
+              <label th:unless="${weddingInfo.webAppPath != null}" for="imagechurch">Zmień zdjęcie</label>
+              <input type="file" name="image" id="imagewedding" multiple>
             </div>
           </div>
           <div class="enterbtninfo">

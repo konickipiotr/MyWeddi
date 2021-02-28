@@ -13,7 +13,7 @@ public class Menu {
         adminMenu.put("home", "/admin/");
 
         guestMenu.put("home", "/");
-        guestMenu.put("Informacje", "/");
+        guestMenu.put("Informacje", "/info");
         guestMenu.put("Galeria", "/");
         guestMenu.put("STOŁY", "/");
         guestMenu.put("PREZENTY", "/");
