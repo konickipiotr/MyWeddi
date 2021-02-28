@@ -1,6 +1,7 @@
 .content{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Nunito', sans-serif;
 }
 
@@ -14,18 +15,21 @@
     flex-direction: column;
     border: 2px solid rgb(231, 171, 216);
 }
+
 .icon_post, .nameuser_post{
     margin-top: 15px;
     font-size: 20px;
 }
+
 .data_post{
     font-size: 20px;
 }
+
 .header_post {
   display: flex;
   justify-content: space-around;
   background-color: rgb(238, 208, 230);
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .middle_post{
@@ -35,13 +39,16 @@
     margin: 20px 20px 20px 20px;
     border: 1px solid rgb(223, 202, 202);
 }
+
 .middle_post img{
     margin-top: 20px;
 }
+
 .middle_post p{
     padding: 10px 20px 10px 20px;
     border: 1px solid rgb(231, 171, 216);
 }
+
 .comments_header{
     display: flex;
     justify-content: space-between;
@@ -50,24 +57,30 @@
     background-color: rgb(202, 245, 198);
     border-radius: 5px 5px 5px 5px;
 }
+
 .left-item{
     display: flex;
 }
+
 .comments_header div{
     padding-left: 20px;
 }
+
 .comments_middle{
     padding-left: 10px;
 }
+
 .comments_down textarea {
     width: 70%;
     margin-left: 10px;
 }
+
 .comments{
     margin-top: 10px;
     padding-bottom: 10px;
     border: 2px solid rgb(202, 245, 198);
 }
+
 .date_post{
     font-size: 10px;
     padding-top: 3px;
@@ -79,7 +92,35 @@
     height: 30px;
     font-family: 'Nunito', sans-serif;
 }
+
 .entercomment:hover{
     background-color: rgb(199, 152, 185);
     opacity: 80%;
+}
+
+.added_post{
+   background-color: rgb(231, 223, 228);
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    padding-top:10px;
+    padding-bottom:10px ;
+}
+
+.added_post div{
+    padding-left: 20px;
+}
+
+.added_post textarea{
+background-color: rgb(238, 228, 237);
+border: none;
+border-radius: 20px 20px 20px 20px;
+}
+
+.added_post_top{
+    display: flex;
+}
+
+.input_add_post{
+color: transparent;
 }
