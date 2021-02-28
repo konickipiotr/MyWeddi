@@ -1,13 +1,10 @@
-package com.myweddi.info;
+package com.myweddi.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import java.time.LocalDateTime;
 
 @Entity
 @Data

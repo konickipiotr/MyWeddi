@@ -1,14 +1,12 @@
 package com.myweddi.webapp.host.guest;
 
 import com.myweddi.conf.Global;
-import com.myweddi.info.ChurchInfo;
 import com.myweddi.user.Guest;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import com.myweddi.utils.ListWrapper;
 import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Controller;

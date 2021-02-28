@@ -1,6 +1,8 @@
 package com.myweddi.api.guest;
 
+import com.myweddi.model.Comment;
 import com.myweddi.user.*;
+import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.OneTimeRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;

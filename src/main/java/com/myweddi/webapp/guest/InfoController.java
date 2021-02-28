@@ -1,13 +1,12 @@
-package com.myweddi.webapp.host.guest;
+package com.myweddi.webapp.guest;
 
 import com.myweddi.conf.Global;
-import com.myweddi.info.ChurchInfo;
-import com.myweddi.info.WeddingInfo;
+import com.myweddi.model.ChurchInfo;
+import com.myweddi.model.WeddingInfo;
 import com.myweddi.user.Guest;
-import com.myweddi.user.GuestRepository;
+import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
-import com.myweddi.utils.ListWrapper;
 import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/info")

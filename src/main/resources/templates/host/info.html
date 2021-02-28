@@ -98,7 +98,7 @@
           </div>
           <div class="downofinfo">
             <div class="uploadpictureinfo">
-              <label th:unless="${weddingInfo.webAppPath != null}" for="imagewedding">Dodaj zdjęcie</label>
+              <label th:if="${weddingInfo.webAppPath != null}" for="imagewedding">Dodaj zdjęcie</label>
               <label th:unless="${weddingInfo.webAppPath != null}" for="imagechurch">Zmień zdjęcie</label>
               <input type="file" name="image" id="imagewedding" multiple>
             </div>

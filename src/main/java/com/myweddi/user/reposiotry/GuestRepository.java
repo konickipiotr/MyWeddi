@@ -1,5 +1,6 @@
-package com.myweddi.user;
+package com.myweddi.user.reposiotry;
 
+import com.myweddi.user.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

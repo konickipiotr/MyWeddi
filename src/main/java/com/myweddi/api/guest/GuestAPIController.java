@@ -1,5 +1,6 @@
 package com.myweddi.api.guest;
 
+import com.myweddi.model.Comment;
 import com.myweddi.user.Guest;
 import com.myweddi.utils.ListWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,5 @@ public class GuestAPIController {
     public void addGuest(@RequestBody Guest guest){
         guestService.addGuest(guest);
     }
+
 }

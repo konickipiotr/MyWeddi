@@ -39,6 +39,7 @@ public class Host {
         this.groomemail = rf.getGroomemail();
         this.groomphone = rf.getGroomphone();
         this.firstname = "Państow Młodzi";
+        this.lastname = "";
         this.role = "HOST";
     }
 

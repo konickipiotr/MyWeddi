@@ -1,4 +1,4 @@
-package com.myweddi.info;
+package com.myweddi.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

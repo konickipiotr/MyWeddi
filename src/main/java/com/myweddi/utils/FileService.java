@@ -42,7 +42,7 @@ public class FileService {
         String wepAppPath = "";
         if(photoCat.equals(PhotoCat.POST)) {
             realPath = Global.appPath + Global.photosPath;
-            wepAppPath = Global.photosPath + filename;
+            wepAppPath = "/" +  Global.photosPath + filename;
         }else if(photoCat.equals(PhotoCat.CHURCH)){
             realPath = Global.appPath + "church/";
             wepAppPath = "/church/" + filename;

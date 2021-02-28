@@ -1,6 +1,7 @@
 package com.myweddi;
 
 import com.myweddi.user.*;
+import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;

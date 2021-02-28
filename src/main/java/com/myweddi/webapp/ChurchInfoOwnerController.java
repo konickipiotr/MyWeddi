@@ -1,7 +1,7 @@
 package com.myweddi.webapp;
 
 import com.myweddi.conf.Global;
-import com.myweddi.info.ChurchInfo;
+import com.myweddi.model.ChurchInfo;
 import com.myweddi.user.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

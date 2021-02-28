@@ -2,8 +2,8 @@ package com.myweddi.webapp.host.info;
 
 import com.myweddi.conf.Global;
 import com.myweddi.exception.FailedSaveFileException;
-import com.myweddi.info.ChurchInfo;
-import com.myweddi.info.WeddingInfo;
+import com.myweddi.model.ChurchInfo;
+import com.myweddi.model.WeddingInfo;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import com.myweddi.utils.MultipartInputStreamFileResource;

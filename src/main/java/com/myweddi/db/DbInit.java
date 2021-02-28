@@ -1,10 +1,9 @@
 package com.myweddi.db;
 
-import com.myweddi.info.ChurchInfo;
-import com.myweddi.info.ChurchRepository;
-import com.myweddi.info.WeddingInfo;
-import com.myweddi.info.WeddingInfoRepository;
+import com.myweddi.conf.Global;
+import com.myweddi.model.*;
 import com.myweddi.user.*;
+import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.OneTimeRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
@@ -25,10 +24,12 @@ public class DbInit implements CommandLineRunner {
     private HostRepository hostRepository;
     private GuestRepository guestRepository;
     private OneTimeRepository oneTimeRepository;
-
+    private PostRepository postRepository;
+    private CommentRepository commentRepository;
+    private PhotoRepository photoRepository;
 
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.churchRepository = churchRepository;
@@ -36,6 +37,9 @@ public class DbInit implements CommandLineRunner {
         this.hostRepository = hostRepository;
         this.guestRepository = guestRepository;
         this.oneTimeRepository = oneTimeRepository;
+        this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
+        this.photoRepository = photoRepository;
     }
 
     @Override
@@ -46,6 +50,9 @@ public class DbInit implements CommandLineRunner {
         this.hostRepository.deleteAll();
         this.guestRepository.deleteAll();
         this.oneTimeRepository.deleteAll();
+        this.postRepository.deleteAll();
+        this.commentRepository.deleteAll();
+        this.photoRepository.deleteAll();
 
         UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);
@@ -103,5 +110,17 @@ public class DbInit implements CommandLineRunner {
         g1.setLastname("Patola");
         g1.setStatus(GuestStatus.NOTCONFIRMED);
         this.guestRepository.save(g1);
+
+        LocalDateTime localDateTime = LocalDateTime.now(Global.zid);
+        Post p1 = new Post(ua2.getId(), ua2.getId(), localDateTime, "takietam");
+        this.postRepository.save(p1);
+
+        Photo ph1 = new Photo(p1.getId(), ua2.getId());
+        ph1.setRealPath("/home/piterk/myweddi/photos/aa.jpg");
+        ph1.setWebAppPath("/photos/aa.jpg");
+        this.photoRepository.save(ph1);
+
+        Comment com1 = new Comment(p1.getId(), ua3.getId(), "Super zdjęcie", LocalDateTime.now(Global.zid));
+        this.commentRepository.save(com1);
     }
 }

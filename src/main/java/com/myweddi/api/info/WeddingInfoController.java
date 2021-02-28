@@ -1,9 +1,8 @@
 package com.myweddi.api.info;
 
 import com.myweddi.exception.FailedSaveFileException;
-import com.myweddi.info.ChurchInfo;
-import com.myweddi.info.WeddingInfo;
-import com.myweddi.info.WeddingInfoRepository;
+import com.myweddi.model.WeddingInfo;
+import com.myweddi.db.WeddingInfoRepository;
 import com.myweddi.utils.FileNameStruct;
 import com.myweddi.utils.FileService;
 import com.myweddi.utils.PhotoCat;
