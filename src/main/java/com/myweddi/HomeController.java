@@ -7,6 +7,7 @@ import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -32,7 +33,7 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping
+    @GetMapping("/init")
     public String home(Principal principal, HttpSession session){
         UserAuth userAuth = userAuthRepository.findByUsername(principal.getName());
         System.out.println(userAuth);

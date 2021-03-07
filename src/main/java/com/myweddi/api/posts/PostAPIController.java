@@ -6,6 +6,7 @@ import com.myweddi.utils.ListWrapper;
 import com.myweddi.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,13 @@ public class PostAPIController {
     public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page){
         return  new ResponseEntity<ListWrapper<PostView>>(postService.getPostFromPage(page), HttpStatus.OK);
     }
+
+//    @GetMapping(value = "/{weddingid}/{page}", produces = { "application/json" })
+//    public ListWrapper<PostView> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page){
+//        ListWrapper<PostView> body = new ResponseEntity<ListWrapper<PostView>>(postService.getPostFromPage(page), HttpStatus.OK).getBody();
+//        System.out.println(body);
+//        return body;
+//    }
 
     @PostMapping
     public ResponseEntity<Long> newPostInDb(@RequestBody Post post){

@@ -1,16 +1,15 @@
 package com.myweddi.webapp.guest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myweddi.conf.Global;
 import com.myweddi.exception.FailedSaveFileException;
-import com.myweddi.model.ChurchInfo;
 import com.myweddi.model.Comment;
 import com.myweddi.model.Post;
 import com.myweddi.user.Guest;
-import com.myweddi.user.Host;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.GuestRepository;
-import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
+import com.myweddi.utils.CustomInterceptor;
 import com.myweddi.utils.ListWrapper;
 import com.myweddi.utils.MultipartInputStreamFileResource;
 import com.myweddi.view.PostView;
@@ -18,19 +17,27 @@ import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -49,16 +56,38 @@ public class GuestHomeController {
     }
 
     @GetMapping
-    public String home(Model model, Principal principal){
+    public String home(Model model, Principal principal) throws IOException, InterruptedException {
 
         UserAuth user = userAuthRepository.findByUsername(principal.getName());
         Guest guest = guestRepository.findById(user.getId()).get();
         restTemplate.getInterceptors().clear();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
-
         String path = Global.domain + "/api/post/" + guest.getWeddingid() + "/1";
-        ResponseEntity<ListWrapper> response = restTemplate.getForEntity(path, ListWrapper.class);
+        //restTemplate.getInterceptors().add(new CustomInterceptor());
+//        HttpClient client = HttpClient.newBuilder().build();
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        HttpResponse<InputStream> response = client.send(
+//                HttpRequest.newBuilder()
+//                        .GET()
+//                        .uri(URI.create("https://api.exchangeratesapi.io/latest"))
+//                        .build(),
+//                HttpResponse.BodyHandlers.ofInputStream()
+//        );
+//        ListWrapper res = objectMapper.readValue(response.body(),
+//                ListWrapper.class);
 
+
+
+//        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+//        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+//        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
+//        messageConverters.add(converter);
+//        this.restTemplate.setMessageConverters(messageConverters);
+
+        ResponseEntity<ListWrapper> response = restTemplate.getForEntity(path, ListWrapper.class);
+//        ListWrapper postViews = restTemplate.getForEntity(path, ListWrapper.class);
+  //      model.addAttribute("posts", postViews);
+        System.out.println(response);
         if(response.getStatusCode() == HttpStatus.OK){
             List<PostView> postViews = response.getBody().getList();
             model.addAttribute("posts", postViews);

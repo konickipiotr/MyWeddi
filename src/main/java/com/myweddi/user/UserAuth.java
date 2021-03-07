@@ -22,7 +22,7 @@ public class UserAuth implements UserDetails {
     private String username;
     private String password;
     private String role;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private UserStatus status;
 
     public UserAuth(String username, String password, String role, UserStatus status) {
@@ -35,7 +35,7 @@ public class UserAuth implements UserDetails {
     public UserAuth(RegistrationForm rf) {
         this.username = rf.getUsername();
         this.password = rf.getPassword();
-        this.role = "OWNER";
+        this.role = "HOST";
         this.status = UserStatus.FIRSTLOGIN;
     }
 
