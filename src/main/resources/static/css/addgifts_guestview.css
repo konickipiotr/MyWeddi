@@ -1,0 +1,62 @@
+.content{
+    background-color: rgb(224, 202, 217);
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.addGifts_top h1{
+    display: block;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 40px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.addGifts_top i {
+
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+
+}
+.addg_guestviev_middle{
+    display: flex;
+    justify-content: space-around;
+}
+.addg_guestviev_middle div{
+    text-align: center;
+}
+
+.p0{
+    color:rgb(150, 91, 135);
+    text-align: center;
+}
+.p1{
+    color: rgb(184, 97, 133)
+}
+.p2{
+    color: rgb(129, 102, 114);
+}
+.p3{
+    color: rgb(211, 82, 88)
+}
+.textarea_addGifts{
+    text-align: center;
+    padding-top: 20px;
+}
+.table_gifts_gv button{
+    background-color: transparent;
+    border-style: none;
+    border-radius: 5px 5px 5px 5px;
+    height: 40px;
+    background-color: rgb(235, 140, 160);
+    border: 1px solid black;
+}
+.table_gifts_gv button:hover{
+    background-color: rgb(161, 71, 76);
+}

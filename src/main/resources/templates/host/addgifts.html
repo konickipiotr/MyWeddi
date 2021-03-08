@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../static/css/addguest.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+    <title>MyWeddi</title>
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/mainstyle.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/addguest.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/addgifts.css">
+</head>
+<body>
+  <header th:replace="top :: top">
+  </header>
+  <header th:replace="header :: header">
+  </header>
+  <div class="container" style="display: flex;">
+    <aside class="menu" th:replace="menu :: menu"></aside>
+    <!-- ************************************************** -->
+
+    <section class="content">
+    <form th:action="@{/host/guest}" method="post" class="addguest_form">
+        <div class="addGifts_top">
+            <h1>DODAJ PREZENTY</h1>
+            <p class="p0"><strong>PREZENT ZAMIAST KWIATÓW (OPCIONALNIE)</strong></p>
+            <div class="smallGifts">
+                <button><i class="fas fa-seedling fa-3x"></i></button>
+                <button><i class="fas fa-wine-bottle fa-3x"></i></button>
+                <button><i class="fas fa-book-open fa-3x"></i></button>
+                <button><i class="fas fa-bone fa-3x"></i></button>
+                <button><i class="fas fa-compact-disc fa-3x"></i></button>
+                <button><i class="fas fa-hand-holding-heart fa-3x"></i></button>
+            </div>
+            <p class="p1"><strong>GŁÓWNY PREZENT</strong> </p>
+            <div class="bigGifts">
+                <button><i class="fas fa-gift fa-3x"></i></button>
+                <button><i class="fas fa-envelope fa-3x"></i></button>
+            </div>
+             </div> 
+            <div class="textarea_addGifts">
+                <p class="p3"><strong>Jeśli nie zaznaczyłeś/aś żadnego z pól, wpisz tekst, który widzoczy będzie dla gości w zakładce prezenty</strong></p>
+                <textarea id="w3review" name="w3review" rows="4" cols="50">
+                    Np. Nasi Kochani Goście
+                    Kwiatków nam nie przynoście
+                    wolimy dostać flaszeczkę wina
+                    będzie się cieszyć cała rodzina.</textarea>
+            </div>  
+            <div class="enterbtn_addGifts">
+                <button type="submit" class="btn">D O D A J</button>
+            </div> 
+            <div class="down_of_addgifts">
+            <p class="p0"><strong>WPROWADŹ LISTĘ PREZENTÓW</strong></p>
+            <div>
+                <label for="flower_gift"> FLOWER </label>
+                <input type="text" name="flower_gift" id="flower_gift" minlength="2">
+            </div>
+            <div class="enterbtn_addGifts2">
+                <button type="submit" class="btn">D O D A J</button>
+            </div> 
+            <div class="listofguest">
+                <table class="table_gifts">
+                    <tr><th>LP</th><th>FLOWER</th><th>REZERWUJ</th></tr>
+                      <td>1</td>
+                      <td>COŚ</td>
+                      <td>REZERWUJ</td>
+                    </tr>
+                    <!-- <tr><td>1</td><td></td><td><a></i></a></td><td>komórka 4</td><td>komórka 5</td><td></td><td></td></tr>
+                    <tr><td>2</td><td><i class="fas fa-user-minus"></i></td><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr>
+                    <tr><td>3</td><td><i class="far fa-question-circle"></i><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr> -->
+                </table>
+            </div>
+    </form>
+       
+  </section>
+
+  <!-- ************************************************** -->
+  </div>
+  <footer th:replace="footer :: footer"></footer>
+</body>
