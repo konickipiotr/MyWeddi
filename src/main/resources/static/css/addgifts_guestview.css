@@ -3,10 +3,7 @@
     font-family: 'Nunito', sans-serif;
     display: flex;
     justify-content: center;
-
 }
-
-
 .addGifts_top h1{
     display: block;
     font-family: 'Nunito', sans-serif;
@@ -16,13 +13,10 @@
     text-align: center;
     margin-top: 10px;
 }
-
-
 .addGifts_top i {
 
     padding: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
-
 }
 .addg_guestviev_middle{
     display: flex;
@@ -31,7 +25,6 @@
 .addg_guestviev_middle div{
     text-align: center;
 }
-
 .p0{
     color:rgb(150, 91, 135);
     text-align: center;
