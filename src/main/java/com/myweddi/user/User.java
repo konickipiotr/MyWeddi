@@ -14,6 +14,7 @@ public class User {
     private String lastname;
     private String photo;
     private String role;
+    private Long weddingid;
 
     public User(Host host) {
         this.id = host.getId();
@@ -21,6 +22,7 @@ public class User {
         this.lastname = host.getLastname();
         this.photo = host.getPhoto();
         this.role = host.getRole();
+        this.weddingid = this.id;
     }
 
     public User(Guest guest) {
@@ -29,6 +31,7 @@ public class User {
         this.lastname = guest.getLastname();
         this.photo = guest.getPhoto();
         this.role = guest.getRole();
+        this.weddingid = guest.getWeddingid();
     }
 
     public String getName(){

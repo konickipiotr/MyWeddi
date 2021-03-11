@@ -54,6 +54,7 @@ public class GuestController {
                            Model model,
                            Principal principal ){
         UserAuth user = userAuthRepository.findByUsername(principal.getName());
+
         Guest guest = new Guest(user.getId(), firstname, lastname);
 
         String path = Global.domain + "/api/guest/";
