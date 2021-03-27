@@ -1,7 +1,5 @@
 package com.myweddi.user;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +10,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class UserAuth implements UserDetails {
 
     @Id
@@ -24,6 +20,9 @@ public class UserAuth implements UserDetails {
     private String role;
     @Enumerated(EnumType.ORDINAL)
     private UserStatus status;
+
+    public UserAuth() {
+    }
 
     public UserAuth(String username, String password, String role, UserStatus status) {
         this.username = username;
@@ -79,5 +78,37 @@ public class UserAuth implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 }

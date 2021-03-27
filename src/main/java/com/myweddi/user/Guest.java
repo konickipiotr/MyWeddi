@@ -1,13 +1,9 @@
 package com.myweddi.user;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class Guest{
 
     @Id
@@ -25,6 +21,8 @@ public class Guest{
     @Transient
     private String statusIco;
 
+    public Guest() {
+    }
 
     public Guest(Long weddingid, String firstname, String lastname) {
         this.weddingid = weddingid;
@@ -43,5 +41,85 @@ public class Guest{
             case CONFIRMED: this.statusIco = "fas fa-user-check" ;break;
             case REJECTED: this.statusIco = "fas fa-user-minus" ;break;
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getWeddingid() {
+        return weddingid;
+    }
+
+    public void setWeddingid(Long weddingid) {
+        this.weddingid = weddingid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Long partner) {
+        this.partner = partner;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public GuestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GuestStatus status) {
+        this.status = status;
+    }
+
+    public String getStatusIco() {
+        return statusIco;
+    }
+
+    public void setStatusIco(String statusIco) {
+        this.statusIco = statusIco;
     }
 }

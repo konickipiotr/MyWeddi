@@ -1,15 +1,10 @@
 package com.myweddi.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class Photo {
 
     @Id
@@ -23,5 +18,48 @@ public class Photo {
     public Photo(Long postid,Long userid) {
         this.userid = userid;
         this.postid = postid;
+    }
+
+    public Photo() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public Long getPostid() {
+        return postid;
+    }
+
+    public void setPostid(Long postid) {
+        this.postid = postid;
+    }
+
+    public String getRealPath() {
+        return realPath;
+    }
+
+    public void setRealPath(String realPath) {
+        this.realPath = realPath;
+    }
+
+    public String getWebAppPath() {
+        return webAppPath;
+    }
+
+    public void setWebAppPath(String webAppPath) {
+        this.webAppPath = webAppPath;
     }
 }

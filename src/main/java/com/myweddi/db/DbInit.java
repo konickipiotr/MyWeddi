@@ -78,7 +78,7 @@ public class DbInit implements CommandLineRunner {
         churchInfo1.setName("Kościół M.B. Królowej Polski i św. Maternusa");
         churchInfo1.setRealPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
         //churchInfo1.setWebAppPath("/church/church.jpg");
-        churchInfo1.setWebAppPath("https://zabytek.pl/public/upload/objects_media/big/5b8f8ff0a023d.jpg");
+        churchInfo1.setWebAppPath("https://polska-org.pl/foto/6932/Kosciol_Matki_Bozej_Krolowej_Polski_i_sw_Maternusa_ul_Koscielna_Stronie_Slaskie_6932428.jpg");
         this.churchRepository.save(churchInfo1);
 
         WeddingInfo weddingInfo1 = new WeddingInfo();

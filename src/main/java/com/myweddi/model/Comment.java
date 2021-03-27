@@ -1,7 +1,5 @@
 package com.myweddi.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,6 @@ import javax.persistence.Lob;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class Comment {
 
     @Id
@@ -27,6 +23,49 @@ public class Comment {
         this.postid = postid;
         this.userid = userid;
         this.content = content;
+        this.creationdate = creationdate;
+    }
+
+    public Comment() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getPostid() {
+        return postid;
+    }
+
+    public void setPostid(Long postid) {
+        this.postid = postid;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getCreationdate() {
+        return creationdate;
+    }
+
+    public void setCreationdate(LocalDateTime creationdate) {
         this.creationdate = creationdate;
     }
 }

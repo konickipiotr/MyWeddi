@@ -1,12 +1,6 @@
 package com.myweddi.user;
 
-import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-
-@Data
 public class User {
 
     private Long id;
@@ -15,6 +9,9 @@ public class User {
     private String photo;
     private String role;
     private Long weddingid;
+
+    public User() {
+    }
 
     public User(Host host) {
         this.id = host.getId();
@@ -36,5 +33,53 @@ public class User {
 
     public String getName(){
         return firstname + " " + lastname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Long getWeddingid() {
+        return weddingid;
+    }
+
+    public void setWeddingid(Long weddingid) {
+        this.weddingid = weddingid;
     }
 }
