@@ -1,12 +1,11 @@
 package com.myweddi.api;
 
+import com.myweddi.user.Host;
 import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -20,5 +19,10 @@ public class UserAPIController {
     @GetMapping
     public ResponseEntity<User> getUserAuth(Principal principal){
         return userService.getUser(principal.getName());
+    }
+
+    @PostMapping("/host")
+    public ResponseEntity<Host> getWeddingHostsInfo(@RequestBody Long weddingid){
+        return userService.getWeddingHosts(weddingid);
     }
 }

@@ -1,5 +1,6 @@
 package com.myweddi.api;
 
+import com.myweddi.user.Host;
 import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.GuestRepository;
@@ -37,6 +38,11 @@ public class UserService {
         }
 
         return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Host> getWeddingHosts(Long weddingid){
+        Host host = hostRepository.findById(weddingid).get();
+        return new ResponseEntity<Host>(host, HttpStatus.OK);
     }
 
 

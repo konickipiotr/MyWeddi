@@ -1,7 +1,11 @@
 package com.myweddi.api.posts;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myweddi.model.Comment;
 import com.myweddi.model.Post;
+import com.myweddi.utils.CustomMultipartFile;
 import com.myweddi.utils.ListWrapper;
 import com.myweddi.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +16,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+
+
 @RestController
 @RequestMapping("/api/post")
 public class PostAPIController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @GetMapping("/{weddingid}/{page}")
     public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page){
@@ -37,9 +49,12 @@ public class PostAPIController {
         return  new ResponseEntity<Long>(postid, HttpStatus.CREATED);
     }
 
-    @PostMapping(path = "/{userid}/{postid}")
-    public ResponseEntity<Long> savePostFiles(@PathVariable("userid") Long userid, @PathVariable("postid") Long postid, MultipartFile[] images){
-        postService.savePostFiles(postid, userid, images);
+    @PostMapping(path = "/{userid}/{postid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Long> savePostFiles(@PathVariable("userid") Long userid, @PathVariable("postid") Long postid, @RequestBody String images){
+        images = images.substring(12, images.length() - 3);
+        byte[] imgbyte = Base64.getDecoder().decode(images);
+        MultipartFile multipartFile = new CustomMultipartFile(imgbyte);
+        postService.savePostFiles(postid, userid, multipartFile);
         return  new ResponseEntity<Long>(postid, HttpStatus.CREATED);
     }
 

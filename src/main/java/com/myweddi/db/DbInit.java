@@ -77,7 +77,8 @@ public class DbInit implements CommandLineRunner {
         churchInfo1.setAddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
         churchInfo1.setName("Kościół M.B. Królowej Polski i św. Maternusa");
         churchInfo1.setRealPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
-        churchInfo1.setWebAppPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
+        //churchInfo1.setWebAppPath("/church/church.jpg");
+        churchInfo1.setWebAppPath("https://zabytek.pl/public/upload/objects_media/big/5b8f8ff0a023d.jpg");
         this.churchRepository.save(churchInfo1);
 
         WeddingInfo weddingInfo1 = new WeddingInfo();
@@ -86,7 +87,8 @@ public class DbInit implements CommandLineRunner {
         weddingInfo1.setLongitude(16.880499);
         weddingInfo1.setAddress("Kochanowskiego 13, 57-550 Stronie Ślaskie");
         weddingInfo1.setName("Górski Poranek");
-        weddingInfo1.setWebAppPath("https://e-turysta.pl/zdjecia/galeria-glowna/maxw772maxh580/79/Gorski-Poranek-Stronie-Slaskie-799261.jpg");
+        //weddingInfo1.setWebAppPath("/weddinghouse/gorskiporanek.jpg");
+        weddingInfo1.setWebAppPath("https://meteor-turystyka.pl/images/base/16/15079/30937_40.jpg");
         this.weddingInfoRepository.save(weddingInfo1);
 
 
@@ -100,6 +102,7 @@ public class DbInit implements CommandLineRunner {
         h1.setGroomlastname("Kowalski");
         h1.setGroomemail("jan@kowalski.pl");
         h1.setGroomphone("34234234");
+        h1.setPhoto("https://www.kilar-fotografia.pl/wp-content/uploads/2018/03/para-mloda-slub-w-kosciele-w-gdansku.jpg");
         this.hostRepository.save(h1);
 
         Guest g1 = new Guest();
@@ -117,7 +120,7 @@ public class DbInit implements CommandLineRunner {
 
         Photo ph1 = new Photo(p1.getId(), ua2.getId());
         ph1.setRealPath("/home/piterk/myweddi/photos/aa.jpg");
-        ph1.setWebAppPath("/photos/aa.jpg");
+        ph1.setWebAppPath("https://www.slubnaglowie.pl/media/cache/content_max/uploads/media/post/0003/41/74f7f3b1992d46b5101ee14adbdeaf0380272729.jpeg");
         this.photoRepository.save(ph1);
 
         Comment com1 = new Comment(p1.getId(), ua3.getId(), "Super zdjęcie", LocalDateTime.now(Global.zid));

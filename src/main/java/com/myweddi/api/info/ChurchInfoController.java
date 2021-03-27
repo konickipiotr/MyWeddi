@@ -54,7 +54,7 @@ public class ChurchInfoController {
             //TODO
         }
         ChurchInfo churchInfo = oChurch.get();
-        FileNameStruct fileNameStructure = fileService.uploadPhotos(images, PhotoCat.CHURCH);
+        FileNameStruct fileNameStructure = fileService.uploadPhotos(images[0], PhotoCat.CHURCH);
         if(fileNameStructure == null)
             throw new FailedSaveFileException();
 

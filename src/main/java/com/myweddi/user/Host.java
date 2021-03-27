@@ -26,6 +26,7 @@ public class Host {
 
     public Host(){
         this.firstname = "Państow Młodzi";
+        this.lastname = "";
         this.role = "HOST";
     }
     public Host(Long id, RegistrationForm rf) {

@@ -1,6 +1,5 @@
 package com.myweddi.webapp.guest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myweddi.conf.Global;
 import com.myweddi.exception.FailedSaveFileException;
 import com.myweddi.model.Comment;
@@ -9,16 +8,12 @@ import com.myweddi.user.Guest;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
-import com.myweddi.utils.CustomInterceptor;
 import com.myweddi.utils.ListWrapper;
-import com.myweddi.utils.MultipartInputStreamFileResource;
 import com.myweddi.view.PostView;
 import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -29,15 +24,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -120,7 +109,9 @@ public class GuestHomeController {
         for (MultipartFile f : images) {
             if (!f.isEmpty()) {
                 try {
-                    body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
+                    byte[] bytes = f.getBytes();
+                    body.add("images", Base64.getEncoder().encodeToString(bytes));
+                    //body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
                 } catch (IOException e) {
                     throw new FailedSaveFileException();
                 }
@@ -128,7 +119,8 @@ public class GuestHomeController {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        //headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
         restTemplate.postForObject(path, requestEntity, String.class);
 

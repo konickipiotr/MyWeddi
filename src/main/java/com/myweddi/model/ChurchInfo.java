@@ -17,7 +17,6 @@ public class ChurchInfo {
     @Id
     private Long weddingid;
     private String name;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime ceremenytime;
     private double longitude;
     private double latitude;

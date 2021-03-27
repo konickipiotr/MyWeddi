@@ -105,7 +105,7 @@ public class PostService {
         return post.getId();
     }
 
-    public void savePostFiles(Long postid, Long userid, MultipartFile[] images) {
+    public void savePostFiles(Long postid, Long userid, MultipartFile images) {
         if(this.postRepository.existsById(postid)) {
             FileNameStruct fileNameStructure = fileService.uploadPhotos(images, PhotoCat.POST);
             if (fileNameStructure == null)
@@ -120,6 +120,7 @@ public class PostService {
     }
 
     public void addComment(Comment comment){
+        comment.setCreationdate(LocalDateTime.now(Global.zid));
         this.commentRepository.save(comment);
     }
 }

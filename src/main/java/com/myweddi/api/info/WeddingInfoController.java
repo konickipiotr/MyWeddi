@@ -54,7 +54,7 @@ public class WeddingInfoController {
             //TODO
         }
         WeddingInfo weddingInfo = oWedding.get();
-        FileNameStruct fileNameStructure = fileService.uploadPhotos(images, PhotoCat.WEDDINGHOUSE);
+        FileNameStruct fileNameStructure = fileService.uploadPhotos(images[0], PhotoCat.WEDDINGHOUSE);
         if(fileNameStructure == null)
             throw new FailedSaveFileException();
 

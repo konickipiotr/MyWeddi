@@ -61,15 +61,15 @@ public class FileService {
         return new FileNameStruct(realPath, wepAppPath);
     }
 
-    public FileNameStruct uploadPhotos(MultipartFile[] uploadfiles, PhotoCat photoCat){
-        if (uploadfiles.length < 1) return null;
-        if (uploadfiles[0].isEmpty()) return null;
+    public FileNameStruct uploadPhotos(MultipartFile uploadfile, PhotoCat photoCat){
 
-        FileNameStruct fileName = createFileName(uploadfiles[0], photoCat);
+        if (uploadfile == null || uploadfile.isEmpty()) return null;
+
+        FileNameStruct fileName = createFileName(uploadfile, photoCat);
 
         try {
             Path fullpath = Paths.get(fileName.realPath);
-            Files.copy(uploadfiles[0].getInputStream(), fullpath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(uploadfile.getInputStream(), fullpath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
             throw new FailedSaveFileException();
