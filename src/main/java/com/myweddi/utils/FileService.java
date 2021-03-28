@@ -14,6 +14,8 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class FileService {
@@ -61,20 +63,25 @@ public class FileService {
         return new FileNameStruct(realPath, wepAppPath);
     }
 
-    public FileNameStruct uploadPhotos(MultipartFile uploadfile, PhotoCat photoCat){
+    public List<FileNameStruct> uploadPhotos(List<MultipartFile> uploadfiles, PhotoCat photoCat){
 
-        if (uploadfile == null || uploadfile.isEmpty()) return null;
+        if (uploadfiles == null || uploadfiles.isEmpty()) return null;
 
-        FileNameStruct fileName = createFileName(uploadfile, photoCat);
+        List<FileNameStruct> filesNames = new ArrayList<>();
+        for(MultipartFile mFile : uploadfiles) {
+            filesNames.add(createFileName(mFile, photoCat));
+        }
 
         try {
-            Path fullpath = Paths.get(fileName.realPath);
-            Files.copy(uploadfile.getInputStream(), fullpath, StandardCopyOption.REPLACE_EXISTING);
+            for(int i = 0; i < uploadfiles.size(); i++ ) {
+                Path fullpath = Paths.get(filesNames.get(i).realPath);
+                Files.copy(uploadfiles.get(i).getInputStream(), fullpath, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             throw new FailedSaveFileException();
         }
-        return fileName;
+        return filesNames;
 
     }
 

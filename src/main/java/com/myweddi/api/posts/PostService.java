@@ -13,10 +13,7 @@ import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
-import com.myweddi.utils.FileNameStruct;
-import com.myweddi.utils.FileService;
-import com.myweddi.utils.ListWrapper;
-import com.myweddi.utils.PhotoCat;
+import com.myweddi.utils.*;
 import com.myweddi.view.CommentView;
 import com.myweddi.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,18 +103,29 @@ public class PostService {
         return post.getId();
     }
 
-    public void savePostFiles(Long postid, Long userid, MultipartFile images) {
+    public void savePostFiles(Long postid, Long userid, List<String> imagesStringBytes) {
         if(this.postRepository.existsById(postid)) {
-            FileNameStruct fileNameStructure = fileService.uploadPhotos(images, PhotoCat.POST);
-            if (fileNameStructure == null)
+            List<MultipartFile> multipartFiles = convertToMultipartFile(imagesStringBytes);
+            List<FileNameStruct> fileNameStructs = fileService.uploadPhotos(multipartFiles, PhotoCat.POST);
+            if (fileNameStructs == null || fileNameStructs.isEmpty())
                 throw new FailedSaveFileException();
 
-            Photo photo = new Photo(postid, userid);
-            photo.setRealPath(fileNameStructure.realPath);
-            photo.setWebAppPath(fileNameStructure.webAppPath);
-
-            this.photoRepository.save(photo);
+            for(FileNameStruct fns : fileNameStructs){
+                Photo photo = new Photo(postid, userid);
+                photo.setRealPath(fns.realPath);
+                photo.setWebAppPath(fns.webAppPath);
+                this.photoRepository.save(photo);
+            }
         }
+    }
+
+    public List<MultipartFile> convertToMultipartFile(List<String> imagesStringBytes){
+        List<MultipartFile> mFiles = new ArrayList<>();
+        for(String sImage : imagesStringBytes){
+            byte[] imgbyte = Base64.getDecoder().decode(sImage);
+            mFiles.add(new CustomMultipartFile(imgbyte));
+        }
+        return mFiles;
     }
 
     public void addComment(Comment comment){

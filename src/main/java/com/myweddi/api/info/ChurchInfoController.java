@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,12 +57,13 @@ public class ChurchInfoController {
             //TODO
         }
         ChurchInfo churchInfo = oChurch.get();
-        FileNameStruct fileNameStructure = fileService.uploadPhotos(images[0], PhotoCat.CHURCH);
-        if(fileNameStructure == null)
+        List<MultipartFile> mList = new ArrayList<>(Arrays.asList(images));
+        List<FileNameStruct> fileNameStructs = fileService.uploadPhotos(mList, PhotoCat.WEDDINGHOUSE);
+        if(fileNameStructs == null || fileNameStructs.isEmpty())
             throw new FailedSaveFileException();
 
-        churchInfo.setRealPath(fileNameStructure.realPath);
-        churchInfo.setWebAppPath(fileNameStructure.webAppPath);
+        churchInfo.setRealPath(fileNameStructs.get(0).realPath);
+        churchInfo.setWebAppPath(fileNameStructs.get(0).webAppPath);
         this.churchRepository.save(churchInfo);
 
         return  new ResponseEntity(HttpStatus.CREATED);
