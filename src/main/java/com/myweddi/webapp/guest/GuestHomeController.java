@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -105,12 +107,17 @@ public class GuestHomeController {
         Long postid = response.getBody();
         path += user.getId() + "/" + postid;
 
+        if(images == null || images.length == 0)
+            return "redirect:/guest";
+
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        List<String> sImages = new ArrayList<>();
         for (MultipartFile f : images) {
             if (!f.isEmpty()) {
                 try {
                     byte[] bytes = f.getBytes();
                     body.add("images", Base64.getEncoder().encodeToString(bytes));
+                    sImages.add(Base64.getEncoder().encodeToString(bytes));
                     //body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
                 } catch (IOException e) {
                     throw new FailedSaveFileException();
@@ -119,9 +126,9 @@ public class GuestHomeController {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        //headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        HttpEntity<Object> requestEntity = new HttpEntity<Object>(sImages, headers);
+//        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
         restTemplate.postForObject(path, requestEntity, String.class);
 
         return "redirect:/guest";

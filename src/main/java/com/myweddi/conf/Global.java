@@ -11,6 +11,6 @@ public class Global {
     public final static String appPath = "/home/piterk/myweddi/";
     public static final String domain = "http://localhost:8081";
 
-//    public static final String domain = "http://80.211.245.217:8081";
-//    public final static String appPath = "/home/cloud/myweddi/";
+//    public static final String domain = "http://80.211.245.217:8081/";
+//    public final static String appPath = "home/cloud/myweddi/";
 }
