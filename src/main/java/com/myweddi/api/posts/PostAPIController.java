@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -19,10 +20,17 @@ public class PostAPIController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/{weddingid}/{page}")
     public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page) {
         return new ResponseEntity<ListWrapper<PostView>>(postService.getPostFromPage(page), HttpStatus.OK);
+    }
+
+    @GetMapping("{weddingid}/post/{postid}")
+    public ResponseEntity<PostView> getPostView(@PathVariable("weddingid") Long weddingid, @PathVariable("postid") Long postid) {
+        return new ResponseEntity<PostView>(postService.getPost(postid), HttpStatus.OK);
     }
 
     @PostMapping
@@ -39,6 +47,26 @@ public class PostAPIController {
 
     @PostMapping("/addcomment")
     public void addComment(@RequestBody Comment comment) {
-        this.postService.addComment(comment);
+        this.commentService.addComment(comment);
     }
+
+    @DeleteMapping("/deletecomment/{commentid}")
+    public ResponseEntity deleteComment(@PathVariable("commentid") Long comId, Principal principal){
+        if(commentService.deleteComment(principal, comId))
+            return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/deletepost/{postid}")
+    public ResponseEntity deletePost(@PathVariable("postid") Long postid, Principal principal){
+        if(postService.deletePost(principal, postid))
+            return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/changerstar")
+    public ResponseEntity<Boolean> isLiked(@RequestBody Long postid, @RequestBody Long userid){
+        return new ResponseEntity<Boolean>(postService.changePostStar(postid, userid), HttpStatus.OK);
+    }
+
 }

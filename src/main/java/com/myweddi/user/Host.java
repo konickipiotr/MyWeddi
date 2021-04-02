@@ -18,7 +18,8 @@ public class Host {
     private String groomphone;
     private String firstname;
     private String lastname;
-    private String photo;
+    private String realPath;
+    private String webAppPath;
     private String role;
 
     public Host(){
@@ -141,12 +142,20 @@ public class Host {
         this.lastname = lastname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getRealPath() {
+        return realPath;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setRealPath(String realPath) {
+        this.realPath = realPath;
+    }
+
+    public String getWebAppPath() {
+        return webAppPath;
+    }
+
+    public void setWebAppPath(String webAppPath) {
+        this.webAppPath = webAppPath;
     }
 
     public String getRole() {

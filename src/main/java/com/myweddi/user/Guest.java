@@ -13,7 +13,8 @@ public class Guest{
     private Long partner;
     private String firstname;
     private String lastname;
-    private String photo;
+    private String realPath;
+    private String webAppPath;
     private String role;
     @Enumerated(EnumType.STRING)
     private GuestStatus status;
@@ -91,12 +92,20 @@ public class Guest{
         this.lastname = lastname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getRealPath() {
+        return realPath;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setRealPath(String realPath) {
+        this.realPath = realPath;
+    }
+
+    public String getWebAppPath() {
+        return webAppPath;
+    }
+
+    public void setWebAppPath(String webAppPath) {
+        this.webAppPath = webAppPath;
     }
 
     public String getRole() {

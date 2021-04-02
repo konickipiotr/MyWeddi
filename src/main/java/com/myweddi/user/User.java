@@ -6,7 +6,8 @@ public class User {
     private Long id;
     private String firstname;
     private String lastname;
-    private String photo;
+    private String realPath;
+    private String webAppPath;
     private String role;
     private Long weddingid;
 
@@ -17,7 +18,8 @@ public class User {
         this.id = host.getId();
         this.firstname = host.getFirstname();
         this.lastname = host.getLastname();
-        this.photo = host.getPhoto();
+        this.realPath = host.getRealPath();
+        this.webAppPath = host.getWebAppPath();
         this.role = host.getRole();
         this.weddingid = this.id;
     }
@@ -26,7 +28,8 @@ public class User {
         this.id = guest.getId();
         this.firstname = guest.getFirstname();
         this.lastname = guest.getLastname();
-        this.photo = guest.getPhoto();
+        this.realPath = guest.getRealPath();
+        this.webAppPath = guest.getWebAppPath();
         this.role = guest.getRole();
         this.weddingid = guest.getWeddingid();
     }
@@ -59,12 +62,20 @@ public class User {
         this.lastname = lastname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getRealPath() {
+        return realPath;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setRealPath(String realPath) {
+        this.realPath = realPath;
+    }
+
+    public String getWebAppPath() {
+        return webAppPath;
+    }
+
+    public void setWebAppPath(String webAppPath) {
+        this.webAppPath = webAppPath;
     }
 
     public String getRole() {

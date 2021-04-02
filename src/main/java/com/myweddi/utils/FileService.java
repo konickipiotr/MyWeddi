@@ -2,6 +2,7 @@ package com.myweddi.utils;
 
 import com.myweddi.conf.Global;
 import com.myweddi.exception.FailedSaveFileException;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,10 +27,9 @@ public class FileService {
 //        new File(pp.toAbsolutePath().toString()).mkdirs();
 //    }
 //
-//    public void deleteUserDirectory(User user) throws IOException {
-//        Path pp = Paths.get(getUserDirPath(user));
-//        FileUtils.deleteDirectory(new File(pp.toAbsolutePath().toString()));
-//    }
+    public void deleteFile(String path) throws IOException {
+        new File(path).delete();
+    }
 
     private FileNameStruct createFileName(MultipartFile mFile, PhotoCat photoCat){
         String orginalFileName = mFile.getOriginalFilename();

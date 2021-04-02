@@ -28,6 +28,9 @@ public class PostView {
     @Transient
     private String posttime;
 
+    private boolean isLiked;
+    private int likeNumber;
+
     private List<Photo> photos = new ArrayList<>();
     private List<CommentView> comments = new ArrayList<>();
 
@@ -41,7 +44,7 @@ public class PostView {
         this.creationdate = p.getCreationdate();
         this.description = p.getDescription();
         this.username = user.getName();
-        this.userphoto = user.getPhoto();
+        this.userphoto = user.getWebAppPath();
     }
 
     public void covert() {
@@ -135,5 +138,21 @@ public class PostView {
 
     public void setComments(List<CommentView> comments) {
         this.comments = comments;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public int getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
     }
 }

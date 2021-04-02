@@ -2,10 +2,12 @@ package com.myweddi.api.posts;
 
 import com.myweddi.conf.Global;
 import com.myweddi.db.CommentRepository;
+import com.myweddi.db.LikeRepository;
 import com.myweddi.db.PhotoRepository;
 import com.myweddi.db.PostRepository;
 import com.myweddi.exception.FailedSaveFileException;
 import com.myweddi.model.Comment;
+import com.myweddi.model.Like;
 import com.myweddi.model.Photo;
 import com.myweddi.model.Post;
 import com.myweddi.user.reposiotry.GuestRepository;
@@ -22,6 +24,9 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -30,6 +35,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PostService {
 
     private PostRepository postRepository;
@@ -39,11 +45,13 @@ public class PostService {
     private UserAuthRepository userAuthRepository;
     private FileService fileService;
     private PhotoRepository photoRepository;
+    private LikeRepository likeRepository;
 
     private static final int PAGE_SIZE = 20;
 
+
     @Autowired
-    public PostService(PostRepository postRepository, CommentRepository commentRepository, HostRepository hostRepository, GuestRepository guestRepository, UserAuthRepository userAuthRepository, FileService fileService, PhotoRepository photoRepository) {
+    public PostService(PostRepository postRepository, CommentRepository commentRepository, HostRepository hostRepository, GuestRepository guestRepository, UserAuthRepository userAuthRepository, FileService fileService, PhotoRepository photoRepository, LikeRepository likeRepository) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.hostRepository = hostRepository;
@@ -51,6 +59,26 @@ public class PostService {
         this.userAuthRepository = userAuthRepository;
         this.fileService = fileService;
         this.photoRepository = photoRepository;
+        this.likeRepository = likeRepository;
+    }
+
+    public PostView getPost(Long postid){
+        Post post = this.postRepository.findById(postid).get();
+        User user = getUser(post.getUserid());
+        PostView postView = new PostView(post, user);
+        postView.setPhotos(this.photoRepository.findByPostid(post.getId()));
+
+        List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(post.getId());
+        postView.setComments(getCommentViewList(comments, post));
+        postView.covert();
+
+        List<Like> likes = likeRepository.findAllByPostid(postid);
+        postView.setLikeNumber(likes.size());
+
+        boolean isLiked = likes.stream().anyMatch(i -> i.getUserid().equals(user.getId()));
+        postView.setLiked(isLiked);
+
+        return postView;
     }
 
     public ListWrapper<PostView>  getPostFromPage(int page){
@@ -59,14 +87,15 @@ public class PostService {
 
         List<PostView> postViews = new ArrayList<>();
         for(Post p : posts){
-            User user = getUser(p.getUserid());
-            PostView pv = new PostView(p, user);
-            pv.setPhotos(this.photoRepository.findByPostid(p.getId()));
-
-            List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateDesc(p.getId());
-            pv.setComments(getCommentViewList(comments, p));
-
-            postViews.add(pv);
+//            User user = getUser(p.getUserid());
+//            PostView pv = new PostView(p, user);
+//            pv.setPhotos(this.photoRepository.findByPostid(p.getId()));
+//
+//            List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(p.getId());
+//            pv.setComments(getCommentViewList(comments, p));
+//
+//            postViews.add(pv);
+            postViews.add(getPost(p.getId()));
         }
 
         postViews.forEach(i -> i.covert());
@@ -128,8 +157,34 @@ public class PostService {
         return mFiles;
     }
 
-    public void addComment(Comment comment){
-        comment.setCreationdate(LocalDateTime.now(Global.zid));
-        this.commentRepository.save(comment);
+    public boolean deletePost(Principal principal, Long postid){
+        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+        Post post = postRepository.findById(postid).get();
+
+        if(!user.getId().equals(post.getUserid()))
+            return false;
+        postRepository.deleteById(postid);
+        commentRepository.deleteByPostid(postid);
+
+        List<Photo> postPhotos = photoRepository.findByPostid(postid);
+        for(Photo p : postPhotos){
+            try {
+                fileService.deleteFile(p.getRealPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            photoRepository.deleteById(p.getId());
+        }
+        return true;
+    }
+
+    public boolean changePostStar(Long post, Long userid){
+        if(likeRepository.existsByPostidAndUserid(post, userid)){
+            likeRepository.deleteByPostidAndUserid(post, userid);
+            return false;
+        }else {
+            likeRepository.save(new Like(post, userid));
+            return true;
+        }
     }
 }

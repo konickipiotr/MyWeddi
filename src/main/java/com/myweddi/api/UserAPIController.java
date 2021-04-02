@@ -4,6 +4,7 @@ import com.myweddi.user.Host;
 import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,5 +25,10 @@ public class UserAPIController {
     @PostMapping("/host")
     public ResponseEntity<Host> getWeddingHostsInfo(@RequestBody Long weddingid){
         return userService.getWeddingHosts(weddingid);
+    }
+
+    @PostMapping("/photo")
+    public ResponseEntity<String> getUserPhoto(@RequestBody Long userid){
+        return new ResponseEntity<String>(userService.getEncodedPhoto(userid), HttpStatus.OK);
     }
 }

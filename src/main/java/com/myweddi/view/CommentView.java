@@ -33,7 +33,7 @@ public class CommentView implements Comparable<Comment> {
         this.content = c.getContent();
         this.creationdate = c.getCreationdate();
         this.username = user.getName();
-        this.userphoto = user.getPhoto();
+        this.userphoto = user.getWebAppPath();
         this.role = user.getRole();
     }
 
