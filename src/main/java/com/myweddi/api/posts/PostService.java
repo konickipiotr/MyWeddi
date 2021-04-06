@@ -6,10 +6,7 @@ import com.myweddi.db.LikeRepository;
 import com.myweddi.db.PhotoRepository;
 import com.myweddi.db.PostRepository;
 import com.myweddi.exception.FailedSaveFileException;
-import com.myweddi.model.Comment;
-import com.myweddi.model.Like;
-import com.myweddi.model.Photo;
-import com.myweddi.model.Post;
+import com.myweddi.model.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
@@ -62,41 +59,38 @@ public class PostService {
         this.likeRepository = likeRepository;
     }
 
-    public PostView getPost(Long postid){
+    public PostView getPost(Long postid, Principal principal){
         Post post = this.postRepository.findById(postid).get();
-        User user = getUser(post.getUserid());
-        PostView postView = new PostView(post, user);
+        UserAuth user = this.userAuthRepository.findByUsername(principal.getName());
+
+        User postUser = getUser(post.getUserid());
+        PostView postView = new PostView(post, postUser);
         postView.setPhotos(this.photoRepository.findByPostid(post.getId()));
 
         List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(post.getId());
         postView.setComments(getCommentViewList(comments, post));
         postView.covert();
 
-        List<Like> likes = likeRepository.findAllByPostid(postid);
+        List<Like> likes = likeRepository.findByPostid(postid);
         postView.setLikeNumber(likes.size());
 
-        boolean isLiked = likes.stream().anyMatch(i -> i.getUserid().equals(user.getId()));
-        postView.setLiked(isLiked);
+        boolean isLiked = false;
+        for(Like l : likes){
+            if(l.getUserid().equals(user.getId()))
+                isLiked = true;
+        }
+        postView.setLike(isLiked);
 
         return postView;
     }
 
-    public ListWrapper<PostView>  getPostFromPage(int page){
+    public ListWrapper<PostView>  getPostFromPage(int page, Principal principal){
         page--;
         List<Post> posts = this.postRepository.findAllByOrderByCreationdateDesc(PageRequest.of(page, PAGE_SIZE));
 
         List<PostView> postViews = new ArrayList<>();
-        for(Post p : posts){
-//            User user = getUser(p.getUserid());
-//            PostView pv = new PostView(p, user);
-//            pv.setPhotos(this.photoRepository.findByPostid(p.getId()));
-//
-//            List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(p.getId());
-//            pv.setComments(getCommentViewList(comments, p));
-//
-//            postViews.add(pv);
-            postViews.add(getPost(p.getId()));
-        }
+        for(Post p : posts)
+            postViews.add(getPost(p.getId(), principal));
 
         postViews.forEach(i -> i.covert());
         return new ListWrapper<>(postViews);
@@ -178,12 +172,12 @@ public class PostService {
         return true;
     }
 
-    public boolean changePostStar(Long post, Long userid){
-        if(likeRepository.existsByPostidAndUserid(post, userid)){
-            likeRepository.deleteByPostidAndUserid(post, userid);
+    public boolean changePostStar(Like like){
+        if(likeRepository.existsByPostidAndUserid(like.getPostid(), like.getUserid())){
+            likeRepository.deleteByPostidAndUserid(like.getPostid(), like.getUserid());
             return false;
         }else {
-            likeRepository.save(new Like(post, userid));
+            likeRepository.save(like);
             return true;
         }
     }

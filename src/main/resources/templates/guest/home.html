@@ -69,6 +69,15 @@
                     <img th:each="ph : ${p.photos}" th:src="@{${ph.webAppPath}}" width="80%">
                     <p th:text="${p.description}"></p>
                 </div>
+                <div>
+                    <p th:if="${p.like}">L</p>
+                    <p th:unless="${p.like}">NL</p>
+                    <p><span>Num of likes</span><span th:text="${p.likeNumber}"></span></p>
+                    <form th:action="@{/guest/star}" method="post">
+                        <button th:if="${p.like}" type="submit" name="postid" th:value="${p.id}">liked</button>
+                        <button th:unless="${p.like}" type="submit" name="postid" th:value="${p.id}">not like</button>
+                    </form>
+                </div>
             </div>
             <!-- ************************************************** -->
             <div class="comments">

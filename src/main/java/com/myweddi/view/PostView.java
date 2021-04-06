@@ -28,7 +28,7 @@ public class PostView {
     @Transient
     private String posttime;
 
-    private boolean isLiked;
+    private boolean like;
     private int likeNumber;
 
     private List<Photo> photos = new ArrayList<>();
@@ -140,19 +140,19 @@ public class PostView {
         this.comments = comments;
     }
 
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setLiked(boolean liked) {
-        isLiked = liked;
-    }
-
     public int getLikeNumber() {
         return likeNumber;
     }
 
     public void setLikeNumber(int likeNumber) {
         this.likeNumber = likeNumber;
+    }
+
+    public boolean isLike() {
+        return like;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
     }
 }

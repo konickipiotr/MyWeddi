@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>MyWeddi</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/info.css">
+</head>
+
+<body>
+  <header th:replace="top :: top">
+  </header>
+  <header th:replace="header :: header">
+  </header>
+  <div class="container" style="display: flex;">
+    <aside class="menu" th:replace="menu :: menu"></aside>
+    <!-- ************************************************** -->
+
+    <section class="content">
+      <a th:href="@{/host/tables/settables}"> stwórz</a>
+
+      <div th:if="${tablesList != null}">
+        <table>
+          <tr>
+            <th>Stół</th>
+            <th></th>
+          </tr>
+          <tr th:each="i : ${tablesList}">
+            <td th:text="${i.tableid}"></td>
+            <td th:text="${i.placeid}"></td>
+            <td th:if="${i.userid == -1}">
+              <select th:id="${i.tableid + '_' + i.placeid}" onclick="loadNotAssigned(this)" onchange="xxx()">
+                <option th:if="${i.userid == -1}" value="-1">NIE PRZYDZIELONI</option>
+                <option th:unless="${i.userid == -1}" th:value="${i.userid}" th:text="${i.username}"></option>
+                <option th:each="m : ${notassigned}" th:value="${m.key}" th:text="${m.value}"></option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+  </section>
+  <!-- ************************************************** -->
+  </div>
+  <footer th:replace="footer :: footer"></footer>
+
+<script th:inline="javascript">
+  var assigned = [[${assigned}]];
+  var notassigned = [[${notassigned}]];
+
+  function loadNotAssigned(zz){
+    console.log("loadNotAssigned");
+    console.log(zz);
+  }
+
+  function xxx(){
+    console.log("on change");
+  }
+</script>
+</body>

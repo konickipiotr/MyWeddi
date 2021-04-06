@@ -1,13 +1,16 @@
 package com.myweddi.api.posts;
 
 import com.myweddi.model.Comment;
+import com.myweddi.model.Like;
 import com.myweddi.model.Post;
+import com.myweddi.model.PostUserId;
 import com.myweddi.utils.ListWrapper;
 import com.myweddi.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -24,13 +27,13 @@ public class PostAPIController {
     private CommentService commentService;
 
     @GetMapping("/{weddingid}/{page}")
-    public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page) {
-        return new ResponseEntity<ListWrapper<PostView>>(postService.getPostFromPage(page), HttpStatus.OK);
+    public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page, Principal principal) {
+        return new ResponseEntity<ListWrapper<PostView>>(postService.getPostFromPage(page, principal), HttpStatus.OK);
     }
 
     @GetMapping("{weddingid}/post/{postid}")
-    public ResponseEntity<PostView> getPostView(@PathVariable("weddingid") Long weddingid, @PathVariable("postid") Long postid) {
-        return new ResponseEntity<PostView>(postService.getPost(postid), HttpStatus.OK);
+    public ResponseEntity<PostView> getPostView(@PathVariable("weddingid") Long weddingid, @PathVariable("postid") Long postid, Principal principal) {
+        return new ResponseEntity<PostView>(postService.getPost(postid, principal), HttpStatus.OK);
     }
 
     @PostMapping
@@ -64,9 +67,9 @@ public class PostAPIController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/changerstar")
-    public ResponseEntity<Boolean> isLiked(@RequestBody Long postid, @RequestBody Long userid){
-        return new ResponseEntity<Boolean>(postService.changePostStar(postid, userid), HttpStatus.OK);
+    @PostMapping("/changestar")
+    public ResponseEntity<Boolean> isLiked(@RequestBody Like like){
+        return new ResponseEntity<Boolean>(postService.changePostStar(like), HttpStatus.OK);
     }
 
 }
