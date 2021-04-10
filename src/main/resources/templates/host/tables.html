@@ -28,26 +28,46 @@
     <!-- ************************************************** -->
 
     <section class="content">
-      <a th:href="@{/host/tables/settables}"> stwórz</a>
+      <a th:if="${tablesList.isEmpty()}" th:href="@{/host/tables/settables}"> stwórz stoły</a>
+      <a th:unless="${tablesList.isEmpty()}" th:href="@{/host/tables/settables}" onclick="return confirm('Przejście dalej spowoduje usunięcie obecnych ustawień. Czy jesteś pewny?')"> resetuj Stoły</a>
 
+      <p><span>Ilość stołów</span> <span th:text="${tables.numoftables}"></span></p>
+      <p><span>Ilość miejsc</span> <span th:text="${tables.capacity}"></span></p>
+      <p><span>Wolne miejsca</span> <span th:text="${tables.free}"></span></p>
       <div th:if="${tablesList != null}">
+        <img th:src="@{${tables.webAppPath}}" />
+        <form th:action="@{/host/tables/setguests}" method="post" id="tableform">
         <table>
           <tr>
             <th>Stół</th>
-            <th></th>
+            <th>Miejsce</th>
+            <th>Gość</th>
           </tr>
-          <tr th:each="i : ${tablesList}">
-            <td th:text="${i.tableid}"></td>
-            <td th:text="${i.placeid}"></td>
-            <td th:if="${i.userid == -1}">
-              <select th:id="${i.tableid + '_' + i.placeid}" onclick="loadNotAssigned(this)" onchange="xxx()">
-                <option th:if="${i.userid == -1}" value="-1">NIE PRZYDZIELONI</option>
-                <option th:unless="${i.userid == -1}" th:value="${i.userid}" th:text="${i.username}"></option>
-                <option th:each="m : ${notassigned}" th:value="${m.key}" th:text="${m.value}"></option>
-              </select>
-            </td>
-          </tr>
+            <tr th:each="i : ${tablesList}">
+              <td th:text="${'Stół ' + i.tableid}"></td>
+              <td th:text="${i.placeid}"></td>
+              <td>
+                <select class="guestlists" name="tableplace" th:id="${i.tableid + '_' + i.placeid}" onchange="selectHandler(this)">
+                  <option th:if="${i.userid == -1}" value="-1" th:text="${defaultMessage}"></option>
+                  <option th:unless="${i.userid == -1}" th:value="${i.userid}" th:text="${i.username}"></option>
+                  <option th:if="${i.userid != -1}" value="-1" th:text="${defaultMessage}"></option>
+                  <option th:each="m : ${notassigned}" th:value="${m.key}" th:text="${m.value}"></option>
+                </select>
+                <input type="hidden" th:id="${i.tableid + '_' + i.placeid + '_'}" name="vVal" value="" />
+              </td>
+            </tr>
+
         </table>
+        <button type="submit">Zapisz</button>
+      </form>
+      <p>
+        Dodaj zdjęcie/schemat/plan
+      </p>
+      <form th:action="@{/host/tables/loadtableschema}" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" id="tableplan" multiple>
+        <button type="submit">Wczytaj</button>
+      </form>
+
       </div>
 
   </section>
@@ -58,14 +78,84 @@
 <script th:inline="javascript">
   var assigned = [[${assigned}]];
   var notassigned = [[${notassigned}]];
+  var defaultMessage = [[${defaultMessage}]];
+  var oldVals = new Map();
 
-  function loadNotAssigned(zz){
-    console.log("loadNotAssigned");
-    console.log(zz);
+  let allsellects = document.getElementsByClassName('guestlists');
+  for(let it of allsellects){
+    oldVals.set(it.id, it.value);
   }
 
-  function xxx(){
-    console.log("on change");
+
+  document.getElementById("tableform").onsubmit = function() {myFunction()};
+
+  function myFunction() {
+    let allsellects = document.getElementsByClassName('guestlists');
+
+    for(let s of allsellects){
+      var restult = s.id + '_' + s.value;
+      var newid = s.id + '_';
+      var newElement = document.getElementById(newid);
+      newElement.value = restult;
+    }
+  }
+
+  function selectHandler(item){
+    let changedItemId = item.id;
+    let chosenGuestId = item.value;
+
+    let oldId = oldVals.get(changedItemId)
+    if(oldId == chosenGuestId)
+      return;
+
+    let oldName = assigned[oldId];
+    let guestName;
+
+    if(chosenGuestId == -1){
+        notassigned[oldId] = oldName;
+        delete assigned[oldId];
+        guestName =  defaultMessage;
+
+    }else{
+
+      guestName = notassigned[chosenGuestId];
+      delete notassigned[chosenGuestId];
+      assigned[chosenGuestId] = guestName;
+
+      if(oldId != -1){
+        let oldGuestName = assigned[oldId];
+        delete assigned[oldId];
+        notassigned[oldId] = oldGuestName;
+      }
+    }
+
+    oldVals.set(changedItemId, chosenGuestId);
+
+    item.options.length = 0;
+    let newOption = document.createElement("option");
+    newOption.text = guestName;
+    newOption.value = chosenGuestId;
+    item.add(newOption);
+
+    let allsellects = document.getElementsByClassName('guestlists');
+    for(let oneSelect of allsellects){
+      oneSelect.options.length = 1;
+
+      if(oneSelect.value != -1){
+        let emptyOption = document.createElement("option");
+        emptyOption.text =  defaultMessage;
+        emptyOption.value = -1;
+        oneSelect.add(emptyOption);
+      }
+
+      for(let key of Object.keys(notassigned)){
+        let val = notassigned[key];
+        let newOption = document.createElement("option");
+        newOption.text = val;
+        newOption.value = key;
+        oneSelect.add(newOption);
+      }
+    }
   }
 </script>
 </body>

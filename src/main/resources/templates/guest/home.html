@@ -70,12 +70,12 @@
                     <p th:text="${p.description}"></p>
                 </div>
                 <div>
-                    <p th:if="${p.like}">L</p>
-                    <p th:unless="${p.like}">NL</p>
-                    <p><span>Num of likes</span><span th:text="${p.likeNumber}"></span></p>
+                    <p th:if="${p.weddiLike}">L</p>
+                    <p th:unless="${p.weddiLike}">NL</p>
+                    <p><span>Num of weddiLikes</span><span th:text="${p.likeNumber}"></span></p>
                     <form th:action="@{/guest/star}" method="post">
-                        <button th:if="${p.like}" type="submit" name="postid" th:value="${p.id}">liked</button>
-                        <button th:unless="${p.like}" type="submit" name="postid" th:value="${p.id}">not like</button>
+                        <button th:if="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}">liked</button>
+                        <button th:unless="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}">not weddiLike</button>
                     </form>
                 </div>
             </div>
@@ -108,6 +108,7 @@
                     </form>
                 </div>
             </div>
+          </div>
       </section>
 
       <!-- ************************************************** -->

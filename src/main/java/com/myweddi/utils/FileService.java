@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -44,7 +45,10 @@ public class FileService {
         String wepAppPath = "";
         if(photoCat.equals(PhotoCat.POST)) {
             realPath = Global.appPath + Global.photosPath;
-            wepAppPath = "/" +  Global.photosPath + filename;
+            wepAppPath = "/" + Global.photosPath + filename;
+        }else if(photoCat.equals(PhotoCat.TABLES)){
+            realPath = Global.appPath + "tables/";
+            wepAppPath = "/tables/" + filename;
         }else if(photoCat.equals(PhotoCat.CHURCH)){
             realPath = Global.appPath + "church/";
             wepAppPath = "/church/" + filename;
@@ -85,4 +89,12 @@ public class FileService {
 
     }
 
+    public List<MultipartFile> convertToMultipartFiles(List<String> imagesStringBytes){
+        List<MultipartFile> mFiles = new ArrayList<>();
+        for(String sImage : imagesStringBytes){
+            byte[] imgbyte = Base64.getDecoder().decode(sImage);
+            mFiles.add(new CustomMultipartFile(imgbyte));
+        }
+        return mFiles;
+    }
 }

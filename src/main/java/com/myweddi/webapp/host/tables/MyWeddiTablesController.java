@@ -2,13 +2,18 @@ package com.myweddi.webapp.host.tables;
 
 import com.myweddi.conf.Global;
 import com.myweddi.model.ChurchInfo;
+import com.myweddi.model.Post;
 import com.myweddi.model.TableTempObject;
 import com.myweddi.model.TableWrapper;
 import com.myweddi.user.Guest;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
+import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Controller;
@@ -18,8 +23,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Base64;
 
 @Controller
 @RequestMapping("/host/tables")
@@ -48,9 +57,11 @@ public class MyWeddiTablesController {
             model.addAttribute("tablesList", tw.getTablePlaces());
             model.addAttribute("assigned", tw.getAssigned());
             model.addAttribute("notassigned", tw.getNotassigned());
+            model.addAttribute("defaultMessage", "NIE PRZYDZIELONO");
         }
 
         model.addAttribute("weddingid", userAuth.getId());
+        model.addAttribute("menu", Menu.hostMenu);
         return "host/tables";
 
     }
@@ -60,6 +71,7 @@ public class MyWeddiTablesController {
 
         UserAuth userAuth = userAuthRepository.findByUsername(principal.getName());
         model.addAttribute("weddingid", userAuth.getId());
+        model.addAttribute("menu", Menu.hostMenu);
         return "host/settables";
     }
 
@@ -70,6 +82,7 @@ public class MyWeddiTablesController {
 
         model.addAttribute("numoftables", numoftables);
         model.addAttribute("weddingid", weddingid);
+        model.addAttribute("menu", Menu.hostMenu);
         return "host/settable";
     }
 
@@ -87,6 +100,38 @@ public class MyWeddiTablesController {
         if(!response.getStatusCode().is2xxSuccessful()){
             System.err.println("cannot create tables");
         }
+
+        return "redirect:/host/tables";
+    }
+
+    @PostMapping("/setguests")
+    public String setGuests(Long tableplace[], String vVal[], Principal principal){
+
+        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+        String path = Global.domain + "/api/table/setguests";
+        restTemplate.getInterceptors().clear();
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
+        ResponseEntity response = restTemplate.postForEntity(path, vVal, Void.class);
+        return "redirect:/host/tables";
+    }
+
+    @PostMapping("/loadtableschema")
+    public String loadTableSchema(MultipartFile image, Principal principal){
+        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+        restTemplate.getInterceptors().clear();
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
+        String path = Global.domain + "/api/table/loadschema";
+        byte[] bytes = new byte[0];
+        try {
+            bytes = image.getBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String stringByteImage = Base64.getEncoder().encodeToString(bytes);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Object> requestEntity = new HttpEntity<Object>(stringByteImage, headers);
+        restTemplate.postForObject(path, requestEntity, String.class);
 
         return "redirect:/host/tables";
     }

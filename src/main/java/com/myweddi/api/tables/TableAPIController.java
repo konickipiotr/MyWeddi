@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/table")
 public class TableAPIController {
@@ -24,5 +26,17 @@ public class TableAPIController {
     @PostMapping
     public ResponseEntity createTables(@RequestBody TableTempObject tableObject){
         return tableService.createTables(tableObject);
+    }
+
+    @PostMapping("/setguests")
+    public ResponseEntity setGuests(@RequestBody String vVal[], Principal principal){
+        tableService.updateTables(vVal, principal);
+        return  new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/loadschema")
+    public ResponseEntity loadTableSchema(@RequestBody String stringByteImage, Principal principal){
+        tableService.saveTableSchema(stringByteImage, principal);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

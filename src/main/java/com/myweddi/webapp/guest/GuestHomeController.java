@@ -3,9 +3,8 @@ package com.myweddi.webapp.guest;
 import com.myweddi.conf.Global;
 import com.myweddi.exception.FailedSaveFileException;
 import com.myweddi.model.Comment;
-import com.myweddi.model.Like;
+import com.myweddi.model.WeddiLike;
 import com.myweddi.model.Post;
-import com.myweddi.model.PostUserId;
 import com.myweddi.user.Guest;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.GuestRepository;
@@ -19,12 +18,10 @@ import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -133,7 +130,7 @@ public class GuestHomeController {
 
 
         String path = Global.domain + "/api/post/changestar";
-        ResponseEntity<Boolean> response = restTemplate.postForEntity(path, new Like(postid, user.getId()), Boolean.class);
+        ResponseEntity<Boolean> response = restTemplate.postForEntity(path, new WeddiLike(postid, user.getId()), Boolean.class);
 
 
         return "redirect:/guest";

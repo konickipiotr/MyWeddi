@@ -1,12 +1,12 @@
 package com.myweddi.db;
 
-import com.myweddi.model.Like;
+import com.myweddi.model.WeddiLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface LikeRepository extends JpaRepository<Like, Long> {
+public interface LikeRepository extends JpaRepository<WeddiLike, Long> {
     boolean existsByPostidAndUserid(Long postid, Long userid);
     void deleteByPostidAndUserid(Long postid, Long userid);
-    List<Like> findByPostid(Long postid);
+    List<WeddiLike> findByPostid(Long postid);
 }

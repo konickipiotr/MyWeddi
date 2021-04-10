@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DbInit implements CommandLineRunner {
@@ -27,9 +29,11 @@ public class DbInit implements CommandLineRunner {
     private PostRepository postRepository;
     private CommentRepository commentRepository;
     private PhotoRepository photoRepository;
+    private TablesRepository tablesRepository;
+    private TablePlaceRepository tablePlaceRepository;
 
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.churchRepository = churchRepository;
@@ -40,6 +44,8 @@ public class DbInit implements CommandLineRunner {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.photoRepository = photoRepository;
+        this.tablesRepository = tablesRepository;
+        this.tablePlaceRepository = tablePlaceRepository;
     }
 
     @Override
@@ -53,6 +59,8 @@ public class DbInit implements CommandLineRunner {
         this.postRepository.deleteAll();
         this.commentRepository.deleteAll();
         this.photoRepository.deleteAll();
+        this.tablePlaceRepository.deleteAll();
+        this.tablesRepository.deleteAll();
 
         UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);
@@ -68,6 +76,9 @@ public class DbInit implements CommandLineRunner {
 
         UserAuth ua5 = new UserAuth("sf", passwordEncoder.encode("11"), "PHOTOGRAPHER", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua5);
+
+        UserAuth ua6 = new UserAuth("sg2", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
+        this.userAuthRepository.save(ua6);
 
         ChurchInfo churchInfo1 = new ChurchInfo();
         churchInfo1.setWeddingid(ua2.getId());
@@ -114,8 +125,17 @@ public class DbInit implements CommandLineRunner {
         g1.setStatus(GuestStatus.NOTCONFIRMED);
         this.guestRepository.save(g1);
 
+        Guest g2 = new Guest();
+        g2.setId(ua6.getId());
+        g2.setWeddingid(ua2.getId());
+        g2.setRole("GUEST");
+        g2.setFirstname("Adam");
+        g2.setLastname("Nowak");
+        g2.setStatus(GuestStatus.CONFIRMED);
+        this.guestRepository.save(g2);
+
         LocalDateTime localDateTime = LocalDateTime.now(Global.zid);
-        Post p1 = new Post(ua2.getId(), ua2.getId(), localDateTime, "takietam");
+        Post p1 = new Post(ua2.getId(), ua2.getId(), localDateTime, "takietam", Posttype.LOCAL);
         this.postRepository.save(p1);
 
         Photo ph1 = new Photo(p1.getId(), ua2.getId());
@@ -125,5 +145,19 @@ public class DbInit implements CommandLineRunner {
 
         Comment com1 = new Comment(p1.getId(), ua3.getId(), "Super zdjęcie", LocalDateTime.now(Global.zid));
         this.commentRepository.save(com1);
+
+
+        int tableid[] = {1,2,3};
+        int capacity[] = {3,4,1};
+        Tables tables = new Tables(ua2.getId(), capacity.length, capacity);
+        this.tablesRepository.save(tables);
+
+        List<TablePlace> tp = new ArrayList<>();
+        for(int i = 0; i < tableid.length; i++){
+
+            for(int j = 0; j < capacity[i]; j++)
+                tp.add(new TablePlace(tableid[i], (j + 1), ua2.getId()));
+        }
+        this.tablePlaceRepository.saveAll(tp);
     }
 }

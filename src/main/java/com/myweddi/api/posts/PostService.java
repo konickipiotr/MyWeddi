@@ -6,6 +6,8 @@ import com.myweddi.db.LikeRepository;
 import com.myweddi.db.PhotoRepository;
 import com.myweddi.db.PostRepository;
 import com.myweddi.exception.FailedSaveFileException;
+import com.myweddi.exception.ForbiddenException;
+import com.myweddi.exception.NotFoundException;
 import com.myweddi.model.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.User;
@@ -17,7 +19,8 @@ import com.myweddi.view.CommentView;
 import com.myweddi.view.PostView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.parameters.P;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +30,6 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,41 +61,87 @@ public class PostService {
         this.likeRepository = likeRepository;
     }
 
-    public PostView getPost(Long postid, Principal principal){
-        Post post = this.postRepository.findById(postid).get();
-        UserAuth user = this.userAuthRepository.findByUsername(principal.getName());
+    public ResponseEntity<PostView> getPost(Long postid, String username){
+        Optional<Post> oPost = this.postRepository.findById(postid);
+        if(oPost.isEmpty())
+            throw new NotFoundException();
+        Post post = oPost.get();
+        User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
+        checkAccess(post, currentUser);
 
-        User postUser = getUser(post.getUserid());
-        PostView postView = new PostView(post, postUser);
-        postView.setPhotos(this.photoRepository.findByPostid(post.getId()));
-
-        List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(post.getId());
-        postView.setComments(getCommentViewList(comments, post));
-        postView.covert();
-
-        List<Like> likes = likeRepository.findByPostid(postid);
-        postView.setLikeNumber(likes.size());
-
-        boolean isLiked = false;
-        for(Like l : likes){
-            if(l.getUserid().equals(user.getId()))
-                isLiked = true;
-        }
-        postView.setLike(isLiked);
-
-        return postView;
+        PostView postView = prepareSinglePost(post, currentUser);
+        return new ResponseEntity<PostView>(postView, HttpStatus.OK);
     }
 
-    public ListWrapper<PostView>  getPostFromPage(int page, Principal principal){
+    private void checkAccess(Post post, User currentUser){
+        if(post.getPosttype().equals(Posttype.LOCAL)){
+            if(!post.getWeddingid().equals(currentUser.getWeddingid()))
+                throw new ForbiddenException();
+        }else{
+            if(currentUser.getRole().equals("GUEST"))
+                throw new ForbiddenException();
+        }
+    }
+
+
+    public ListWrapper<PostView>  getLastPublicPosts(int page, String username){
+
+        User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
+        if(currentUser.getRole().equals("GUEST"))
+            throw new ForbiddenException();
+
         page--;
-        List<Post> posts = this.postRepository.findAllByOrderByCreationdateDesc(PageRequest.of(page, PAGE_SIZE));
+
+        List<Post> posts = this.postRepository.findByPosttypeOrderByCreationdateDesc(Posttype.PUBLIC, PageRequest.of(page, PAGE_SIZE));
 
         List<PostView> postViews = new ArrayList<>();
-        for(Post p : posts)
-            postViews.add(getPost(p.getId(), principal));
+        for(Post post : posts)
+            postViews.add(prepareSinglePost(post, currentUser));
 
         postViews.forEach(i -> i.covert());
         return new ListWrapper<>(postViews);
+    }
+
+    public ListWrapper<PostView>  getLastWeddingPosts(int page, String username){
+
+        User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
+        if(currentUser.getRole().equals("GUEST"))
+            throw new ForbiddenException();
+
+        page--;
+
+        List<Post> posts = this.postRepository.findByWeddingidOrderByCreationdateDesc(currentUser.getWeddingid(), PageRequest.of(page, PAGE_SIZE));
+
+        List<PostView> postViews = new ArrayList<>();
+        for(Post post : posts)
+            postViews.add(prepareSinglePost(post, currentUser));
+
+        postViews.forEach(i -> i.covert());
+        return new ListWrapper<>(postViews);
+    }
+
+    private PostView prepareSinglePost(Post post, User currentUser){
+
+        User postUser = getUser(post.getUserid());
+        PostView postView = new PostView(post, postUser);
+        Long postid = post.getId();
+        postView.setPhotos(this.photoRepository.findByPostid(postid));
+
+        List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(postid);
+        postView.setComments(getCommentViewList(comments, post));
+        postView.covert();
+
+        List<WeddiLike> weddiLikes = likeRepository.findByPostid(postid);
+        postView.setLikeNumber(weddiLikes.size());
+
+        boolean isLiked = false;
+        for(WeddiLike l : weddiLikes){
+            if(l.getUserid().equals(currentUser.getId()))
+                isLiked = true;
+        }
+        postView.setWeddiLike(isLiked);
+        postView.setMyPost(post.getUserid().equals(currentUser.getId()));
+        return postView;
     }
 
     private List<CommentView> getCommentViewList(List<Comment> comments, Post post){
@@ -128,7 +176,7 @@ public class PostService {
 
     public void savePostFiles(Long postid, Long userid, List<String> imagesStringBytes) {
         if(this.postRepository.existsById(postid)) {
-            List<MultipartFile> multipartFiles = convertToMultipartFile(imagesStringBytes);
+            List<MultipartFile> multipartFiles = fileService.convertToMultipartFiles(imagesStringBytes);
             List<FileNameStruct> fileNameStructs = fileService.uploadPhotos(multipartFiles, PhotoCat.POST);
             if (fileNameStructs == null || fileNameStructs.isEmpty())
                 throw new FailedSaveFileException();
@@ -142,28 +190,24 @@ public class PostService {
         }
     }
 
-    public List<MultipartFile> convertToMultipartFile(List<String> imagesStringBytes){
-        List<MultipartFile> mFiles = new ArrayList<>();
-        for(String sImage : imagesStringBytes){
-            byte[] imgbyte = Base64.getDecoder().decode(sImage);
-            mFiles.add(new CustomMultipartFile(imgbyte));
-        }
-        return mFiles;
-    }
 
-    public boolean deletePost(Principal principal, Long postid){
-        UserAuth user = userAuthRepository.findByUsername(principal.getName());
-        Post post = postRepository.findById(postid).get();
+    public boolean deletePost(String username, Long postid){
 
-        if(!user.getId().equals(post.getUserid()))
-            return false;
+        Optional<Post> oPost = this.postRepository.findById(postid);
+        if(oPost.isEmpty())
+            throw new NotFoundException();
+        Post post = oPost.get();
+        User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
+        checkAccess(post, currentUser);
+
         postRepository.deleteById(postid);
         commentRepository.deleteByPostid(postid);
 
         List<Photo> postPhotos = photoRepository.findByPostid(postid);
         for(Photo p : postPhotos){
             try {
-                fileService.deleteFile(p.getRealPath());
+                if(p.getRealPath() != null)
+                    fileService.deleteFile(p.getRealPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -172,12 +216,12 @@ public class PostService {
         return true;
     }
 
-    public boolean changePostStar(Like like){
-        if(likeRepository.existsByPostidAndUserid(like.getPostid(), like.getUserid())){
-            likeRepository.deleteByPostidAndUserid(like.getPostid(), like.getUserid());
+    public boolean changePostStar(WeddiLike weddiLike){
+        if(likeRepository.existsByPostidAndUserid(weddiLike.getPostid(), weddiLike.getUserid())){
+            likeRepository.deleteByPostidAndUserid(weddiLike.getPostid(), weddiLike.getUserid());
             return false;
         }else {
-            likeRepository.save(like);
+            likeRepository.save(weddiLike);
             return true;
         }
     }

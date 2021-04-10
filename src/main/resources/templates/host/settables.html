@@ -30,7 +30,8 @@
     <section class="content">
       <form th:action="@{/host/tables/settables}" method="post">
         <input type="hidden" name="weddingid" th:value="${weddingid}" />
-        <input type="number" min="1" name="numoftables">
+        <label>Ile stołów: </label>
+        <input type="number" min="1" value="1" name="numoftables">
         <button type="submit">Dalej</button>
       </form>
   </section>

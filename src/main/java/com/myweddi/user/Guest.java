@@ -25,6 +25,16 @@ public class Guest{
     public Guest() {
     }
 
+    public Guest(Long id, Long weddingid, String email, String firstname, String lastname, String role, GuestStatus status) {
+        this.id = id;
+        this.weddingid = weddingid;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.role = role;
+        this.status = status;
+    }
+
     public Guest(Long weddingid, String firstname, String lastname) {
         this.weddingid = weddingid;
         this.firstname = firstname;

@@ -23,13 +23,10 @@ public class PostView {
     private String username;
     private String userphoto;
 
-    @Transient
-    private String postdate;
-    @Transient
-    private String posttime;
-
-    private boolean like;
+    private String postdatetime;
+    private boolean weddiLike;
     private int likeNumber;
+    private boolean myPost;
 
     private List<Photo> photos = new ArrayList<>();
     private List<CommentView> comments = new ArrayList<>();
@@ -48,8 +45,9 @@ public class PostView {
     }
 
     public void covert() {
-        this.postdate = this.creationdate.toLocalDate().toString();
-        this.posttime = this.creationdate.toLocalTime().truncatedTo(ChronoUnit.MINUTES).toString();
+        String sDate = this.creationdate.toLocalDate().toString();
+        String sTime = this.creationdate.toLocalTime().truncatedTo(ChronoUnit.MINUTES).toString();
+        this.postdatetime = sDate + " - " + sTime;
     }
 
     public Long getId() {
@@ -108,20 +106,36 @@ public class PostView {
         this.userphoto = userphoto;
     }
 
-    public String getPostdate() {
-        return postdate;
+    public String getPostdatetime() {
+        return postdatetime;
     }
 
-    public void setPostdate(String postdate) {
-        this.postdate = postdate;
+    public void setPostdatetime(String postdatetime) {
+        this.postdatetime = postdatetime;
     }
 
-    public String getPosttime() {
-        return posttime;
+    public boolean isWeddiLike() {
+        return weddiLike;
     }
 
-    public void setPosttime(String posttime) {
-        this.posttime = posttime;
+    public void setWeddiLike(boolean weddiLike) {
+        this.weddiLike = weddiLike;
+    }
+
+    public int getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public boolean isMyPost() {
+        return myPost;
+    }
+
+    public void setMyPost(boolean myPost) {
+        this.myPost = myPost;
     }
 
     public List<Photo> getPhotos() {
@@ -138,21 +152,5 @@ public class PostView {
 
     public void setComments(List<CommentView> comments) {
         this.comments = comments;
-    }
-
-    public int getLikeNumber() {
-        return likeNumber;
-    }
-
-    public void setLikeNumber(int likeNumber) {
-        this.likeNumber = likeNumber;
-    }
-
-    public boolean isLike() {
-        return like;
-    }
-
-    public void setLike(boolean like) {
-        this.like = like;
     }
 }

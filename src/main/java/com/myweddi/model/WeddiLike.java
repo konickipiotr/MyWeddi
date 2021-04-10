@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Like {
+public class WeddiLike {
 
     @Id
     @GeneratedValue
@@ -13,10 +13,10 @@ public class Like {
     private Long postid;
     private Long userid;
 
-    public Like() {
+    public WeddiLike() {
     }
 
-    public Like(Long postid, Long userid) {
+    public WeddiLike(Long postid, Long userid) {
         this.postid = postid;
         this.userid = userid;
     }

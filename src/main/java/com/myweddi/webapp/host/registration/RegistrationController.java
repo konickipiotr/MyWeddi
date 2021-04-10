@@ -36,7 +36,7 @@ public class RegistrationController {
         new RegistrationValidator(userAuthRepository).validate(rf, result);
         if(result.hasErrors()){
             model.addAttribute("registrationForm", rf);
-            return "owner/registration";
+            return "host/registration";
         }
 
         String path = Global.domain + "/api/registration";
