@@ -1,0 +1,105 @@
+.content{
+    background-color: rgb(224, 202, 217);
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    justify-content: center;
+
+}
+
+.addGifts_top h1{
+    display: block;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 40px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.enterbtn_addGifts button{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:2px solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    background-color: rgb(235, 219, 230);
+    text-align:center;
+    transition: all 0.2s;
+    color:#000000;
+    margin-top: 30px;
+    width: 200px;
+    height: 35px;
+}
+
+.enterbtn_addGifts2 button:hover{
+    color: black;
+    background-color: white;
+    opacity: 50%;
+}
+.enterbtn_addGifts2 button{
+    display:inline-block;
+    padding:0.25em 1em;
+    border:2px solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    font-size: 15px;
+    background-color: rgb(235, 219, 230);
+    text-align:center;
+    transition: all 0.2s;
+    color:#000000;
+    margin-top: 30px;
+    width: 150px;
+    height: 25px;
+}
+
+.enterbtn_addGifts button:hover{
+    color: black;
+    background-color: white;
+    opacity: 50%;
+}
+
+.textarea_addGifts{
+    width: 70%;
+}
+
+.addGifts_top i {
+    border: 2px solid black;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+    
+.addGifts_top button{
+    background-color: transparent;
+   border-style: none;
+}
+.addGifts_top button:active{
+    background-color: wheat;
+}
+.addGifts_top button:hover{
+    background-color: rgb(143, 83, 133);
+    border-radius: 5px 5px 5px 5px;
+}
+.p0{
+    color:rgb(150, 91, 135);
+}
+.p1{
+    color: rgb(184, 97, 133)
+}
+.p2{
+    color: rgb(129, 102, 114);
+}
+.p3{
+    color: rgb(211, 82, 88)
+}
+.down_of_addgifts{
+    padding-top: 20px;
+}
