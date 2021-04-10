@@ -21,6 +21,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 sh """
+                    mvn clean compile
                     chmod +x ./deploy.sh
                     ./deploy.sh
                 """
