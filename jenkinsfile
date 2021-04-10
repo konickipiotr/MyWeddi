@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-//         stage('Build') {
-//             steps {
-//                 sh "mvn clean compile"
-//             }
-//         }
+        stage('Build') {
+            steps {
+                sh "mvn clean compile"
+            }
+        }
 
         stage('Test'){
             steps{
@@ -21,9 +21,6 @@ pipeline {
         stage('Deploy'){
             steps{
                 sh """
-                    pwd
-                    ls
-
                     chmod +x ./deploy.sh
                     ./deploy.sh
                 """
