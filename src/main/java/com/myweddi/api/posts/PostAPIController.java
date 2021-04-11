@@ -25,15 +25,15 @@ public class PostAPIController {
     @Autowired
     private CommentService commentService;
 
-//    @GetMapping("/{weddingid}/{page}")
-//    public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page, Principal principal) {
-//        return new ResponseEntity<ListWrapper<PostView>>(postService.getPostFromPage(page, principal.getName(), Posttype.LOCAL), HttpStatus.OK);
-//    }
+    @GetMapping("/{weddingid}/{page}")
+    public ResponseEntity<ListWrapper<PostView>> getLastPostList(@PathVariable("weddingid") Long weddingid, @PathVariable("page") int page, Principal principal) {
+        return new ResponseEntity<ListWrapper<PostView>>(postService.getLastWeddingPosts(page, principal.getName()), HttpStatus.OK);
+    }
 
-//    @GetMapping("/public/{page}")
-//    public ResponseEntity<ListWrapper<PostView>> getLastWatchedPostList(@PathVariable("page") int page, Principal principal) {
-//        return postService.getPostFromPage(page, principal.getName(), Posttype.PUBLIC), HttpStatus.OK);
-//    }
+    @GetMapping("/public/{page}")
+    public ResponseEntity<ListWrapper<PostView>> getLastWatchedPostList(@PathVariable("page") int page, Principal principal) {
+        return postService.getLastPublicPosts(page, principal.getName());
+    }
 
     @GetMapping("{weddingid}/post/{postid}")
     public ResponseEntity<PostView> getPostView(@PathVariable("weddingid") Long weddingid, @PathVariable("postid") Long postid, Principal principal) {
@@ -41,8 +41,8 @@ public class PostAPIController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> newPostInDb(@RequestBody Post post) {
-        Long postid = postService.newPostInDb(post);
+    public ResponseEntity<Long> newPostInDb(@RequestBody Post post, Principal principal) {
+        Long postid = postService.newPostInDb(post, principal.getName());
         return new ResponseEntity<Long>(postid, HttpStatus.CREATED);
     }
 
@@ -53,19 +53,17 @@ public class PostAPIController {
     }
 
     @PostMapping("/addcomment")
-    public void addComment(@RequestBody Comment comment) {
-        this.commentService.addComment(comment);
+    public void addComment(@RequestBody Comment comment, Principal principal) {
+        this.commentService.addComment(comment, principal.getName());
     }
 
-    @DeleteMapping("/deletecomment/{commentid}")
-    public ResponseEntity deleteComment(@PathVariable("commentid") Long comId, Principal principal){
-        if(commentService.deleteComment(principal, comId))
-            return new ResponseEntity(HttpStatus.OK);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/deletecomment")
+    public ResponseEntity deleteComment(@RequestBody Long commentid, Principal principal){
+        return commentService.deleteComment(commentid, principal.getName());
     }
 
-    @DeleteMapping("/deletepost/{postid}")
-    public ResponseEntity deletePost(@PathVariable("postid") Long postid, Principal principal){
+    @DeleteMapping("/deletepost")
+    public ResponseEntity deletePost(@RequestBody Long postid, Principal principal){
         if(postService.deletePost(principal.getName(), postid))
             return new ResponseEntity(HttpStatus.OK);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -75,5 +73,4 @@ public class PostAPIController {
     public ResponseEntity<Boolean> isLiked(@RequestBody WeddiLike weddiLike){
         return new ResponseEntity<Boolean>(postService.changePostStar(weddiLike), HttpStatus.OK);
     }
-
 }

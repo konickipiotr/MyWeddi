@@ -16,12 +16,9 @@ public class CommentView implements Comparable<Comment> {
     private LocalDateTime creationdate;
     private String username;
     private String userphoto;
-    private String role;
 
-    @Transient
-    private String postdate;
-    @Transient
-    private String posttime;
+    private String postdatetime;
+    private boolean myComment;
 
     public CommentView() {
     }
@@ -34,7 +31,6 @@ public class CommentView implements Comparable<Comment> {
         this.creationdate = c.getCreationdate();
         this.username = user.getName();
         this.userphoto = user.getWebAppPath();
-        this.role = user.getRole();
     }
 
     @Override
@@ -45,8 +41,9 @@ public class CommentView implements Comparable<Comment> {
     }
 
     public void covert() {
-        this.postdate = this.creationdate.toLocalDate().toString();
-        this.posttime = this.creationdate.toLocalTime().truncatedTo(ChronoUnit.MINUTES).toString();
+        String sDate = this.creationdate.toLocalDate().toString();
+        String sTime = this.creationdate.toLocalTime().truncatedTo(ChronoUnit.MINUTES).toString();
+        this.postdatetime = sDate + " - " + sTime;
     }
 
     public Long getId() {
@@ -105,27 +102,19 @@ public class CommentView implements Comparable<Comment> {
         this.userphoto = userphoto;
     }
 
-    public String getRole() {
-        return role;
+    public String getPostdatetime() {
+        return postdatetime;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPostdatetime(String postdatetime) {
+        this.postdatetime = postdatetime;
     }
 
-    public String getPostdate() {
-        return postdate;
+    public boolean isMyComment() {
+        return myComment;
     }
 
-    public void setPostdate(String postdate) {
-        this.postdate = postdate;
-    }
-
-    public String getPosttime() {
-        return posttime;
-    }
-
-    public void setPosttime(String posttime) {
-        this.posttime = posttime;
+    public void setMyComment(boolean myComment) {
+        this.myComment = myComment;
     }
 }

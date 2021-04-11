@@ -6,6 +6,8 @@ import com.myweddi.model.Comment;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -23,18 +25,20 @@ public class CommentService {
         this.userAuthRepository = userAuthRepository;
     }
 
-    public boolean deleteComment(Principal principal, Long comId){
-        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+    public ResponseEntity deleteComment(Long comId, String username){
+        UserAuth user = userAuthRepository.findByUsername(username);
         Comment comment = commentRepository.findById(comId).get();
 
-        if(!user.getId().equals(comment.getUserid()))
-            return false;
+        if(!user.getRole().equals("HOST") && !user.getId().equals(comment.getUserid()))
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
 
         commentRepository.deleteById(comId);
-        return true;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    public void addComment(Comment comment){
+    public void addComment(Comment comment, String username){
+        UserAuth user = userAuthRepository.findByUsername(username);
+        comment.setUserid(user.getId());
         comment.setCreationdate(LocalDateTime.now(Global.zid));
         this.commentRepository.save(comment);
     }

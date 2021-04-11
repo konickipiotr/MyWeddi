@@ -33,13 +33,13 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/init")
+    @GetMapping
     public String home(Principal principal, HttpSession session){
         UserAuth userAuth = userAuthRepository.findByUsername(principal.getName());
-        System.out.println(userAuth);
 
         String view = "";
         Role role = Role.valueOf(userAuth.getRole());
+        session.setAttribute("role", role);
 
         Host host = null;
         switch (role){
@@ -48,7 +48,7 @@ public class HomeController {
                 host = this.hostRepository.findById(userAuth.getId()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());
-                view = "redirect:/host";
+                view = "redirect:/home";
             } break;
             case GUEST:{
                 Guest guest = null;
@@ -56,7 +56,7 @@ public class HomeController {
                 host = this.hostRepository.findById(guest.getWeddingid()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());
-                view = "redirect:/guest";
+                view = "redirect:/home";
             } break;
             case DJ:  view = "redirect:/dj"; break;
             case PHOTOGRAPHER:  view = "redirect:/photographer"; break;

@@ -84,7 +84,7 @@ public class PostService {
     }
 
 
-    public ListWrapper<PostView>  getLastPublicPosts(int page, String username){
+    public ResponseEntity<ListWrapper<PostView>> getLastPublicPosts(int page, String username){
 
         User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
         if(currentUser.getRole().equals("GUEST"))
@@ -99,14 +99,12 @@ public class PostService {
             postViews.add(prepareSinglePost(post, currentUser));
 
         postViews.forEach(i -> i.covert());
-        return new ListWrapper<>(postViews);
+        return new ResponseEntity<ListWrapper<PostView>>(new ListWrapper<PostView>(postViews), HttpStatus.OK);
     }
 
-    public ListWrapper<PostView>  getLastWeddingPosts(int page, String username){
+    public ListWrapper<PostView> getLastWeddingPosts(int page, String username){
 
         User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
-        if(currentUser.getRole().equals("GUEST"))
-            throw new ForbiddenException();
 
         page--;
 
@@ -128,7 +126,7 @@ public class PostService {
         postView.setPhotos(this.photoRepository.findByPostid(postid));
 
         List<Comment> comments = this.commentRepository.findAllByPostidOrderByCreationdateAsc(postid);
-        postView.setComments(getCommentViewList(comments, post));
+        postView.setComments(getCommentViewList(comments, post, currentUser));
         postView.covert();
 
         List<WeddiLike> weddiLikes = likeRepository.findByPostid(postid);
@@ -140,15 +138,23 @@ public class PostService {
                 isLiked = true;
         }
         postView.setWeddiLike(isLiked);
-        postView.setMyPost(post.getUserid().equals(currentUser.getId()));
+        if(currentUser.getRole().equals("HOST"))
+            postView.setMyPost(true);
+        else
+            postView.setMyPost(post.getUserid().equals(currentUser.getId()));
         return postView;
     }
 
-    private List<CommentView> getCommentViewList(List<Comment> comments, Post post){
+    private List<CommentView> getCommentViewList(List<Comment> comments, Post post, User currentUser){
         List<CommentView> commentViewsList = new ArrayList<>();
         for(Comment c : comments){
+
             User user = getUser(c.getUserid());
             CommentView cv = new CommentView(c, user);
+            if(currentUser.getRole().equals("HOST"))
+                cv.setMyComment(true);
+            else
+                cv.setMyComment(currentUser.getId().equals(user.getId()));
             commentViewsList.add(cv);
         }
         commentViewsList.forEach(i -> i.covert());
@@ -167,9 +173,16 @@ public class PostService {
         return user;
     }
 
-    public Long newPostInDb(Post post) {
+    public Long newPostInDb(Post post, String username) {
+        User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
+        post.setUserid(currentUser.getId());
+        if(post.getPosttype().equals(Posttype.LOCAL))
+            post.setWeddingid(currentUser.getWeddingid());
+        else
+            post.setWeddingid(0l);
         LocalDateTime now = LocalDateTime.now(Global.zid);
         post.setCreationdate(now.truncatedTo(ChronoUnit.SECONDS));
+
         this.postRepository.save(post);
         return post.getId();
     }
@@ -189,7 +202,6 @@ public class PostService {
             }
         }
     }
-
 
     public boolean deletePost(String username, Long postid){
 

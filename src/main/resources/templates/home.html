@@ -27,43 +27,46 @@
       <!-- ************************************************** -->
 
       <section class="content">
-        <h1>owner</h1>
+        <div th:if="${session.role == 'HOST'}">
+            <a th:href="@{/home}">Mój ślub</a>
+            <a th:href="@{/home/public}">Publiczne</a>
+            <!-- <a th:href="@{/gust/watched}">Obserwowane</a> -->
+        </div>
+        <!-- ######################### POST FORM ##################################### -->
+        <div class="added_post">
+            <form th:action="@{/home}" method="post"  enctype="multipart/form-data">
+                <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                <div class="added_post_top">
+                    <div >
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div >
+                        <a>NAPISZ COŚ</a>
+                    </div>
+                    <div>
+                        <textarea class ="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
+                    </div>
+
+                </div>
+                <div class="added_post_down">
+
+                    <input type="file" class="input_add_post" id="myFile" name="images" multiple>
+                    <button type="submit" class="entercomment"><span>Dodaj</span></button>
+
+                </div>
+            </form>
+        </div>
+        <!-- ######################### POST FORM END ##################################### -->
 
         <div class="content_post" th:each="p : ${posts}">
-            <div>
-                <a th:href="@{/gust}">Mój ślub</a>
-                <a th:href="@{/gust/public}">Publiczne</a>
-                <a th:href="@{/gust/watched}">Obserwowane</a>
-            </div>
-
-            <div class="added_post">
-                <form th:action="@{/guest}" method="post"  enctype="multipart/form-data">
-                    <input type="hidden" id="postType" name="postType" th:value="${postType}">
-                    <div class="added_post_top">
-                        <div >
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div >
-                            <a>NAPISZ COŚ</a>
-                        </div>
-                        <div>
-                            <textarea class ="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
-                        </div>
-
-                    </div>
-                    <div class="added_post_down">
-
-                        <input type="file" class="input_add_post" id="myFile" name="images" multiple>
-                        <button type="submit" class="entercomment"><span>Dodaj</span></button>
-
-                    </div>
-                </form>
-            </div>
-
             <div class="user_posts">
                 <div class="header_post">
                     <div class="data_post">
-                        <p th:text="${p.postdate + ' ' + p.posttime}"></p>
+                        <p th:text="${p.postdatetime}"></p>
+                        <form th:if="${p.myPost}" th:action="@{/home/deletepost}" method="post">
+                          <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                          <button  type="submit" name="postid" th:value="${p.id}">Usuń</button>
+                        </form>
                     </div>
                     <div class="icon_post">
                         <i class="fas fa-user-circle"></i>
@@ -81,7 +84,8 @@
                     <p th:if="${p.weddiLike}">L</p>
                     <p th:unless="${p.weddiLike}">NL</p>
                     <p><span>Num of weddiLikes</span><span th:text="${p.likeNumber}"></span></p>
-                    <form th:action="@{/guest/star}" method="post">
+                    <form th:action="@{/home/star}" method="post">
+                        <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
                         <button th:if="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}">liked</button>
                         <button th:unless="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}">not weddiLike</button>
                     </form>
@@ -101,7 +105,13 @@
                         </div>
                     </div>
                     <div class="date_post">
-                        <span th:text="${c.postdate + ' ' + c.posttime}"></span>
+                        <span th:text="${c.postdatetime}"></span>
+                    </div>
+                    <div>
+                      <form th:if="${c.myComment}" th:action="@{/home/deletecomment}" method="post">
+                        <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                        <button  type="submit" name="commentid" th:value="${c.id}">Usuń</button>
+                      </form>
                     </div>
                 </div>
                 <div class="comments_middle">
@@ -109,8 +119,9 @@
                 </div>
                 </div>
                 <div class="comments_down">
-                    <form th:action="@{/guest/addcomment}" method="post">
+                    <form th:action="@{/home/addcomment}" method="post">
                       <input type="hidden" name="postid" th:value="${p.id}" />
+                      <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
                       <textarea class ="writecomment" id="writecomment" name="content" rows="3" cols="40"></textarea>
                       <button type="submit" class="entercomment"><span>Skomentuj</span></button>
                     </form>

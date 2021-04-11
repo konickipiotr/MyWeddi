@@ -91,13 +91,13 @@ class PostServiceTest {
         List<Post> all = this.postRepository.findAll();
         assertTrue(all.isEmpty());
 
-        this.postService.newPostInDb(new Post(ua1.getId(), ua2.getId(), LocalDateTime.now(), "bla bla", Posttype.LOCAL));
+        this.postService.newPostInDb(new Post(ua1.getId(), ua2.getId(), LocalDateTime.now(), "bla bla", Posttype.LOCAL), ua2.getUsername());
 
         all = this.postRepository.findAll();
         assertFalse(all.isEmpty());
         assertEquals(1, all.size());
 
-        this.postService.newPostInDb(new Post(ua1.getId(), ua2.getId(), LocalDateTime.now(), "bla bla", Posttype.LOCAL));
+        this.postService.newPostInDb(new Post(ua1.getId(), ua2.getId(), LocalDateTime.now(), "bla bla", Posttype.LOCAL), ua2.getUsername());
         all = this.postRepository.findAll();
         assertFalse(all.isEmpty());
         assertEquals(2, all.size());
@@ -262,8 +262,9 @@ class PostServiceTest {
         Post post6 = new Post(ua3.getId(), ua4.getId(), LocalDateTime.of(2020, 01,01,02,30), "guest3 private", Posttype.LOCAL);
         this.postRepository.saveAll(Arrays.asList(post1, post2, post3, post4, post5, post6));
 
-        ListWrapper<PostView> listWrapper = postService.getLastPublicPosts(1, ua1.getUsername());
-        List<PostView> posts = listWrapper.getList();
+        ResponseEntity<ListWrapper<PostView>> listWrapperEntity = postService.getLastPublicPosts(1, ua1.getUsername());
+
+        List<PostView> posts = listWrapperEntity.getBody().getList();
         assertEquals(2, posts.size());
         assertEquals(post5.getId(), posts.get(0).getId());
         assertEquals(post2.getId(), posts.get(1).getId());

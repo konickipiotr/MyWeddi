@@ -52,7 +52,8 @@ public class NewSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authenticationProvider(authenticationProvider())
                 .authorizeRequests()
-                .antMatchers("/init").hasAnyRole("HOST", "GUEST", "DJ", "ADMIN")
+                .antMatchers("/").hasAnyRole("HOST", "GUEST", "DJ", "ADMIN")
+                .antMatchers("/home/**").hasAnyRole("HOST", "GUEST", "DJ", "ADMIN")
                 .antMatchers("/guest/**").hasRole("GUEST")
                 .antMatchers("/host/**").hasRole("HOST")
                 .antMatchers("/admin/**").hasRole("ADMIN")
@@ -64,7 +65,7 @@ public class NewSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/init", true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
