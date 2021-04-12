@@ -41,7 +41,7 @@
                         <i class="fas fa-user-circle"></i>
                     </div>
                     <div >
-                        <a>NAPISZ COŚ</a>
+                        <a>DODAJ POST I ZDJĘCIA</a>
                     </div>
                     <div>
                         <textarea class ="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
@@ -65,7 +65,6 @@
                         <p th:text="${p.postdatetime}"></p>
                         <form th:if="${p.myPost}" th:action="@{/home/deletepost}" method="post">
                           <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                          <button  type="submit" name="postid" th:value="${p.id}">Usuń</button>
                         </form>
                     </div>
                     <div class="icon_post">
@@ -73,6 +72,9 @@
                     </div>
                     <div class="nameuser_post">
                         <a th:text="${p.username}"></a>
+                    </div>
+                    <div class="nameuser_post_delete_div">
+                        <button class="nameuser_post_delete"  type="submit" name="postid" th:value="${p.id}"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
                 <!-- ************************************************** -->
@@ -110,7 +112,7 @@
                     <div>
                       <form th:if="${c.myComment}" th:action="@{/home/deletecomment}" method="post">
                         <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                        <button  type="submit" name="commentid" th:value="${c.id}">Usuń</button>
+                        <button class="nameuser_post_delete"  type="submit" name="commentid" th:value="${c.id}"><i class="fas fa-trash"></i></button>
                       </form>
                     </div>
                 </div>

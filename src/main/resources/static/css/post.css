@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     font-family: 'Nunito', sans-serif;
+    margin-top:20px;
 }
 
 .content_post{
@@ -13,7 +14,9 @@
 .user_posts{
     display: flex;
     flex-direction: column;
-    border: 2px solid rgb(231, 171, 216);
+    background-color: #f5e6f4;
+    margin-top: 20px;
+    border-radius: 0px 20px 0px 20px;
 }
 
 .icon_post, .nameuser_post{
@@ -28,8 +31,10 @@
 .header_post {
   display: flex;
   justify-content: space-around;
-  background-color: rgb(238, 208, 230);
-  border-radius: 0px 0px 5px 5px;
+  background-color: #e3bcde;
+  border-radius: 0px 20px 0px 20px;
+  height: 50px;
+
 }
 
 .middle_post{
@@ -37,7 +42,6 @@
     flex-direction: column;
     align-items: center;
     margin: 20px 20px 20px 20px;
-    border: 1px solid rgb(223, 202, 202);
 }
 
 .middle_post img{
@@ -54,8 +58,9 @@
     justify-content: space-between;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgb(202, 245, 198);
-    border-radius: 5px 5px 5px 5px;
+    background-color: #e3bcde;
+    border-radius: 0px 20px 0px 20px;
+    height: 20px;
 }
 
 .left-item{
@@ -73,12 +78,14 @@
 .comments_down textarea {
     width: 70%;
     margin-left: 10px;
+    margin-top:10px;
 }
 
 .comments{
-    margin-top: 10px;
     padding-bottom: 10px;
-    border: 2px solid rgb(202, 245, 198);
+    background-color: #f5e6f4;
+    border-radius: 0px 20px 0px 20px;
+
 }
 
 .date_post{
@@ -99,12 +106,14 @@
 }
 
 .added_post{
-   background-color: rgb(231, 223, 228);
+   background: rgb(26,18,161);
+   background: linear-gradient(90deg, rgba(26,18,161,1) 0%, rgba(187,97,167,1) 0%, rgba(190,131,187,1) 57%, rgba(204,178,228,1) 100%);
     width: 90%;
     display: flex;
     justify-content: flex-start;
     padding-top:10px;
     padding-bottom:10px ;
+    border-radius: 0px 20px 0px 20px;
 }
 
 .added_post div{
@@ -124,3 +133,15 @@ border-radius: 20px 20px 20px 20px;
 .input_add_post{
 color: transparent;
 }
+.writecomment{
+width: 400px;
+resize: none;
+}
+.nameuser_post_delete {
+border: none;
+background:none;
+}
+.nameuser_post_delete_div{
+    margin-top: 12px;
+    font-size: 20px;
+    }
