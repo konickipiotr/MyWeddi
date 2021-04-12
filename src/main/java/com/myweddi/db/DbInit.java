@@ -113,7 +113,7 @@ public class DbInit implements CommandLineRunner {
         h1.setGroomlastname("Kowalski");
         h1.setGroomemail("jan@kowalski.pl");
         h1.setGroomphone("34234234");
-        h1.setWebAppPath("https://www.kilar-fotografia.pl/wp-content/uploads/2018/03/para-mloda-slub-w-kosciele-w-gdansku.jpg");
+        h1.setWebAppPath("");
         this.hostRepository.save(h1);
 
         Guest g1 = new Guest();

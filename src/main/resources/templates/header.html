@@ -7,6 +7,13 @@
 <body>
   <header th:fragment="header">
     <div class="header-middle">
+      <div>
+        <img th:src="@{${session.profilePhoto}}"  style="width: 100px; height: 100px;"/>
+        <form th:action="@{/profilphoto}" method="post" enctype="multipart/form-data">>
+          <input type="file" name="profilePhoto" multiple />
+          <button type="submit">Zdjęcie</button>
+        </form>
+      </div>
       <span>
         <h1 th:text="${session.bridename + ' i ' + session.groomname + ' 19.06.2021'}"></h1>
         <p>Pobieramy się!</p>

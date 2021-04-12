@@ -44,6 +44,7 @@ class PostServiceTest {
 
     private UserAuth ua1 = new UserAuth("host1", "11", "HOST", UserStatus.ACTIVE);
     private UserAuth ua2= new UserAuth("guest1", "11", "GUEST", UserStatus.ACTIVE);
+    private UserAuth ua22= new UserAuth("guest11", "11", "GUEST", UserStatus.ACTIVE);
     private UserAuth ua3 = new UserAuth("host2", "11", "HOST", UserStatus.ACTIVE);
     private UserAuth ua4 = new UserAuth("guest2", "11", "GUEST", UserStatus.ACTIVE);
 
@@ -71,18 +72,21 @@ class PostServiceTest {
 
         this.userAuthRepository.save(ua1);
         this.userAuthRepository.save(ua2);
+        this.userAuthRepository.save(ua22);
         this.userAuthRepository.save(ua3);
         this.userAuthRepository.save(ua4);
 
         Host h1 = new Host();
         Host h2 = new Host();
         Guest g1 = new Guest(ua2.getId(), ua1.getId(), "jola.patola@xxx.pl", "Jola", "Patola", "GUEST", GuestStatus.CONFIRMED);
+        Guest g11 = new Guest(ua22.getId(), ua1.getId(), "mariola.patola@xxx.pl", "Mariola", "Patola", "GUEST", GuestStatus.CONFIRMED);
         Guest g2 = new Guest(ua4.getId(), ua3.getId(), "adam.nowak@xxx.pl", "Adam", "Nowak", "GUEST", GuestStatus.CONFIRMED);
         h1.setId(ua1.getId());
         h2.setId(ua3.getId());
         this.hostRepository.save(h1);
         this.hostRepository.save(h2);
         this.guestRepository.save(g1);
+        this.guestRepository.save(g11);
         this.guestRepository.save(g2);
     }
 
@@ -170,7 +174,7 @@ class PostServiceTest {
         PostView postview = postview_e.getBody();
         assertTrue(postview.isMyPost());
 
-        postview_e = postService.getPost(post.getId(), ua1.getUsername());
+        postview_e = postService.getPost(post.getId(), ua22.getUsername());
         postview = postview_e.getBody();
         assertFalse(postview.isMyPost());
     }

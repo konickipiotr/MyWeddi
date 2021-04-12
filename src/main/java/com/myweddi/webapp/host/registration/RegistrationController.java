@@ -27,7 +27,7 @@ public class RegistrationController {
     @GetMapping
     public String toRegistration(Model model){
         model.addAttribute("registrationForm", new RegistrationForm());
-        return "owner/registration";
+        return "registration";
     }
 
     @PostMapping
@@ -36,7 +36,7 @@ public class RegistrationController {
         new RegistrationValidator(userAuthRepository).validate(rf, result);
         if(result.hasErrors()){
             model.addAttribute("registrationForm", rf);
-            return "host/registration";
+            return "registration";
         }
 
         String path = Global.domain + "/api/registration";

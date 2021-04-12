@@ -34,7 +34,7 @@ public class UserAuth implements UserDetails {
     public UserAuth(RegistrationForm rf) {
         this.username = rf.getUsername();
         this.password = rf.getPassword();
-        this.role = "HOST";
+        this.role = rf.getUsertype();
         this.status = UserStatus.FIRSTLOGIN;
     }
 

@@ -3,9 +3,12 @@ package com.myweddi.user;
 
 public class RegistrationForm {
 
+    private String usertype;
+
     private String username;
     private String password;
     private String password2;
+
     private String bridefirstname;
     private String bridelastname;
     private String brideemail;
@@ -15,7 +18,20 @@ public class RegistrationForm {
     private String groomemail;
     private String groomphone;
 
+    private String gender;
+    private String firstname;
+    private String lastname;
+    private String weddingcode;
+
     public RegistrationForm() {
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
     public String getUsername() {
@@ -104,5 +120,37 @@ public class RegistrationForm {
 
     public void setGroomphone(String groomphone) {
         this.groomphone = groomphone;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getWeddingcode() {
+        return weddingcode;
+    }
+
+    public void setWeddingcode(String weddingcode) {
+        this.weddingcode = weddingcode;
     }
 }

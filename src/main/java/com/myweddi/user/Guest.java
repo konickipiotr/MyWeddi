@@ -35,10 +35,22 @@ public class Guest{
         this.status = status;
     }
 
-    public Guest(Long weddingid, String firstname, String lastname) {
+    public Guest(Long id, Long weddingid, String email, String firstname, String lastname) {
+        this.id = id;
+        this.email = email;
         this.weddingid = weddingid;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.role = "GUEST";
+        this.status = GuestStatus.NOTCONFIRMED;
+    }
+
+    public Guest(Long weddingid, String firstname, String lastname) {
+        this.email = email;
+        this.weddingid = weddingid;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.role = "GUEST";
         this.status = GuestStatus.NOTCONFIRMED;
     }
 

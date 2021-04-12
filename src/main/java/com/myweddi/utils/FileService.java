@@ -49,9 +49,12 @@ public class FileService {
         }else if(photoCat.equals(PhotoCat.TABLES)){
             realPath = Global.appPath + "tables/";
             wepAppPath = "/tables/" + filename;
-        }else if(photoCat.equals(PhotoCat.CHURCH)){
+        }else if(photoCat.equals(PhotoCat.CHURCH)) {
             realPath = Global.appPath + "church/";
             wepAppPath = "/church/" + filename;
+        }else if(photoCat.equals(PhotoCat.PROFILE)){
+            realPath = Global.appPath + "profilephoto/";
+            wepAppPath = "/profilephoto/" + filename;
         }else {
             realPath = Global.appPath + "weddinghouse/";
             wepAppPath = "/weddinghouse/" + filename;

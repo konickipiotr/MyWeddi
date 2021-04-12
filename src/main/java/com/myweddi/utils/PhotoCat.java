@@ -4,5 +4,6 @@ public enum PhotoCat {
     CHURCH,
     WEDDINGHOUSE,
     POST,
-    TABLES
+    TABLES,
+    PROFILE
 }

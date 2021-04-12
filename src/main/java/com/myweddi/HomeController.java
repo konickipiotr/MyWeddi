@@ -48,6 +48,7 @@ public class HomeController {
                 host = this.hostRepository.findById(userAuth.getId()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());
+                session.setAttribute("profilePhoto", host.getWebAppPath());
                 view = "redirect:/home";
             } break;
             case GUEST:{
@@ -56,6 +57,7 @@ public class HomeController {
                 host = this.hostRepository.findById(guest.getWeddingid()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());
+                session.setAttribute("profilePhoto", guest.getWebAppPath());
                 view = "redirect:/home";
             } break;
             case DJ:  view = "redirect:/dj"; break;
