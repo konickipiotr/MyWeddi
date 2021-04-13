@@ -25,15 +25,19 @@
 }
 
 .data_post{
-    font-size: 20px;
+    font-size: 10px;
 }
 
 .header_post {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #e3bcde;
-  border-radius: 0px 20px 0px 20px;
+  border-radius: 0px 20px 0px 0px;
   height: 50px;
+  align-items: center;
+  margin: 0px;
+  padding: 0px 10px 0px 10px;
+
 
 }
 
@@ -52,15 +56,21 @@
     padding: 10px 20px 10px 20px;
     border: 1px solid rgb(231, 171, 216);
 }
-
+.comment{
+margin-left: 50px;
+background-color: #ddcce0;
+border-radius: 0px 20px 0px 20px;
+}
+.comment p{
+padding-left: 50px;
+}
 .comments_header{
     display: flex;
     justify-content: space-between;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: #e3bcde;
-    border-radius: 0px 20px 0px 20px;
+    background-color: #302c30;
+    color: white;
     height: 20px;
+    border-radius: 0px 20px 0px 20px;
 }
 
 .left-item{
@@ -145,3 +155,22 @@ background:none;
     margin-top: 12px;
     font-size: 20px;
     }
+
+.fa-trash:before {
+    color: gray;
+}
+.fa-heart{
+
+color:#b50505;
+
+}
+.fa-heart:hover{
+color: gray;
+}
+.btn_like{
+border: none;
+background-color:#f5e6f4;
+}
+.nr_like{
+font-size: 20px;
+}
