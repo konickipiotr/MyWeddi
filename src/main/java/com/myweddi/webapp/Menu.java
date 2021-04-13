@@ -14,13 +14,14 @@ public class Menu {
 
         guestMenu.put("home", "/home");
         guestMenu.put("Informacje", "/info");
-        guestMenu.put("STOŁY", "/t");
-        guestMenu.put("PREZENTY", "/");
+        guestMenu.put("STOŁY", "/guest/tables");
+        guestMenu.put("PREZENTY", "/guest/gift");
 
         hostMenu.put("home", "/home");
         hostMenu.put("Informacje", "/host/info");
         hostMenu.put("Goście", "/host/guest");
         hostMenu.put("Stoły", "/host/tables");
+        hostMenu.put("PREZENTY", "/host/gift");
 
 
 

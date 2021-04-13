@@ -2,8 +2,22 @@
     background-color: rgb(224, 202, 217);
     font-family: 'Nunito', sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 90%;
 
+}
+
+.addgift_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+.addGifts_top{
+  width: 60%;
 }
 
 .addGifts_top h1{
@@ -14,6 +28,11 @@
     font-weight: 200;
     text-align: center;
     margin-top: 10px;
+}
+
+.enterbtn_addGifts{
+  display: flex;
+  justify-content: center;
 }
 
 .enterbtn_addGifts button{
@@ -68,7 +87,16 @@
 }
 
 .textarea_addGifts{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
     width: 70%;
+}
+
+.giftInfo{
+  width: 70%;
+  resize: none;
+  margin: auto;
 }
 
 .addGifts_top i {
@@ -76,18 +104,8 @@
     padding: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
 }
-    
-.addGifts_top button{
-    background-color: transparent;
-   border-style: none;
-}
-.addGifts_top button:active{
-    background-color: wheat;
-}
-.addGifts_top button:hover{
-    background-color: rgb(143, 83, 133);
-    border-radius: 5px 5px 5px 5px;
-}
+
+
 .p0{
     color:rgb(150, 91, 135);
 }
@@ -102,4 +120,55 @@
 }
 .down_of_addgifts{
     padding-top: 20px;
+}
+
+.smallGifts{
+  display: flex;
+  width: 100%;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  width: 50%
+}
+
+.gift-row{
+  display: flex;
+}
+
+.gift-row label{
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+
+/*
+.addGifts_top button:hover{
+    background-color: rgb(143, 83, 133);
+    border-radius: 5px 5px 5px 5px;
+} */
+
+.gift-btn{
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border-style: none;
+}
+
+.gift-btn:hover{
+  background-color: rgb(143, 83, 133);
+  border-radius: 5px 5px 5px 5px;
+}
+
+.gift-btn-selected{
+  width: 70px;
+  height: 70px;
+  background-color: #2fc822;
+}
+
+.gift-btn-selected:hover{
+  width: 70px;
+  height: 70px;
+  background-color: #56be4d;
 }

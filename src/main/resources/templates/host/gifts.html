@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../static/css/addguest.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+  <title>MyWeddi</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/addguest.css">
+  <link rel="stylesheet" type="text/css" href="/css/addgifts.css">
+
+
+  <link rel="stylesheet" type="text/css" href="../../static/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/addguest.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/addgifts.css">
+</head>
+
+<body>
+  <header th:replace="top :: top">
+  </header>
+  <header th:replace="header :: header">
+  </header>
+  <div class="container" style="display: flex;">
+    <aside class="menu" th:replace="menu :: menu"></aside>
+    <!-- ************************************************** -->
+
+    <section class="content">
+      <form th:action="@{/host/gift}" method="post" class="addgift_form">
+        <div class="addGifts_top">
+          <h1>DODAJ PREZENTY</h1>
+          <p class="p0"><strong>PREZENT ZAMIAST KWIATÓW (OPCIONALNIE)</strong></p>
+          <div class="smallGifts">
+            <div class="column">
+              <div class="gift-row">
+                <button th:if="${giftIn.POTTEDFLOWERS}" type="submit" class="gift-btn-selected" name="POTTEDFLOWERS" id="POTTEDFLOWERS" onclick="smallGiftSelect(this)" th:value="${giftIn.POTTEDFLOWERS}">
+                  <i class="fas fa-seedling fa-3x"></i>
+                </button>
+                <button th:unless="${giftIn.POTTEDFLOWERS}" type="submit" class="gift-btn" name="POTTEDFLOWERS" id="POTTEDFLOWERS" onclick="smallGiftSelect(this)" th:value="${giftIn.POTTEDFLOWERS}">
+                  <i class="fas fa-seedling fa-3x"></i>
+                </button>
+                <label>Kwiaty doniczkowe</label>
+              </div>
+
+              <div class="gift-row">
+                <button th:if="${giftIn.WINE}" type="submit" class="gift-btn-selected" name="WINE" id="WINE" onclick="smallGiftSelect(this)" th:value="${giftIn.WINE}">
+                  <i class="fas fa-wine-bottle fa-3x"></i>
+                </button>
+                <button th:unless="${giftIn.WINE}" type="submit" class="gift-btn" name="WINE" id="WINE" onclick="smallGiftSelect(this)" th:value="${giftIn.WINE}">
+                  <i class="fas fa-wine-bottle fa-3x"></i>
+                </button>
+                <label>Wino</label>
+              </div>
+
+              <div class="gift-row">
+                <button th:if="${giftIn.BOOKS}" type="submit" class="gift-btn-selected" name="BOOKS" id="BOOKS" onclick="smallGiftSelect(this)" th:value="${giftIn.BOOKS}">
+                  <i class="fas fa-book-open fa-3x"></i>
+                </button>
+                <button th:unless="${giftIn.BOOKS}" type="submit" class="gift-btn" name="BOOKS" id="BOOKS" onclick="smallGiftSelect(this)" th:value="${giftIn.BOOKS}">
+                  <i class="fas fa-book-open fa-3x"></i>
+                </button>
+                <label>Książki</label>
+              </div>
+            </div>
+            <div class="column">
+              <div class="gift-row">
+                <button th:if="${giftIn.FOODER}" type="submit" class="gift-btn-selected" name="FOODER" id="FOODER" onclick="smallGiftSelect(this)" th:value="${giftIn.FOODER}">
+                  <i class="fas fa-bone fa-3x"></i>
+                </button>
+                <button th:unless="${giftIn.FOODER}" type="submit" class="gift-btn" name="FOODER" id="FOODER" onclick="smallGiftSelect(this)" th:value="${giftIn.FOODER}">
+                  <i class="fas fa-bone fa-3x"></i>
+                </button>
+                <label>Karma dla zwierząt ze schorniska</label>
+              </div>
+              <div class="gift-row">
+                <button th:if="${giftIn.LOTTERY}" type="submit" class="gift-btn-selected" name="LOTTERY" id="LOTTERY" onclick="smallGiftSelect(this)" th:value="${giftIn.LOTTERY}">
+                  <i class="fas fa-compact-disc fa-3x"></i>
+                </button>
+                <button th:unless="${giftIn.LOTTERY}" type="submit" class="gift-btn" name="LOTTERY" id="LOTTERY" onclick="smallGiftSelect(this)" th:value="${giftIn.LOTTERY}">
+                  <i class="fas fa-compact-disc fa-3x"></i>
+                </button>
+                <label>Kupony na loterii</label>
+              </div>
+              <div class="gift-row">
+                <button th:if="${giftIn.CHARITY}" type="submit" class="gift-btn-selected" name="CHARITY" id="CHARITY" onclick="smallGiftSelect(this)" th:value="${giftIn.CHARITY}">
+                  <i class="fas fa-hand-holding-heart fa-3x"></i>
+                </button>
+                <button th:unless="${giftIn.CHARITY}" type="submit" class="gift-btn" name="CHARITY" id="CHARITY" onclick="smallGiftSelect(this)" th:value="${giftIn.CHARITY}">
+                  <i class="fas fa-hand-holding-heart fa-3x"></i>
+                </button>
+                <label>Dobroczynność</label>
+              </div>
+            </div>
+          </div>
+          <p class="p1"><strong>GŁÓWNY PREZENT</strong> </p>
+          <div class="bigGifts">
+            <button th:if="${giftIn.GIFTS}" type="submit" class="gift-btn-selected" onclick="mainGiftSelect(this)" name="GIFTS" id="GIFTS">
+              <i class="fas fa-gift fa-3x"></i>
+            </button>
+            <button th:unless="${giftIn.GIFTS}" type="submit" class="gift-btn" onclick="mainGiftSelect(this)" name="GIFTS" id="GIFTS">
+              <i class="fas fa-gift fa-3x"></i>
+            </button>
+
+            <button th:if="${giftIn.MONEY}" type="submit" class="gift-btn-selected" onclick="mainGiftSelect(this)" name="MONEY" id="MONEY">
+              <i class="fas fa-envelope fa-3x"></i>
+            </button>
+            <button th:unless="${giftIn.MONEY}" type="submit" class="gift-btn" onclick="mainGiftSelect(this)" name="MONEY" id="MONEY">
+              <i class="fas fa-envelope fa-3x"></i>
+            </button>
+
+          </div>
+          <div class="textarea_addGifts">
+            <p class="p3"><strong>Jeśli nie satysfakcjonują cię powyższe wybory, wpisz informacjie w polu poniżej. Możesz tu umieścić wierszyk, doatkowe inforamcjie jak np: fundacja, numer konta</strong></p>
+            <textarea class="giftInfo" id="giftInfo" name="giftInfo" th:text="${giftIn.giftInfo}" rows="4" cols="50">
+                    Np. Nasi Kochani Goście
+                    Kwiatków nam nie przynoście
+                    wolimy dostać flaszeczkę wina
+                    będzie się cieszyć cała rodzina.</textarea>
+          </div>
+          <div class="enterbtn_addGifts">
+            <button type="submit" class="btn">D O D A J</button>
+          </div>
+        </div>
+      </form>
+      <div class="down_of_addgifts">
+        <form th:action="@{/host/gift/add}" method="post">
+          <p class="p0"><strong>Jeśli zależy Ci na konkretnej rzeczy/książce itd. dodaj ja do listy</strong></p>
+          <div>
+            <label for="giftname"> FLOWER </label>
+            <input type="text" name="giftname" id="giftname" minlength="2">
+          </div>
+          <div class="enterbtn_addGifts2">
+            <button type="submit" class="btn">D O D A J</button>
+          </div>
+        </form>
+        <div class="listofguest">
+          <table class="table_gifts">
+            <tr>
+              <th>LP</th>
+              <th>Prezent</th>
+              <th>REZERWUJ</th>
+            </tr>
+            <tr th:each="g, it : ${giftWrapper.gifts}">
+
+              <td th:text="${it.count}"></td>
+              <td th:text="${g.name}"></td>
+              <td th:if="${g.userid == null}">REZERWUJ</td>
+              <td th:unless="${g.userid == null}"></td>
+              <td>
+                <form th:action="@{/host/gift/remove}" method="post">
+                  <button type="submit" name="giftid" th:value="${g.id}">Usuń</button>
+                </form>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ************************************************** -->
+  </div>
+  <footer th:replace="footer :: footer"></footer>
+</body>
+<script>
+  function smallGiftSelect(btn) {
+
+    let isSelected = btn.value;
+    if (isSelected === "true") {
+      btn.value = false;
+      btn.className = "gift-btn";
+    } else {
+      btn.value = true;
+      btn.className = "gift-btn-selected";
+    }
+  }
+
+  function mainGiftSelect(btn) {
+
+    let money = document.getElementById("MONEY");
+    let gifts = document.getElementById("GIFTS");
+
+    money.value = false;
+    gifts.value = false;
+    money.className = "gift-btn";
+    gifts.className = "gift-btn";
+
+
+    let isSelected = btn.value;
+    if (isSelected === "true") {
+      btn.value = false;
+      btn.className = "gift-btn";
+    } else {
+      btn.value = true;
+      btn.className = "gift-btn-selected";
+    }
+  }
+</script>
+
+</html>

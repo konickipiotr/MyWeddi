@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>MyWeddi</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/info.css">
+</head>
+
+<body>
+  <header th:replace="top :: top">
+  </header>
+  <header th:replace="header :: header">
+  </header>
+  <div class="container" style="display: flex;">
+    <aside class="menu" th:replace="menu :: menu"></aside>
+    <!-- ************************************************** -->
+
+    <section class="content">
+      <div>
+        <img th:src="@{${tables.webAppPath}}">
+      </div>
+      <div th:each="t : ${tablesList}">
+        <p th:if="${t.username != null}"><span>Stół: </span> <span th:text="${t.tableid}"></span> <span th:text="${t.username}"></span> </p>
+        <p th:unless="${t.username != null}"><span>Stół: </span> <span th:text="${t.tableid}"></span> <span th:text="${defaultMessage}"></span> </p>
+      </div>
+
+  </section>
+  <!-- ************************************************** -->
+  </div>
+  <footer th:replace="footer :: footer"></footer>
+
+<script th:inline="javascript">
+  var assigned = [[${assigned}]];
+  var notassigned = [[${notassigned}]];
+  var defaultMessage = [[${defaultMessage}]];
+  var oldVals = new Map();
+
+  let allsellects = document.getElementsByClassName('guestlists');
+  for(let it of allsellects){
+    oldVals.set(it.id, it.value);
+  }
+
+
+  document.getElementById("tableform").onsubmit = function() {myFunction()};
+
+  function myFunction() {
+    let allsellects = document.getElementsByClassName('guestlists');
+
+    for(let s of allsellects){
+      var restult = s.id + '_' + s.value;
+      var newid = s.id + '_';
+      var newElement = document.getElementById(newid);
+      newElement.value = restult;
+    }
+  }
+
+  function selectHandler(item){
+    let changedItemId = item.id;
+    let chosenGuestId = item.value;
+
+    let oldId = oldVals.get(changedItemId)
+    if(oldId == chosenGuestId)
+      return;
+
+    let oldName = assigned[oldId];
+    let guestName;
+
+    if(chosenGuestId == -1){
+        notassigned[oldId] = oldName;
+        delete assigned[oldId];
+        guestName =  defaultMessage;
+
+    }else{
+
+      guestName = notassigned[chosenGuestId];
+      delete notassigned[chosenGuestId];
+      assigned[chosenGuestId] = guestName;
+
+      if(oldId != -1){
+        let oldGuestName = assigned[oldId];
+        delete assigned[oldId];
+        notassigned[oldId] = oldGuestName;
+      }
+    }
+
+    oldVals.set(changedItemId, chosenGuestId);
+
+    item.options.length = 0;
+    let newOption = document.createElement("option");
+    newOption.text = guestName;
+    newOption.value = chosenGuestId;
+    item.add(newOption);
+
+    let allsellects = document.getElementsByClassName('guestlists');
+    for(let oneSelect of allsellects){
+      oneSelect.options.length = 1;
+
+      if(oneSelect.value != -1){
+        let emptyOption = document.createElement("option");
+        emptyOption.text =  defaultMessage;
+        emptyOption.value = -1;
+        oneSelect.add(emptyOption);
+      }
+
+      for(let key of Object.keys(notassigned)){
+        let val = notassigned[key];
+        let newOption = document.createElement("option");
+        newOption.text = val;
+        newOption.value = key;
+        oneSelect.add(newOption);
+      }
+    }
+  }
+</script>
+</body>

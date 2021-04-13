@@ -2,6 +2,9 @@ package com.myweddi.db;
 
 import com.myweddi.conf.Global;
 import com.myweddi.model.*;
+import com.myweddi.modules.gift.model.GeneralGiftRepository;
+import com.myweddi.modules.gift.model.GeneralGifts;
+import com.myweddi.modules.gift.model.GiftRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
@@ -31,9 +34,11 @@ public class DbInit implements CommandLineRunner {
     private PhotoRepository photoRepository;
     private TablesRepository tablesRepository;
     private TablePlaceRepository tablePlaceRepository;
+    private GiftRepository giftRepository;
+    private GeneralGiftRepository generalGiftRepository;
 
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository, GiftRepository giftRepository, GeneralGiftRepository generalGiftRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.churchRepository = churchRepository;
@@ -46,6 +51,8 @@ public class DbInit implements CommandLineRunner {
         this.photoRepository = photoRepository;
         this.tablesRepository = tablesRepository;
         this.tablePlaceRepository = tablePlaceRepository;
+        this.giftRepository = giftRepository;
+        this.generalGiftRepository = generalGiftRepository;
     }
 
     @Override
@@ -61,6 +68,8 @@ public class DbInit implements CommandLineRunner {
         this.photoRepository.deleteAll();
         this.tablePlaceRepository.deleteAll();
         this.tablesRepository.deleteAll();
+        this.giftRepository.deleteAll();
+        this.generalGiftRepository.deleteAll();
 
         UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);
@@ -159,5 +168,8 @@ public class DbInit implements CommandLineRunner {
                 tp.add(new TablePlace(tableid[i], (j + 1), ua2.getId()));
         }
         this.tablePlaceRepository.saveAll(tp);
+
+
+        this.generalGiftRepository.save(new GeneralGifts(ua2.getId()));
     }
 }

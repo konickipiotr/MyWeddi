@@ -1,6 +1,7 @@
 package com.myweddi.webapp.host.tables;
 
 import com.myweddi.conf.Global;
+import com.myweddi.conf.Msg;
 import com.myweddi.model.ChurchInfo;
 import com.myweddi.model.Post;
 import com.myweddi.model.TableTempObject;
@@ -57,7 +58,7 @@ public class MyWeddiTablesController {
             model.addAttribute("tablesList", tw.getTablePlaces());
             model.addAttribute("assigned", tw.getAssigned());
             model.addAttribute("notassigned", tw.getNotassigned());
-            model.addAttribute("defaultMessage", "NIE PRZYDZIELONO");
+            model.addAttribute("defaultMessage", Msg.empty);
         }
 
         model.addAttribute("weddingid", userAuth.getId());

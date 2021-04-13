@@ -1,5 +1,7 @@
 package com.myweddi.api;
 
+import com.myweddi.modules.gift.GiftService;
+import com.myweddi.modules.gift.model.GeneralGiftRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
@@ -23,13 +25,15 @@ public class RegistrationAPIController {
     private HostRepository hostRepository;
     private WeddingCodeRepository weddingCodeRepository;
     private GuestRepository guestRepository;
+    private GiftService giftService;
 
     @Autowired
-    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository, WeddingCodeRepository weddingCodeRepository, GuestRepository guestRepository) {
+    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository, WeddingCodeRepository weddingCodeRepository, GuestRepository guestRepository, GiftService giftService) {
         this.userAuthRepository = userAuthRepository;
         this.hostRepository = hostRepository;
         this.weddingCodeRepository = weddingCodeRepository;
         this.guestRepository = guestRepository;
+        this.giftService = giftService;
     }
 
     @PostMapping
@@ -42,6 +46,7 @@ public class RegistrationAPIController {
         userAuth = new UserAuth(rf);
         userAuth  = this.userAuthRepository.save(userAuth);
         this.hostRepository.save(new Host(userAuth.getId(), rf));
+        this.giftService.newAccount(userAuth.getUsername());
 
         this.weddingCodeRepository.save(new WeddingCode(userAuth.getId(), generateWeddingCode()));
         return new ResponseEntity<RegistrationForm>(HttpStatus.OK);

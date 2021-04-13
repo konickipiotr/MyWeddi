@@ -12,21 +12,20 @@
     <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
     <title>MyWeddi</title>
 
-    <link rel="stylesheet" type="text/css" href="../../static/css/mainstyle.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/menu.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/addguest.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/addgifts_guestview.css">
+    <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/addguest.css">
+    <link rel="stylesheet" type="text/css" href="/css/addgifts_guestview.css">
 </head>
 <body>
-  <header th:replace="top :: top">
-  </header>
-  <header th:replace="header :: header">
-  </header>
-  <div class="container" style="display: flex;">
+<header th:replace="top :: top">
+</header>
+<header th:replace="header :: header">
+</header>
+<div class="container" style="display: flex;">
     <aside class="menu" th:replace="menu :: menu"></aside>
     <!-- ************************************************** -->
-
     <section class="content">
     <form th:action="@{/host/guest}" method="post" class="addguest_form">
         <div class="addGifts_top">
