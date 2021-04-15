@@ -20,12 +20,10 @@ public class Host {
     private String lastname;
     private String realPath;
     private String webAppPath;
-    private String role;
 
     public Host(){
         this.firstname = "Państow Młodzi";
         this.lastname = "";
-        this.role = "HOST";
         this.webAppPath = "img/user.png";
     }
 
@@ -45,7 +43,6 @@ public class Host {
         this.groomphone = rf.getGroomphone();
         this.firstname = "Państow Młodzi";
         this.lastname = "";
-        this.role = "HOST";
         this.webAppPath = "img/user.png";
     }
 
@@ -165,11 +162,4 @@ public class Host {
         this.webAppPath = webAppPath;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

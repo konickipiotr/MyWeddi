@@ -149,7 +149,6 @@ class RegistrationAPIControllerTest {
         assertEquals(rf2.getFirstname(), guest.getFirstname());
         assertEquals(rf2.getLastname(), guest.getLastname());
         assertEquals(GuestStatus.NOTCONFIRMED, guest.getStatus());
-        assertEquals("GUEST", guest.getRole());
         assertEquals(userA2.getUsername(), guest.getEmail());
     }
 

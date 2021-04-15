@@ -20,7 +20,6 @@ public class User {
         this.lastname = host.getLastname();
         this.realPath = host.getRealPath();
         this.webAppPath = host.getWebAppPath();
-        this.role = host.getRole();
         this.weddingid = this.id;
     }
 
@@ -30,7 +29,6 @@ public class User {
         this.lastname = guest.getLastname();
         this.realPath = guest.getRealPath();
         this.webAppPath = guest.getWebAppPath();
-        this.role = guest.getRole();
         this.weddingid = guest.getWeddingid();
     }
 
@@ -78,19 +76,19 @@ public class User {
         this.webAppPath = webAppPath;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Long getWeddingid() {
         return weddingid;
     }
 
     public void setWeddingid(Long weddingid) {
         this.weddingid = weddingid;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

@@ -52,8 +52,6 @@ public class HomeController {
                 view = "redirect:/home";
             } break;
             case NEWGUEST:{
-                Guest guest = this.guestRepository.findById(userAuth.getId()).get();
-                if(guest.getRole().equals("NEWGUEST"))
                     return "redirect:/firstlogin";
             }
             case GUEST:{
