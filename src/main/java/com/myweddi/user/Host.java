@@ -26,6 +26,7 @@ public class Host {
         this.firstname = "Państow Młodzi";
         this.lastname = "";
         this.role = "HOST";
+        this.webAppPath = "img/user.png";
     }
 
     public Host(Long id){
@@ -45,6 +46,7 @@ public class Host {
         this.firstname = "Państow Młodzi";
         this.lastname = "";
         this.role = "HOST";
+        this.webAppPath = "img/user.png";
     }
 
     public String getName(){

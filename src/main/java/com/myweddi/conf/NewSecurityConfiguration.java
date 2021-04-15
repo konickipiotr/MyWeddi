@@ -52,7 +52,7 @@ public class NewSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authenticationProvider(authenticationProvider())
                 .authorizeRequests()
-                .antMatchers("/").hasAnyRole("HOST", "GUEST", "DJ", "ADMIN")
+                .antMatchers("/firstlogin").hasRole( "NEWGUEST")
                 .antMatchers("/home/**").hasAnyRole("HOST", "GUEST", "DJ", "ADMIN")
                 .antMatchers("/guest/**").hasRole("GUEST")
                 .antMatchers("/host/**").hasRole("HOST")

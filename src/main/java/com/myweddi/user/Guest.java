@@ -41,8 +41,9 @@ public class Guest{
         this.weddingid = weddingid;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.role = "GUEST";
+        this.role = "NEWGUEST";
         this.status = GuestStatus.NOTCONFIRMED;
+        this.setWebAppPath("img/user.png");
     }
 
     public Guest(Long weddingid, String firstname, String lastname) {

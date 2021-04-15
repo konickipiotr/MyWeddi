@@ -86,7 +86,7 @@ public class DbInit implements CommandLineRunner {
         UserAuth ua5 = new UserAuth("sf", passwordEncoder.encode("11"), "PHOTOGRAPHER", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua5);
 
-        UserAuth ua6 = new UserAuth("sg2", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
+        UserAuth ua6 = new UserAuth("sg2", passwordEncoder.encode("11"), "NEWGUEST", UserStatus.FIRSTLOGIN);
         this.userAuthRepository.save(ua6);
 
         ChurchInfo churchInfo1 = new ChurchInfo();
@@ -122,7 +122,7 @@ public class DbInit implements CommandLineRunner {
         h1.setGroomlastname("Kowalski");
         h1.setGroomemail("jan@kowalski.pl");
         h1.setGroomphone("34234234");
-        h1.setWebAppPath("");
+        h1.setWebAppPath("https://images-na.ssl-images-amazon.com/images/I/61fwEVytm4L._AC_SL1500_.jpg");
         this.hostRepository.save(h1);
 
         Guest g1 = new Guest();
@@ -131,15 +131,17 @@ public class DbInit implements CommandLineRunner {
         g1.setRole("GUEST");
         g1.setFirstname("Jola");
         g1.setLastname("Patola");
+        g1.setWebAppPath("img/user.png");
         g1.setStatus(GuestStatus.NOTCONFIRMED);
         this.guestRepository.save(g1);
 
         Guest g2 = new Guest();
         g2.setId(ua6.getId());
         g2.setWeddingid(ua2.getId());
-        g2.setRole("GUEST");
+        g2.setRole("NEWGUEST");
         g2.setFirstname("Adam");
         g2.setLastname("Nowak");
+        g2.setWebAppPath("img/user.png");
         g2.setStatus(GuestStatus.CONFIRMED);
         this.guestRepository.save(g2);
 
@@ -152,8 +154,10 @@ public class DbInit implements CommandLineRunner {
         ph1.setWebAppPath("https://www.slubnaglowie.pl/media/cache/content_max/uploads/media/post/0003/41/74f7f3b1992d46b5101ee14adbdeaf0380272729.jpeg");
         this.photoRepository.save(ph1);
 
-        Comment com1 = new Comment(p1.getId(), ua3.getId(), "Super zdjęcie", LocalDateTime.now(Global.zid));
-        this.commentRepository.save(com1);
+        this.commentRepository.save(new Comment(p1.getId(), ua3.getId(), "Super zdjęcie", LocalDateTime.now(Global.zid)));
+        this.commentRepository.save(new Comment(p1.getId(), ua2.getId(), "No wiem", LocalDateTime.now(Global.zid)));
+        this.commentRepository.save(new Comment(p1.getId(), ua3.getId(), "Chcę je dostać", LocalDateTime.now(Global.zid)));
+        this.commentRepository.save(new Comment(p1.getId(), ua2.getId(), "ok", LocalDateTime.now(Global.zid)));
 
 
         int tableid[] = {1,2,3};

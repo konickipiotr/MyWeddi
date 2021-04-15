@@ -12,20 +12,20 @@
 }
 
 .user_posts{
-    display: flex;
-    flex-direction: column;
-    background-color: #f5e6f4;
-    margin-top: 20px;
-    border-radius: 0px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5e6f4;
+  margin-top: 20px;
+  border-radius: 0px 20px 0px 20px;
 }
 
 .icon_post, .nameuser_post{
-    margin-top: 15px;
-    font-size: 20px;
+  margin-top: 15px;
+  font-size: 20px;
 }
 
 .data_post{
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .header_post {
@@ -37,40 +37,39 @@
   align-items: center;
   margin: 0px;
   padding: 0px 10px 0px 10px;
-
-
 }
 
 .middle_post{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 20px 20px 20px;
 }
 
 .middle_post img{
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .middle_post p{
-    padding: 10px 20px 10px 20px;
-    border: 1px solid rgb(231, 171, 216);
+  padding: 10px 20px 10px 20px;
+  border: 1px solid rgb(231, 171, 216);
 }
 .comment{
-margin-left: 50px;
-background-color: #ddcce0;
-border-radius: 0px 20px 0px 20px;
+  margin-left: 50px;
+  background-color: #ddcce0;
+  border-radius: 0px 20px 0px 20px;
 }
+
 .comment p{
-padding-left: 50px;
+  padding-left: 50px;
 }
+
 .comments_header{
-    display: flex;
-    justify-content: space-between;
-    background-color: #302c30;
-    color: white;
-    height: 20px;
-    border-radius: 0px 20px 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #302c30;
+  color: white;
+  border-radius: 0px 20px 0px 20px;
 }
 
 .left-item{
@@ -95,13 +94,13 @@ padding-left: 50px;
     padding-bottom: 10px;
     background-color: #f5e6f4;
     border-radius: 0px 20px 0px 20px;
-
 }
 
 .date_post{
     font-size: 10px;
     padding-top: 3px;
 }
+
 .entercomment{
     background-color: rgb(221, 221, 221);
     color: black;
@@ -116,61 +115,143 @@ padding-left: 50px;
 }
 
 .added_post{
-   background: rgb(26,18,161);
-   background: linear-gradient(90deg, rgba(26,18,161,1) 0%, rgba(187,97,167,1) 0%, rgba(190,131,187,1) 57%, rgba(204,178,228,1) 100%);
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    padding-top:10px;
-    padding-bottom:10px ;
-    border-radius: 0px 20px 0px 20px;
+  background: rgb(26,18,161);
+  background: linear-gradient(90deg, rgba(26,18,161,1) 0%, rgba(187,97,167,1) 0%, rgba(190,131,187,1) 57%, rgba(204,178,228,1) 100%);
+  width: 90%;
+  display: flex;
+  padding-top:10px;
+  padding-bottom:10px ;
+  border-radius: 0px 20px 0px 20px;
 }
 
-.added_post div{
-    padding-left: 20px;
+.added_post form{
+  margin: 10px;
 }
+
+/* .added_post div{
+    padding-left: 20px;
+} */
 
 .added_post textarea{
-background-color: rgb(238, 228, 237);
-border: none;
-border-radius: 20px 20px 20px 20px;
+  background-color: rgb(238, 228, 237);
+  border: none;
+  border-radius: 20px 20px 20px 20px;
+  padding: 15px;
+  width: 60%;
 }
 
 .added_post_top{
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
+
 
 .input_add_post{
-color: transparent;
+  color: transparent;
 }
-.writecomment{
-width: 400px;
-resize: none;
-}
-.nameuser_post_delete {
-border: none;
-background:none;
-}
-.nameuser_post_delete_div{
-    margin-top: 12px;
-    font-size: 20px;
-    }
 
-.fa-trash:before {
+.writecomment{
+  width: 400px;
+  resize: none;
+}
+
+.nameuser_post_delete {
+  border: none;
+  background:none;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.nameuser_post_delete i:hover {
+  color: black;
+}
+
+.nameuser_post_delete_div{
+  margin-top: 12px;
+  font-size: 20px;
+}
+
+.fa-trash {
     color: gray;
 }
+
+.fa-trash:hover {
+    color: black;
+    cursor: pointer;
+}
+
 .fa-heart{
-
-color:#b50505;
-
+  color:#b50505;
 }
+
 .fa-heart:hover{
-color: gray;
+  color: gray;
+  cursor: pointer;
 }
+
 .btn_like{
-border: none;
-background-color:#f5e6f4;
+  border: none;
+  background-color:#f5e6f4;
 }
+
 .nr_like{
-font-size: 20px;
+  font-size: 20px;
+}
+
+form{
+  width: 100%;
+}
+
+form .upload {
+  display: flex;
+	position: relative;
+  overflow: hidden;
+	width: 20%;
+	padding: 10px;
+  margin-right: 10px;
+	text-align: center;
+	background: #eb3234;
+	border-radius: 5px;
+}
+
+form .upload:hover{
+  background: #d98486;
+}
+
+.upload label{
+  margin-top: 10px;
+}
+
+form .upload input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+
+.added_post_down{
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.entercomment{
+  border: 1px white solid;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 60%;
+  height: 40px;
+  background-color: #8b3a99;
+  cursor: pointer;
 }

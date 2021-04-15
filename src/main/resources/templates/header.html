@@ -7,17 +7,24 @@
 <body>
   <header th:fragment="header">
     <div class="header-middle">
-      <div>
-        <img th:src="@{${session.profilePhoto}}"  style="width: 100px; height: 100px;"/>
-        <form th:action="@{/profilphoto}" method="post" enctype="multipart/form-data">>
-          <input type="file" name="profilePhoto" multiple />
-          <button type="submit">Zdjęcie</button>
+      <div class="main-profile-photo-container">
+        <img th:src="@{${session.profilePhoto}}" class="profile-photo-l" />
+
+        <form th:action="@{/profilphoto}" method="post" enctype="multipart/form-data" name="myForm">
+          <div id="uploadBtn" class="uploadBtn" onclick="getFile()"><i class="fas fa-camera fa-2x"></i></div>
+          <div style='height: 0px;width:0px; overflow:hidden;'>
+            <input type="file" id="upfile" name="profilePhoto" value="upload" onchange="sub(this)" multiple />
+          </div>
         </form>
       </div>
-      <span>
-        <h1 th:text="${session.bridename + ' i ' + session.groomname + ' 19.06.2021'}"></h1>
-        <p>Pobieramy się!</p>
-      </span>
+      <!-- ***********  img  *********** -->
+
+      <div class="wedding-title-container">
+        <span>
+          <h1 th:text="${session.bridename + ' i ' + session.groomname + ' 19.06.2021'}"></h1>
+          <p>Pobieramy się!</p>
+        </span>
+      </div>
     </div>
   </header>
 </body>

@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
-    <link rel="stylesheet" type="text/css" href=/css/first_visit.css">
+    <link rel="stylesheet" type="text/css" href="/css/first_visit.css">
 
 
     <link rel="stylesheet" type="text/css" href="../../static/css/mainstyle.css">
@@ -20,6 +20,7 @@
 
 <body>
     <div class="container_firstVisit">
+      <form th:action="@{/firstlogin}" method="post">
         <div class="middle_cont_firstVisit">
             <p>Czy potwierdzasz?<p></p>
             <label class="radio">
@@ -63,6 +64,7 @@
         <div class="enter">
             <button><span>A K C E P T U J</span></button>
         </div>
+        </form>
     </div>
 
 </body>

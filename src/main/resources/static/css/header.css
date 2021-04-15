@@ -26,7 +26,7 @@
     display: flex;
     align-content: center;
     background-color: #ebbec8;
-    justify-content: center;
+    justify-content: space-between;
     color: white;
 }
 .header-middle h1 {
@@ -39,10 +39,33 @@
     font-family: 'Dancing Script', cursive;
     font-size: 45px;
     margin-top: -20px;
-
-
 }
-span { 
-    font-family: Arial; 
+span {
+    font-family: Arial;
     text-align: center;
+}
+
+.main-profile-photo-container{
+  background-color: #cd919e;
+  width: 150px;
+  padding: 15px;
+}
+
+.wedding-title-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.uploadBtn{
+  text-align: center;
+}
+
+.fa-camera   {
+    color: #e0c3f5;
+}
+
+.fa-camera:hover {
+    color: #411624;
+    cursor: pointer;
 }

@@ -51,9 +51,13 @@ public class HomeController {
                 session.setAttribute("profilePhoto", host.getWebAppPath());
                 view = "redirect:/home";
             } break;
+            case NEWGUEST:{
+                Guest guest = this.guestRepository.findById(userAuth.getId()).get();
+                if(guest.getRole().equals("NEWGUEST"))
+                    return "redirect:/firstlogin";
+            }
             case GUEST:{
-                Guest guest = null;
-                guest = this.guestRepository.findById(userAuth.getId()).get();
+                Guest guest = this.guestRepository.findById(userAuth.getId()).get();
                 host = this.hostRepository.findById(guest.getWeddingid()).get();
                 session.setAttribute("bridename", host.getBrideName());
                 session.setAttribute("groomname", host.getGroomName());

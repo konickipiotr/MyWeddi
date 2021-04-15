@@ -1,140 +1,155 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/css/menu.css">
-    <link rel="stylesheet" type="text/css" href="/css/post.css">
+  <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/post.css">
 
-  </head>
-  <body>
-    <header th:replace="top :: top">
-    </header>
-    <header th:replace="header :: header">
-    </header>
-    <div class="container" style="display: flex;">
-      <aside class="menu" th:replace="menu :: menu"></aside>
-      <!-- ************************************************** -->
+  <link rel="stylesheet" type="text/css" href="../static/css/mainstyle.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/header.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/post.css">
 
-      <section class="content">
-        <div th:if="${session.role == 'HOST'}">
-            <a th:href="@{/home}">Mój ślub</a>
-            <a th:href="@{/home/public}">Publiczne</a>
-            <!-- <a th:href="@{/gust/watched}">Obserwowane</a> -->
-        </div>
-        <!-- ######################### POST FORM ##################################### -->
-        <div class="added_post">
-            <form th:action="@{/home}" method="post"  enctype="multipart/form-data">
-                <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                <div class="added_post_top">
-                    <div >
-                        <img src="/img/user.png" style="width: 15%; height: 30%; display:block;">
-                    </div>
-                    <div >
-                        <a>DODAJ POST I ZDJĘCIA</a>
-                    </div>
-                    <div>
-                        <textarea class ="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
-                    </div>
+</head>
 
-                </div>
-                <div class="added_post_down">
+<body>
+  <header th:replace="top :: top">
+  </header>
+  <header th:replace="header :: header">
+  </header>
+  <div class="container" style="display: flex;">
+    <aside class="menu" th:replace="menu :: menu"></aside>
+    <!-- ************************************************** -->
 
-                    <input type="file" class="input_add_post" id="myFile" name="images" multiple>
-                    <button type="submit" class="entercomment"><span>Dodaj</span></button>
+    <section class="content">
+      <div th:if="${session.role == 'HOST'}">
+        <a th:href="@{/home}">Mój ślub</a>
+        <a th:href="@{/home/public}">Publiczne</a>
+        <!-- <a th:href="@{/gust/watched}">Obserwowane</a> -->
+      </div>
+      <!-- ######################### POST FORM ##################################### -->
+      <div class="added_post">
+        <form th:action="@{/home}" method="post" enctype="multipart/form-data">
+          <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+          <div class="added_post_top">
+            <img th:src="@{${session.profilePhoto}}" class="profile-photo">
+            <p>DODAJ POST I ZDJĘCIA</p>
+          </div>
 
-                </div>
-            </form>
-        </div>
-        <!-- ######################### POST FORM END ##################################### -->
-
-        <div class="content_post" th:each="p : ${posts}">
-            <div class="user_posts">
-
-                <div class="header_post">
-<!--                    <div class="icon_post">-->
-                        <img src="/img/user.png" style="width: 40px; height: 40px; display:block; margin: 0px; padding: 0px">
-<!--                    </div>-->
-                    <div class="nameuser_post">
-                        <a th:text="${p.username}"></a>
-                    </div>
-                    <div class="data_post">
-                        <p th:text="${p.postdatetime}"></p>
-                        <form th:if="${p.myPost}" th:action="@{/home/deletepost}" method="post">
-                          <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                        </form>
-                    </div>
-
-                    <div class="nameuser_post_delete_div">
-                        <button class="nameuser_post_delete"  type="submit" name="postid" th:value="${p.id}"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-                <!-- ************************************************** -->
-                <div class="middle_post">
-                    <img th:each="ph : ${p.photos}" th:src="@{${ph.webAppPath}}" width="80%">
-                    <p th:text="${p.description}"></p>
-                </div>
-                <div style="display: flex">
-
-                    <form th:action="@{/home/star}" method="post">
-                        <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                        <button class="btn_like" th:if="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}"><i class="fas fa-heart fa-3x"></i></button>
-                        <button class="btn_like" th:unless="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}"><i class="far fa-heart fa-3x"></i></button>
-                    </form>
-                    <p><b><span class="nr_like" th:text="${p.likeNumber}"></span></b></p>
-                </div>
+          <div class="added_post_top">
+            <div class="upload">
+              <i class="fas fa-image fa-3x"></i>
+              <label><em>Wybierz zdjęcie z komputera</em></label>
+              <input type="file" class="input_add_post" id="myFile" name="images" multiple>
             </div>
-            <!-- ************************************************** -->
-            <div class="comments">
-                <div class="comment" th:each="c : ${p.comments}">
-                <div class="comments_header">
+            <textarea class="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
+          </div>
 
-                    <div class="left-item">
-                        <div >
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div >
-                            <a th:text="${c.username}"></a>
-                        </div>
-                    </div>
-                    <div class="date_post">
-                        <span th:text="${c.postdatetime}"></span>
-                    </div>
-                    <div>
-                      <form th:if="${c.myComment}" th:action="@{/home/deletecomment}" method="post">
-                        <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                        <button class="nameuser_post_delete"  type="submit" name="commentid" th:value="${c.id}"><i class="fas fa-trash"></i></button>
-                      </form>
-                    </div>
-                </div>
-                <div class="comments_middle">
-                    <p th:text="${c.content}"></p>
-                </div>
-                </div>
-                <div class="comments_down">
-                    <form th:action="@{/home/addcomment}" method="post">
-                      <input type="hidden" name="postid" th:value="${p.id}" />
-                      <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
-                      <textarea class ="writecomment" id="writecomment" name="content" rows="3" cols="40"></textarea>
-                      <button type="submit" class="entercomment"><span>Skomentuj</span></button>
-                    </form>
-                </div>
+          <div class="added_post_down">
+            <button type="submit" class="entercomment"><span>Dodaj</span></button>
+          </div>
+        </form>
+      </div>
+      <!-- ######################### POST FORM END ##################################### -->
+
+      <div class="content_post" th:each="p : ${posts}">
+        <div class="user_posts">
+
+          <div class="header_post">
+            <img class="profile-photo" th:src="@{${p.userphoto}}" />
+            <div class="nameuser_post">
+              <a th:text="${p.username}"></a>
+            </div>
+            <div class="data_post">
+                <p th:text="${p.postdatetime}"></p>
+            </div>
+
+            <div class="nameuser_post_delete_div">
+              <form th:if="${p.myPost}" th:action="@{/home/deletepost}" method="post">
+                <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                <button class="nameuser_post_delete"  type="submit" name="postid" th:value="${p.id}"><i class="fas fa-trash fa-2x"></i></button>
+              </form>
             </div>
           </div>
-      </section>
+          <!-- ************************************************** -->
+          <div class="middle_post">
+            <img th:each="ph : ${p.photos}" th:src="@{${ph.webAppPath}}" width="80%">
+            <p th:text="${p.description}"></p>
+          </div>
+          <div>
 
-      <!-- ************************************************** -->
-    </div>
-    <footer th:replace="footer :: footer"></footer>
-  </body>
+            <form th:action="@{/home/star}" method="post" style="display: flex">
+              <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+              <button class="btn_like" th:if="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}"><i class="fas fa-heart fa-3x"></i></button>
+              <button class="btn_like" th:unless="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}"><i class="far fa-heart fa-3x"></i></button>
+              <p><b><span class="nr_like" th:text="${p.likeNumber}"></span></b></p>
+            </form>
+
+          </div>
+        </div>
+        <!-- ************************************************** -->
+        <div class="comments">
+          <div class="comment" th:each="c : ${p.comments}">
+            <div class="comments_header">
+              <div class="left-item">
+                <div>
+                  <img class="profile-photo-s" th:src="@{${c.userphoto}}" />
+                </div>
+                <div>
+                  <a th:text="${c.username}"></a>
+                </div>
+              </div>
+              <div class="date_post">
+                <span th:text="${c.postdatetime}"></span>
+              </div>
+              <div>
+                <form th:if="${c.myComment}" th:action="@{/home/deletecomment}" method="post">
+                  <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                  <button class="nameuser_post_delete" type="submit" name="commentid" th:value="${c.id}"><i class="fas fa-trash fa-2x"></i></button>
+                </form>
+              </div>
+            </div>
+            <div class="comments_middle">
+              <p th:text="${c.content}"></p>
+            </div>
+          </div>
+          <div class="comments_down">
+            <form th:action="@{/home/addcomment}" method="post">
+              <input type="hidden" name="postid" th:value="${p.id}" />
+              <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+              <textarea class="writecomment" id="writecomment" name="content" rows="3" cols="40"></textarea>
+              <button type="submit" class="entercomment"><span>Skomentuj</span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ************************************************** -->
+  </div>
+  <footer th:replace="footer :: footer"></footer>
+</body>
+<script src="js/uploadphoto.js"></script>
+<script>
+document.getElementById("upload-file").onchange = function () {
+  if(this.value.split(/(\\|\/)/g).pop()=='') {
+    document.getElementById("upload-label").innerHTML = '<em>Wybierz plik z komputera</em>';
+  }
+  else {
+    document.getElementById("upload-label").innerHTML = this.value.split(/(\\|\/)/g).pop();
+  }
+};
+</script>
 </html>
