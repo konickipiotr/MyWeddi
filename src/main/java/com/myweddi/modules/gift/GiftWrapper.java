@@ -11,6 +11,7 @@ public class GiftWrapper {
     private Map<GiftType, Boolean> selectedGift;
     private String giftInfo;
     private List<Gift> gifts;
+    private boolean reservationImpossible;
 
     public GiftWrapper() {
     }
@@ -21,6 +22,7 @@ public class GiftWrapper {
         this.giftInfo = giftInfo;
         this.gifts = gifts;
     }
+
 
     public Long getWeddingid() {
         return weddingid;
@@ -52,5 +54,13 @@ public class GiftWrapper {
 
     public void setGifts(List<Gift> gifts) {
         this.gifts = gifts;
+    }
+
+    public boolean isReservationImpossible() {
+        return reservationImpossible;
+    }
+
+    public void setReservationImpossible(boolean reservationImpossible) {
+        this.reservationImpossible = reservationImpossible;
     }
 }

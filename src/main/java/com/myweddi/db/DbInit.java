@@ -4,6 +4,7 @@ import com.myweddi.conf.Global;
 import com.myweddi.model.*;
 import com.myweddi.modules.gift.model.GeneralGiftRepository;
 import com.myweddi.modules.gift.model.GeneralGifts;
+import com.myweddi.modules.gift.model.Gift;
 import com.myweddi.modules.gift.model.GiftRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
@@ -130,7 +131,7 @@ public class DbInit implements CommandLineRunner {
         g1.setWeddingid(ua2.getId());
         g1.setFirstname("Jola");
         g1.setLastname("Patola");
-        g1.setWebAppPath("img/user.png");
+        g1.setWebAppPath("/img/user.png");
         g1.setStatus(GuestStatus.NOTCONFIRMED);
         this.guestRepository.save(g1);
 
@@ -171,5 +172,9 @@ public class DbInit implements CommandLineRunner {
         }
         this.tablePlaceRepository.saveAll(tp);
         this.generalGiftRepository.save(new GeneralGifts(ua2.getId()));
+
+
+        this.giftRepository.save(new Gift(ua2.getId(), "Rower"));
+        this.giftRepository.save(new Gift(ua2.getId(), "Auto"));
     }
 }

@@ -1,5 +1,7 @@
-package com.myweddi.modules.gift;
+package com.myweddi.api;
 
+import com.myweddi.modules.gift.GiftType;
+import com.myweddi.modules.gift.GiftWrapper;
 import com.myweddi.modules.gift.model.*;
 import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
@@ -7,11 +9,15 @@ import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class GiftService {
@@ -43,7 +49,33 @@ public class GiftService {
         wrapper.setWeddingid(user.getWeddingid());
         wrapper.setSelectedGift(stringToMap(generalGifts.getSmallgift()));
         wrapper.setGiftInfo(generalGifts.getInfo());
-        wrapper.setGifts(this.giftRepository.findByWeddingid(user.getWeddingid()));
+        List<Gift> gifts = this.giftRepository.findByWeddingid(user.getWeddingid());
+
+        boolean reservationImpossible = false;
+        for(Gift g : gifts){
+            if(g.getUserid() != null && g.getUserid().equals(user.getId())) {
+                reservationImpossible = true;
+                break;
+            }
+        }
+
+        if(reservationImpossible){
+            for(Gift g : gifts){
+                if(g.getUserid() == null) {
+                    g.setUsername("NIE MOŻNA");
+                }else {
+                    g.setUsername(this.guestRepository.findById(g.getUserid()).get().getName());
+                }
+            }
+        }else {
+            for(Gift g : gifts){
+                if(g.getUserid() != null) {
+                    g.setUsername(this.guestRepository.findById(g.getUserid()).get().getName());
+                }
+            }
+        }
+
+        wrapper.setGifts(gifts);
         return wrapper;
     }
 
@@ -79,6 +111,36 @@ public class GiftService {
         return sb.toString();
     }
 
+    public ResponseEntity bookGift(Long giftid, String username){
+        User user = getUser(username);
+
+        Optional<Gift> oGift = this.giftRepository.findById(giftid);
+        if(oGift.isPresent()){
+            Gift gift = oGift.get();
+
+            if(gift.getUsername() != null && !gift.getUsername().isBlank())
+                return new ResponseEntity(HttpStatus.IM_USED);
+
+            gift.setUserid(user.getId());
+            this.giftRepository.save(gift);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<String> unbookGift(Long giftid, String username) {
+        User user = getUser(username);
+
+        Optional<Gift> oGift = this.giftRepository.findById(giftid);
+        if(oGift.isPresent()){
+            Gift gift = oGift.get();
+            gift.setUserid(null);
+            this.giftRepository.save(gift);
+            return new ResponseEntity<String>("Booked", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Not found", HttpStatus.NOT_FOUND);
+    }
+
     private User getUser(String username){
         UserAuth ua = this.userAuthRepository.findByUsername(username);
         User user = null;
@@ -88,6 +150,7 @@ public class GiftService {
         }else if(ua.getRole().equals("GUEST")){
             user = new User(this.guestRepository.findById(ua.getId()).get());
         }
+        user.setRole(ua.getRole());
         return user;
     }
 
@@ -105,6 +168,4 @@ public class GiftService {
         }
         return giftMap;
     }
-
-
 }

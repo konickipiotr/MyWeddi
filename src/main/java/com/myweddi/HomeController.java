@@ -40,7 +40,7 @@ public class HomeController {
         String view = "";
         Role role = Role.valueOf(userAuth.getRole());
         session.setAttribute("role", role);
-
+        session.setAttribute("userid", userAuth.getId());
         Host host = null;
         switch (role){
             case ADMIN: view = "redirect:/admin"; break;

@@ -147,8 +147,8 @@ public class PostController {
     @PostMapping("/deletepost")
     public String deletePost(@RequestParam("postid") Long postid, @RequestParam("posttype") Posttype posttype, Principal principal){
         configRestTemplate(principal.getName());
-        String path = Global.domain + "/api/post/deletepost";
-        ResponseEntity<Void> response = restTemplate.exchange(path, HttpMethod.DELETE, new HttpEntity<Long>(postid), Void.class);
+        String path = Global.domain + "/api/post/deletepost/" + postid;
+        restTemplate.delete(path);
         if(posttype.equals(Posttype.LOCAL))
             return "redirect:/home";
         else
@@ -158,8 +158,8 @@ public class PostController {
     @PostMapping("/deletecomment")
     public String deletecomment(@RequestParam("commentid") Long commentid, @RequestParam("posttype") Posttype posttype, Principal principal){
         configRestTemplate(principal.getName());
-        String path = Global.domain + "/api/post/deletecomment";
-        ResponseEntity<Void> response = restTemplate.exchange(path, HttpMethod.DELETE, new HttpEntity<Long>(commentid), Void.class);
+        String path = Global.domain + "/api/post/deletecomment/" + commentid;
+        restTemplate.delete(path);
         if(posttype.equals(Posttype.LOCAL))
             return "redirect:/home";
         else

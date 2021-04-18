@@ -41,24 +41,25 @@ public class ProfilePhotoAPIController {
     }
 
     @PostMapping(path = "/{userid}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity uploadProfilePhoto(@PathVariable("userid") Long userid, @RequestBody String sImage ){
-            List<MultipartFile> multipartFiles = fileService.convertToMultipartFiles(Arrays.asList(sImage));
+    public ResponseEntity uploadProfilePhoto(@PathVariable("userid") Long userid, @RequestBody List<String> images ){
+            List<MultipartFile> multipartFiles = fileService.convertToMultipartFiles(images);
             List<FileNameStruct> fileNameStructs = fileService.uploadPhotos(multipartFiles, PhotoCat.PROFILE);
             if (fileNameStructs == null || fileNameStructs.isEmpty())
                 throw new FailedSaveFileException();
 
         UserAuth user = this.userAuthRepository.findById(userid).get();
+        String webAppPath = fileNameStructs.get(0).webAppPath;
         if(user.getRole().equals("HOST")){
             Host host = this.hostRepository.findById(user.getId()).get();
             host.setRealPath(fileNameStructs.get(0).realPath);
-            host.setWebAppPath(fileNameStructs.get(0).webAppPath);
+            host.setWebAppPath(webAppPath);
             this.hostRepository.save(host);
         }else if(user.getRole().equals("GUEST")){
             Guest guest = this.guestRepository.findById(user.getId()).get();
             guest.setRealPath(fileNameStructs.get(0).realPath);
-            guest.setWebAppPath(fileNameStructs.get(0).webAppPath);
+            guest.setWebAppPath(webAppPath);
             this.guestRepository.save(guest);
         }
-        return new ResponseEntity (HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

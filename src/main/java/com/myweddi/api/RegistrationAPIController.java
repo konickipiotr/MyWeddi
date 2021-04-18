@@ -1,7 +1,5 @@
 package com.myweddi.api;
 
-import com.myweddi.modules.gift.GiftService;
-import com.myweddi.modules.gift.model.GeneralGiftRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
@@ -10,7 +8,6 @@ import com.myweddi.user.reposiotry.WeddingCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
