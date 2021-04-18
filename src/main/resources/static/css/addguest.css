@@ -1,5 +1,5 @@
 .content{
-    background-color: rgb(184, 103, 159);
+
 }
 .enterbtn_addguest button{
     display:inline-block;
@@ -36,7 +36,7 @@
 .AddGuest label{
     display: block;
     font-family: 'Nunito', sans-serif;
-    color: white;
+    color: black;
     font-size: 20px;
     font-weight: 200;
     text-align: center;
