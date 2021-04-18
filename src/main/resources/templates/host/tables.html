@@ -16,6 +16,7 @@
   <link rel="stylesheet" type="text/css" href="/css/header.css">
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" type="text/css" href="/css/info.css">
+  <link rel="stylesheet" type="text/css" href="/css/tables.css">
 </head>
 
 <body>
@@ -28,16 +29,25 @@
     <!-- ************************************************** -->
 
     <section class="content">
-      <a th:if="${tablesList.isEmpty()}" th:href="@{/host/tables/settables}"> stwórz stoły</a>
-      <a th:unless="${tablesList.isEmpty()}" th:href="@{/host/tables/settables}" onclick="return confirm('Przejście dalej spowoduje usunięcie obecnych ustawień. Czy jesteś pewny?')"> resetuj Stoły</a>
 
-      <p><span>Ilość stołów</span> <span th:text="${tables.numoftables}"></span></p>
-      <p><span>Ilość miejsc</span> <span th:text="${tables.capacity}"></span></p>
-      <p><span>Wolne miejsca</span> <span th:text="${tables.free}"></span></p>
+      <div class="new_tables">
+        <a th:if="${tablesList.isEmpty()}" th:href="@{/host/tables/settables}">STWÓRZ STOLY</a>
+        <a th:unless="${tablesList.isEmpty()}" th:href="@{/host/tables/settables}" onclick="return confirm('Przejście dalej spowoduje usunięcie obecnych ustawień. Czy jesteś pewny?')">RESETUJ STOLY</a>
+      </div>
+
+      <div class="tables_top">
+        <p><span>Ilość stołów</span> <b><span th:text="${tables.numoftables}"></span></b></p>
+        <p><span>Ilość miejsc</span> <b><span th:text="${tables.capacity}"></span></b></p>
+        <p><span>Wolne miejsca</span> <b><span th:text="${tables.free}"></span></b></p>
+      </div>
+
       <div th:if="${tablesList != null}">
+        <div class="img_tables">
         <img th:src="@{${tables.webAppPath}}" />
-        <form th:action="@{/host/tables/setguests}" method="post" id="tableform">
-        <table>
+        </div>
+        <form class="form_tables" th:action="@{/host/tables/setguests}" method="post" id="tableform">
+        <div>
+          <table class="table_of_tables">
           <tr>
             <th>Stół</th>
             <th>Miejsce</th>
@@ -56,18 +66,22 @@
                 <input type="hidden" th:id="${i.tableid + '_' + i.placeid + '_'}" name="vVal" value="" />
               </td>
             </tr>
-
         </table>
-        <button type="submit">Zapisz</button>
+        <button class="button_tables" type="submit">Zapisz</button>
+      </div>
       </form>
-      <p>
-        Dodaj zdjęcie/schemat/plan
-      </p>
-      <form th:action="@{/host/tables/loadtableschema}" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" id="tableplan" multiple>
-        <button type="submit">Wczytaj</button>
-      </form>
-
+        <div class="bottom_tables">
+          <p>
+            Dodaj zdjęcie/schemat/plan
+          </p>
+          <form th:action="@{/host/tables/loadtableschema}" method="post" enctype="multipart/form-data">
+            <div class="button_tables_hidden">
+              <span>Wybierz plik</span>
+            </div>
+            <input type="file" name="image" id="tableplan" multiple>
+            <button class="button_tables"  type="submit"><span>Wczytaj</span></button>
+         </form>
+        </div>
       </div>
 
   </section>

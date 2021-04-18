@@ -1,29 +1,25 @@
-.content{
-    background-color: rgb(184, 103, 159);
-}
 .generalinfo{
     text-align: center;
-    margin-top: 30px;
+    margin-top: 5px;
     font-family: 'Nunito', sans-serif;
-    color: white;
-    color: rgb(33, 32, 36);
     font-size: 30px;
     font-weight: 200;
+    display: flex;
+    flex-direction: column;
 }
 .churchandplacedisplay{
     display: flex;
-    justify-content: space-around;
-    margin-top: 120px;
+    margin-top: 80px;
     font-family: 'Nunito', sans-serif;
-    color: white;
     font-size: 30px;
     font-weight: 200;
-    text-align: center;
+    background-color: #e0d1e0;
+    text-align:center;
 }
 .dateofwedding label {
     display: block;
     font-family: 'Nunito', sans-serif;
-    color: white;
+    color: black;
     font-size: 40px;
     font-weight: 200;
     text-align: center;
@@ -32,7 +28,7 @@
 .infoofwedding label{
     display: block;
     font-family: 'Nunito', sans-serif;
-    color: white;
+    color: black;
     font-size: 40px;
     font-weight: 200;
     margin-top: 10px;
@@ -44,6 +40,7 @@
     font-size: 1.2em;
     border-style:none;
     text-align: center;
+    border: 1px solid black;
 }
 .infoofwedding textarea{
     width: 60%;
@@ -53,92 +50,60 @@
     font-size: 15px;
     border-style:none;
     resize: none;
-}
-.generalinfo{
-    display: flex;
-    flex-direction: column;
-}
-.column-info{
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  align-items: center;
-
+    border: 1px solid black;
 }
 
-.column-info div{
-  width: 100%;
-}
+.photo{
+   margin: 1%;
+   width: 90%;
+ }
 
-.churchandplacedisplay input{
-    display: block;
-    padding: 5px;
-    font-family: 'Nunito', sans-serif;
-    border-style:none;
-    width: 500px;
+.church_info input{
+width: 92%;
 }
-.enterbtninfo button{
-    display:inline-block;
-    padding:0.35em 1.2em;
-    border:2px solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    background-color: rgb(161, 84, 137);
-    text-align:center;
-    transition: all 0.2s;
-    color:#000000;
-    margin-top: 30px;
-    width: 300px;
-    height: 50px;
-}
-.enterbtninfo button:hover{
-    color: black;
-    background-color: white;
-    opacity: 50%;
-}
-.uploadpictureinfo label{
-    width: 30%;
-    padding: 5px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.2em;
-    border-style:none;
-}
-.uploadpictureinfo{
-    text-align: center;
-    display:inline-block;
-    padding:0.35em 1.2em;
-    border:2px solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    background-color: rgb(206, 141, 185);
-    text-align:center;
-    transition: all 0.2s;
-    color:#000000;
-    margin-top: 30px;
-    width: 300px;
-    height: 65px;
-}
-.uploadpictureinfo:hover{
-    color: black;
-    background-color: white;
-    opacity: 50%;
+.place_info input{
+width: 92%;
 }
 .downofinfo{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+bottom: 0;
 }
-
-.place-photo{
-  margin: 1%;
-  width: 90%;
-  height: 90%;
+.enterbtninfo{
+text-align:center;
+}
+.churchandplacedisplaydown{
+    display: flex;
+    font-family: 'Nunito', sans-serif;
+    font-size: 30px;
+    font-weight: 200;
+    background-color: #e0d1e0;
+    text-align:center;
+    justify-content:space-around;
+}
+.btn {
+     border-radius: 5px;
+     padding: 16px 16px;
+     width: 60%;
+     text-align: center;
+     font-size: 25px;
+     font-family: 'Nunito', sans-serif;
+     color: #2E3E60;
+     text-decoration: none;
+     background-color: #ebbec8;
+     opacity: 90%;
+     border: 2px solid #fff2f5;
+ }
+.btn:hover{
+opacity:40%;
+}
+.add_img_btn{
+    text-decoration: none;
+    border-style: none;
+    padding: 12px 12px;
+    background-color:#2b272a;
+    border-radius: 15px 0px 15px 0px;
+    color:white;
+    margin-top:10px
+}
+.add_img_btn:hover{
+opacity:40%;
 }
