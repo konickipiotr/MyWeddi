@@ -11,6 +11,7 @@ import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -47,39 +48,36 @@ public class HostWeddingInfoController {
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
         ResponseEntity<ChurchInfo> response = restTemplate.getForEntity(path, ChurchInfo.class);
 
+        WeddingDTO weddingDTO = new WeddingDTO(user.getId());
         path = Global.domain + "/api/weddinginfo/" + user.getId();
         ResponseEntity<WeddingInfo> response2 = restTemplate.getForEntity(path, WeddingInfo.class);
         if(response.getStatusCode() == HttpStatus.OK){
             ChurchInfo churchInfo = response.getBody();
-            model.addAttribute("churchInfo", churchInfo);
-        }else {
-            model.addAttribute("churchInfo", new ChurchInfo(user.getId()));
+            weddingDTO.setChurchInfo(churchInfo);
         }
 
         if(response2.getStatusCode() == HttpStatus.OK){
             WeddingInfo weddingInfo = response2.getBody();
-            model.addAttribute("weddingInfo", weddingInfo);
-        }else {
-            model.addAttribute("weddingInfo", new WeddingInfo(user.getId()));
+            weddingDTO.setWeddingInfo(weddingInfo);
         }
 
+        model.addAttribute("weddingDTO", weddingDTO);
         model.addAttribute("menu", Menu.hostMenu);
         return "host/info";
     }
 
-    @PostMapping("/church")
-    public String saveChurchInfo(@RequestParam("image") MultipartFile[] file, ChurchInfo churchInfo, Model model, Principal principal){
-        UserAuth user = userAuthRepository.findByUsername(principal.getName());
-        churchInfo.setWeddingid(user.getId());
+    @PostMapping
+    public String saveInfo(@RequestParam("chimage") MultipartFile chimage[], @RequestParam("wimage") MultipartFile wimage[], WeddingDTO weddingDTO, Model model, Principal principal){
+        UserAuth user = configRestTemplate(principal.getName());
+
+        ChurchInfo churchInfo = weddingDTO.getChurchInfo();
         String path = Global.domain + "/api/churchinfo";
-        restTemplate.getInterceptors().clear();
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
         ResponseEntity<ChurchInfo> response = restTemplate.postForEntity(path, churchInfo, ChurchInfo.class);
 
 
         String addFilepath =   Global.domain + "/api/churchinfo/photo/"+ user.getId();
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        for (MultipartFile f : file) {
+        for (MultipartFile f : chimage) {
             if (!f.isEmpty()) {
                 try {
                     body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
@@ -92,8 +90,32 @@ public class HostWeddingInfoController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-        restTemplate.postForObject(addFilepath, requestEntity, String.class);
+        if(!body.isEmpty()){
+            restTemplate.postForObject(addFilepath, requestEntity, String.class);
+        }
 
+
+        WeddingInfo weddingInfo = weddingDTO.getWeddingInfo();
+        path = Global.domain + "/api/weddinginfo";
+
+        ResponseEntity<WeddingInfo> response2 = restTemplate.postForEntity(path, weddingInfo, WeddingInfo.class);
+        addFilepath =   "/api/weddinginfo/"+ user.getId() + "/photo";
+        body = new LinkedMultiValueMap<>();
+        for (MultipartFile f : wimage) {
+            if (!f.isEmpty()) {
+                try {
+                    body.add("images", new MultipartInputStreamFileResource(f.getInputStream(), f.getOriginalFilename()));
+                } catch (IOException e) {
+                    throw new FailedSaveFileException();
+                }
+            }
+        }
+
+
+        if(!body.isEmpty()) {
+            requestEntity = new HttpEntity<>(body, headers);
+            restTemplate.postForObject(addFilepath, requestEntity, String.class);
+        }
 
         return "redirect:/host/info";
     }
@@ -125,5 +147,13 @@ public class HostWeddingInfoController {
         restTemplate.postForObject(addFilepath, requestEntity, String.class);
 
         return "redirect:/host/info";
+    }
+
+    private UserAuth  configRestTemplate(String username){
+        UserAuth user = userAuthRepository.findByUsername(username);
+        restTemplate.getInterceptors().clear();
+        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        return user;
     }
 }
