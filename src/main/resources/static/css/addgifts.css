@@ -1,5 +1,4 @@
 .content{
-    background-color: rgb(224, 202, 217);
     font-family: 'Nunito', sans-serif;
     display: flex;
     flex-direction: column;
@@ -23,7 +22,6 @@
 .addGifts_top h1{
     display: block;
     font-family: 'Nunito', sans-serif;
-    color: white;
     font-size: 40px;
     font-weight: 200;
     text-align: center;
@@ -36,61 +34,45 @@
 }
 
 .enterbtn_addGifts button{
-    display:inline-block;
-    padding:0.35em 1.2em;
-    border:2px solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    font-size: 20px;
-    background-color: rgb(235, 219, 230);
-    text-align:center;
-    transition: all 0.2s;
-    color:#000000;
-    margin-top: 30px;
-    width: 200px;
-    height: 35px;
+    text-decoration: none;
+      border-style: none;
+      padding: 12px 12px;
+      background-color: #2b272a;;
+      border-radius: 15px 0px 15px 0px;
+      color: white;
+      margin-top:10px;
+      margin-bottom:20px;
 }
 
 .enterbtn_addGifts2 button:hover{
-    color: black;
-    background-color: white;
-    opacity: 50%;
+    opacity: 40%;
 }
 .enterbtn_addGifts2 button{
-    display:inline-block;
-    padding:0.25em 1em;
-    border:2px solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    font-size: 15px;
-    background-color: rgb(235, 219, 230);
-    text-align:center;
-    transition: all 0.2s;
-    color:#000000;
-    margin-top: 30px;
-    width: 150px;
-    height: 25px;
+      text-decoration: none;
+      border-style: none;
+      padding: 12px 12px;
+      background-color: #2b272a;
+      border-radius: 15px 0px 15px 0px;
+      color: white;
+      margin-top:10px;
 }
 
 .enterbtn_addGifts button:hover{
-    color: black;
-    background-color: white;
-    opacity: 50%;
+    opacity: 40%;
 }
 
 .textarea_addGifts{
   display: flex;
   flex-direction: column;
   align-content: center;
-    width: 70%;
+    background-color: #d9d2d9;
+    margin-top: 10px;
+    padding-bottom:20px;
+ color:white;
+ text-align:center;
+     padding-left: 5px;
+     padding-right: 5px;
+
 }
 
 .giftInfo{
@@ -107,16 +89,22 @@
 
 
 .p0{
-    color:rgb(150, 91, 135);
+     color:white;
+        font-family: 'Nunito', sans-serif;
+        font-size: 20px;
 }
 .p1{
-    color: rgb(184, 97, 133)
+    color: #2b272a;
+    text-align:center;
+        font-size:25px;
 }
 .p2{
     color: rgb(129, 102, 114);
 }
 .p3{
-    color: rgb(211, 82, 88)
+    color:white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
 }
 .down_of_addgifts{
     padding-top: 20px;
@@ -154,21 +142,38 @@
   height: 70px;
   background-color: transparent;
   border-style: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 5px 5px 5px 5px;
 }
 
 .gift-btn:hover{
   background-color: rgb(143, 83, 133);
   border-radius: 5px 5px 5px 5px;
+
 }
 
 .gift-btn-selected{
   width: 70px;
   height: 70px;
-  background-color: #2fc822;
+  background-color: rgb(143, 83, 133);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .gift-btn-selected:hover{
   width: 70px;
   height: 70px;
-  background-color: #56be4d;
+  background-color: rgb(143, 83, 133);
+}
+.textarea_addGifts2{
+   background-color: #d9d2d9;
+   padding-bottom:15px;
+text-align:center;
+width: 90%;
+}
+.p00{
+color: #2b272a;
+    text-align:center;
+    font-size:25px;
 }
