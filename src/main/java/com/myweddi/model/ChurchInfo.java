@@ -27,6 +27,15 @@ public class ChurchInfo {
     public ChurchInfo() {
     }
 
+    public void update(ChurchInfo chi){
+        this.name = chi.getName();
+        this.ceremenytime = chi.getCeremenytime();
+        this.longitude = chi.getLongitude();
+        this.latitude = chi.getLatitude();
+        this.address = chi.getAddress();
+        this.info = chi.getInfo();
+    }
+
     public Long getWeddingid() {
         return weddingid;
     }

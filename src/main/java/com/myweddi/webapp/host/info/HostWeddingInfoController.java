@@ -99,7 +99,7 @@ public class HostWeddingInfoController {
         path = Global.domain + "/api/weddinginfo";
 
         ResponseEntity<WeddingInfo> response2 = restTemplate.postForEntity(path, weddingInfo, WeddingInfo.class);
-        addFilepath =   "/api/weddinginfo/"+ user.getId() + "/photo";
+        addFilepath =   Global.domain + "/api/weddinginfo/"+ user.getId() + "/photo";
         body = new LinkedMultiValueMap<>();
         for (MultipartFile f : wimage) {
             if (!f.isEmpty()) {

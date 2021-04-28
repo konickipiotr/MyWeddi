@@ -3,6 +3,7 @@ package com.myweddi.user;
 
 public class RegistrationForm {
 
+    private Long userid;
     private String usertype;
 
     private String username;
@@ -24,6 +25,14 @@ public class RegistrationForm {
     private String weddingcode;
 
     public RegistrationForm() {
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
     public String getUsertype() {

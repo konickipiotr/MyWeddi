@@ -6,6 +6,7 @@ import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,9 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(Model model, String message, String errormessage){
+        model.addAttribute("message", message);
+        model.addAttribute("errormessage", errormessage);
         return "login";
     }
 
@@ -64,6 +67,7 @@ public class HomeController {
             } break;
             case DJ:  view = "redirect:/dj"; break;
             case PHOTOGRAPHER:  view = "redirect:/photographer"; break;
+            default: view = "login";
         }
 
         return view;

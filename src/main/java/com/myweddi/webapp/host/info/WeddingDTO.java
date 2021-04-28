@@ -41,6 +41,7 @@ public class WeddingDTO {
     public ChurchInfo getChurchInfo(){
         ChurchInfo churchInfo = new ChurchInfo();
         churchInfo.setWeddingid(this.weddingid);
+        churchInfo.setCeremenytime(this.ceremenytime);
         churchInfo.setName(churchname);
         churchInfo.setAddress(churchaddress);
         churchInfo.setLongitude(chLongitude);

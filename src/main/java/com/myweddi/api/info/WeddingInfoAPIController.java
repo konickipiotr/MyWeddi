@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,20 +20,27 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/weddinginfo")
-public class WeddingInfoController {
+public class WeddingInfoAPIController {
 
     private WeddingInfoRepository weddingInfoRepository;
     private FileService fileService;
 
     @Autowired
-    public WeddingInfoController(WeddingInfoRepository weddingInfoRepository, FileService fileService) {
+    public WeddingInfoAPIController(WeddingInfoRepository weddingInfoRepository, FileService fileService) {
         this.weddingInfoRepository = weddingInfoRepository;
         this.fileService = fileService;
     }
 
     @PostMapping
     public ResponseEntity<WeddingInfo> addWeddingInfo(@RequestBody WeddingInfo weddingInfo){
-        this.weddingInfoRepository.save(weddingInfo);
+
+        if(this.weddingInfoRepository.existsById(weddingInfo.getWeddingid())){
+            WeddingInfo weddingInfoDB = this.weddingInfoRepository.findById(weddingInfo.getWeddingid()).get();
+            weddingInfoDB.update(weddingInfo);
+            this.weddingInfoRepository.save(weddingInfoDB);
+        }else {
+            this.weddingInfoRepository.save(weddingInfo);
+        }
         return new ResponseEntity<WeddingInfo>(weddingInfo, HttpStatus.OK);
     }
 
@@ -64,6 +72,14 @@ public class WeddingInfoController {
         if(fileNameStructs == null || fileNameStructs.isEmpty())
             throw new FailedSaveFileException();
 
+        if(weddingInfo.getRealPath() != null && !weddingInfo.getRealPath().isBlank()) {
+            try {
+                fileService.deleteFile(weddingInfo.getRealPath());
+            } catch (IOException e) {
+                System.err.println("file not exist");
+                e.printStackTrace();
+            }
+        }
         weddingInfo.setRealPath(fileNameStructs.get(0).realPath);
         weddingInfo.setWebAppPath(fileNameStructs.get(0).webAppPath);
         this.weddingInfoRepository.save(weddingInfo);

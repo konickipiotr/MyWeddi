@@ -78,7 +78,7 @@ public class DbInit implements CommandLineRunner {
         UserAuth ua2 = new UserAuth("so", passwordEncoder.encode("11"), "HOST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua2);
 
-        UserAuth ua3 = new UserAuth("sg", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
+        UserAuth ua3 = new UserAuth("konicki.piotr@gmail.com", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua3);
 
         UserAuth ua4 = new UserAuth("sd", passwordEncoder.encode("11"), "DJ", UserStatus.ACTIVE);

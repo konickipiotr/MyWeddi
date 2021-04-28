@@ -35,7 +35,7 @@ public class UserAuth implements UserDetails {
         this.username = rf.getUsername();
         this.password = rf.getPassword();
         this.role = rf.getUsertype();
-        this.status = UserStatus.FIRSTLOGIN;
+        this.status = UserStatus.DISABLE;
     }
 
     @Override

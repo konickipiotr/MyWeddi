@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,20 +20,27 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/churchinfo")
-public class ChurchInfoController {
+public class ChurchInfoAPIController {
 
     private ChurchRepository churchRepository;
     private FileService fileService;
 
     @Autowired
-    public ChurchInfoController(ChurchRepository churchRepository, FileService fileService) {
+    public ChurchInfoAPIController(ChurchRepository churchRepository, FileService fileService) {
         this.churchRepository = churchRepository;
         this.fileService = fileService;
     }
 
     @PostMapping
     public ResponseEntity<ChurchInfo>  addChurchInfo(@RequestBody ChurchInfo churchInfo){
-        this.churchRepository.save(churchInfo);
+
+        if(this.churchRepository.existsById(churchInfo.getWeddingid())){
+            ChurchInfo churchInfoDB = this.churchRepository.findById(churchInfo.getWeddingid()).get();
+            churchInfoDB.update(churchInfo);
+            this.churchRepository.save(churchInfoDB);
+        }else {
+            this.churchRepository.save(churchInfo);
+        }
         return new ResponseEntity<ChurchInfo>(churchInfo, HttpStatus.OK);
     }
 
@@ -61,6 +69,15 @@ public class ChurchInfoController {
         List<FileNameStruct> fileNameStructs = fileService.uploadPhotos(mList, PhotoCat.WEDDINGHOUSE);
         if(fileNameStructs == null || fileNameStructs.isEmpty())
             throw new FailedSaveFileException();
+
+        if(churchInfo.getRealPath() != null && !churchInfo.getRealPath().isBlank()) {
+            try {
+                fileService.deleteFile(churchInfo.getRealPath());
+            } catch (IOException e) {
+                System.err.println("file not exist");
+                e.printStackTrace();
+            }
+        }
 
         churchInfo.setRealPath(fileNameStructs.get(0).realPath);
         churchInfo.setWebAppPath(fileNameStructs.get(0).webAppPath);
