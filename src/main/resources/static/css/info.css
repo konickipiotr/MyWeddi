@@ -59,17 +59,21 @@
  }
 
 .church_info input{
-width: 92%;
+    width: 92%;
 }
+
 .place_info input{
-width: 92%;
+    width: 92%;
 }
+
 .downofinfo{
-bottom: 0;
+    bottom: 0;
 }
+
 .enterbtninfo{
-text-align:center;
+    text-align:center;
 }
+
 .churchandplacedisplaydown{
     display: flex;
     font-family: 'Nunito', sans-serif;
@@ -91,10 +95,13 @@ text-align:center;
      background-color: #ebbec8;
      opacity: 90%;
      border: 2px solid #fff2f5;
+     cursor: pointer;
  }
+
 .btn:hover{
-opacity:40%;
+    opacity:40%;
 }
+
 .add_img_btn{
     text-decoration: none;
     border-style: none;
@@ -102,8 +109,11 @@ opacity:40%;
     background-color:#2b272a;
     border-radius: 15px 0px 15px 0px;
     color:white;
-    margin-top:10px
+    margin-top: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
+
 .add_img_btn:hover{
-opacity:40%;
+    opacity:40%;
 }

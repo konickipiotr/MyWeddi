@@ -96,7 +96,7 @@ public class DbInit implements CommandLineRunner {
         wi1.setChLatitude(50.25);
         wi1.setChLongitude(16.58);
         wi1.setChurchname("Kościół M.B. Królowej Polski i św. Maternusa");
-        wi1.setwAddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
+        wi1.setChurchaddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
         wi1.setInfo("elo elo");
 
         wi1.setWeddinghousename("Górski Poranek");
