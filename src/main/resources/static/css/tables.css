@@ -101,3 +101,23 @@ opacity:40%;
 .button_tables_hidden:hover{
 opacity:40%;
 }
+.setTables{
+display:flex;
+justify-content:center;
+margin-top:5%;
+}
+.setTables label{
+    display: block;
+    font-family: 'Nunito', sans-serif;
+    color: black;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 10px;
+}
+.setTables input{
+    width: 300px;
+    height: 25px;
+    padding: 5px;
+    margin-top: 10px;
+}

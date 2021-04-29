@@ -16,6 +16,8 @@
   <link rel="stylesheet" type="text/css" href="/css/header.css">
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" type="text/css" href="/css/info.css">
+  <link rel="stylesheet" type="text/css" href="/css/tables.css">
+
 </head>
 
 <body>
@@ -28,12 +30,14 @@
     <!-- ************************************************** -->
 
     <section class="content">
+      <div class="setTables">
       <form th:action="@{/host/tables/settables}" method="post">
         <input type="hidden" name="weddingid" th:value="${weddingid}" />
         <label>Ile stołów: </label>
         <input type="number" min="1" value="1" name="numoftables">
-        <button type="submit">Dalej</button>
+        <button class="button_tables" type="submit">Dalej</button>
       </form>
+      </div>
   </section>
   <!-- ************************************************** -->
   </div>
