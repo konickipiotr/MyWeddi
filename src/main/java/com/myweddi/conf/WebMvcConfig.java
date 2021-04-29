@@ -8,9 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        String sss = "file://" + System.getProperty("user.dir") + "/upload_tmp/";
-//        sss = "file://" + Global.appPath + Global.photosPath;
-//        System.out.println(sss);
         registry
                 .addResourceHandler("/photos/**")
                 .addResourceLocations("file://" + Global.appPath + Global.photosPath);

@@ -21,6 +21,13 @@ public class WeddingInfo {
     public WeddingInfo() {
     }
 
+    public void update(WeddingInfo wi){
+        this.name = wi.getName();
+        this.longitude = wi.getLongitude();
+        this.latitude = wi.getLatitude();
+        this.address = wi.getAddress();
+    }
+
     public long getWeddingid() {
         return weddingid;
     }

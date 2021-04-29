@@ -1,6 +1,6 @@
 package com.myweddi.modules.gift.model;
 
-import com.myweddi.modules.gift.GiftService;
+import com.myweddi.api.GiftService;
 import com.myweddi.modules.gift.GiftType;
 import com.myweddi.modules.gift.GiftWrapper;
 import com.myweddi.user.Guest;

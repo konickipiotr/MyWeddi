@@ -24,8 +24,10 @@
         <img src="/img/heart.png" width="100" height="100">
     </div>
 
+    <p th:text="${message}"></p>
     <form th:action="@{/login}" method="post"  class="formlogin">
 
+        
         <div class="login">
             <div>
             <label for="username">Login</label>
@@ -44,7 +46,7 @@
             <a th:href="@{/registration}">rejestracja</a>
         </div>
         <div class="login_rej">
-            <a th:href="@{/registration}">przypomnij hasło</a>
+            <a th:href="@{/forgotpassword}">przypomnij hasło</a>
         </div>
 
     </form>

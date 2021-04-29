@@ -72,8 +72,12 @@ public class NewSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authenticationProvider(apiAuthenticationProvider())
+
                 .authorizeRequests()
+                .antMatchers("/api/registration/**", "/api/forgotpassword/**").permitAll()
+                .antMatchers("/api/firstlogin").hasRole("NEWGUEST")
                 .antMatchers("/api/**").hasAnyRole("ADMIN","HOST", "GUEST")
+
                 .and()
                 .httpBasic();
 

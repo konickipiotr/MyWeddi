@@ -52,7 +52,6 @@ public class GuestService {
         this.userAuthRepository.save(userAuth);
 
         guest.setId(userAuth.getId());
-        guest.setRole("GUEST");
         guest.setStatus(GuestStatus.NOTCONFIRMED);
         this.guestRepository.save(guest);
 

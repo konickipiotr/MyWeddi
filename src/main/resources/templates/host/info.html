@@ -40,27 +40,29 @@
             <div class="infoofwedding">
               <label for="info">INFO</label>
               <textarea id="info" name="info" rows="4" cols="50" th:text="${churchInfo.info}"></textarea>
+
             </div>
           </div>
 
         <div class="churchandplacedisplay">
 
           <div class="church_info">
+
             <div>
               <label for="name">Kościół</label>
               <input type="text" name="name" id="nameC" minlength="3" th:field="*{name}" required>
             </div>
             <div>
-              <label for="address">Adres Kościoła</label>
-              <input type="text" name="address" id="address" minlength="3" th:field="*{address}" required>
+              <label for="wAddress">Adres Sali</label>
+              <input type="text" name="wAddress" id="wAddress" minlength="3" th:field="*{wAddress}" required>
             </div>
             <div>
-              <label for="latitude">Współrzędne X</label>
-              <input type="number" name="latitude" id="latitude" min="-180" max="180" step="0.000001" minlength="3" th:field="*{latitude}" required>
+              <label for="wLatitude">Współrzędne X</label>
+              <input type="number" name="wLatitude" id="wLatitude" min="-180" max="180" step="0.000001" minlength="3" th:field="*{wLatitude}" required>
             </div>
             <div>
-              <label for="longitude">Współrzędne Y</label>
-              <input type="number" name="longitude" id="longitude" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
+              <label for="wLongitude">Współrzędne Y</label>
+              <input type="number" name="wLongitude" id="wLongitude" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{wLongitude}" required>
             </div>
             <div th:if="${churchInfo.webAppPath != null}">
              <img class="photo" th:src="@{${churchInfo.webAppPath}}" />
@@ -115,12 +117,12 @@
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="enterbtninfo">
           <button type="submit" class="btn"><span>Z R O B I O N E</span></button>
         </div>
-
       </form>
       <!-- ************************************************** -->
     </section>

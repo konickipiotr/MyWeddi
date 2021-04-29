@@ -57,13 +57,13 @@ public class PostAPIController {
         this.commentService.addComment(comment, principal.getName());
     }
 
-    @DeleteMapping("/deletecomment")
-    public ResponseEntity deleteComment(@RequestBody Long commentid, Principal principal){
+    @DeleteMapping("/deletecomment/{commentid}")
+    public ResponseEntity deleteComment(@PathVariable("commentid") Long commentid, Principal principal){
         return commentService.deleteComment(commentid, principal.getName());
     }
 
-    @DeleteMapping("/deletepost")
-    public ResponseEntity deletePost(@RequestBody Long postid, Principal principal){
+    @DeleteMapping("/deletepost/{postid}")
+    public ResponseEntity deletePost(@PathVariable("postid") Long postid, Principal principal){
         if(postService.deletePost(principal.getName(), postid))
             return new ResponseEntity(HttpStatus.OK);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

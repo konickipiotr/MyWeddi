@@ -4,6 +4,7 @@ import com.myweddi.conf.Global;
 import com.myweddi.model.*;
 import com.myweddi.modules.gift.model.GeneralGiftRepository;
 import com.myweddi.modules.gift.model.GeneralGifts;
+import com.myweddi.modules.gift.model.Gift;
 import com.myweddi.modules.gift.model.GiftRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
@@ -77,7 +78,7 @@ public class DbInit implements CommandLineRunner {
         UserAuth ua2 = new UserAuth("so", passwordEncoder.encode("11"), "HOST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua2);
 
-        UserAuth ua3 = new UserAuth("sg", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
+        UserAuth ua3 = new UserAuth("konicki.piotr@gmail.com", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua3);
 
         UserAuth ua4 = new UserAuth("sd", passwordEncoder.encode("11"), "DJ", UserStatus.ACTIVE);
@@ -92,8 +93,8 @@ public class DbInit implements CommandLineRunner {
         ChurchInfo churchInfo1 = new ChurchInfo();
         churchInfo1.setWeddingid(ua2.getId());
         churchInfo1.setCeremenytime(LocalDateTime.of(2021,06,16,17,00));
-        churchInfo1.setLatitude(50.294266);
-        churchInfo1.setLongitude(16.8728048);
+        churchInfo1.setLatitude(50.294);
+        churchInfo1.setLongitude(16.8728);
         churchInfo1.setAddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
         churchInfo1.setName("Kościół M.B. Królowej Polski i św. Maternusa");
         churchInfo1.setRealPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
@@ -103,8 +104,8 @@ public class DbInit implements CommandLineRunner {
 
         WeddingInfo weddingInfo1 = new WeddingInfo();
         weddingInfo1.setWeddingid(ua2.getId());
-        weddingInfo1.setLatitude(50.2827394);
-        weddingInfo1.setLongitude(16.880499);
+        weddingInfo1.setLatitude(50.282);
+        weddingInfo1.setLongitude(16.880);
         weddingInfo1.setAddress("Kochanowskiego 13, 57-550 Stronie Ślaskie");
         weddingInfo1.setName("Górski Poranek");
         //weddingInfo1.setWebAppPath("/weddinghouse/gorskiporanek.jpg");
@@ -128,20 +129,18 @@ public class DbInit implements CommandLineRunner {
         Guest g1 = new Guest();
         g1.setId(ua3.getId());
         g1.setWeddingid(ua2.getId());
-        g1.setRole("GUEST");
         g1.setFirstname("Jola");
         g1.setLastname("Patola");
-        g1.setWebAppPath("img/user.png");
+        g1.setWebAppPath("/img/user.png");
         g1.setStatus(GuestStatus.NOTCONFIRMED);
         this.guestRepository.save(g1);
 
         Guest g2 = new Guest();
         g2.setId(ua6.getId());
         g2.setWeddingid(ua2.getId());
-        g2.setRole("NEWGUEST");
         g2.setFirstname("Adam");
         g2.setLastname("Nowak");
-        g2.setWebAppPath("img/user.png");
+        g2.setWebAppPath("/img/user.png");
         g2.setStatus(GuestStatus.CONFIRMED);
         this.guestRepository.save(g2);
 
@@ -172,8 +171,10 @@ public class DbInit implements CommandLineRunner {
                 tp.add(new TablePlace(tableid[i], (j + 1), ua2.getId()));
         }
         this.tablePlaceRepository.saveAll(tp);
-
-
         this.generalGiftRepository.save(new GeneralGifts(ua2.getId()));
+
+
+        this.giftRepository.save(new Gift(ua2.getId(), "Rower"));
+        this.giftRepository.save(new Gift(ua2.getId(), "Auto"));
     }
 }

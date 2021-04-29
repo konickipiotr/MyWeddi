@@ -46,12 +46,12 @@ public class ProfilePhotoController {
         UserAuth user = configRestTemplate(principal.getName());
 
         String path =   Global.domain + "/api/profilephoto/"+ user.getId();
-        String sImage = "";
 
+        List<String> sImage = new ArrayList<>();
         if (!profilePhoto.isEmpty()) {
             try {
                 byte[] bytes = profilePhoto.getBytes();
-                sImage = Base64.getEncoder().encodeToString(bytes);
+                sImage.add(Base64.getEncoder().encodeToString(bytes));
             } catch (IOException e) {
                 throw new FailedSaveFileException();
             }
@@ -59,6 +59,7 @@ public class ProfilePhotoController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(sImage, headers);
         restTemplate.postForObject(path, requestEntity, String.class);
 
