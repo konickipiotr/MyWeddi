@@ -1,15 +1,15 @@
-package com.myweddi.webapp.host.info;
+package com.myweddi.modules.info;
 
-import com.myweddi.model.ChurchInfo;
-import com.myweddi.model.WeddingInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import java.time.LocalDateTime;
 
-public class WeddingDTO {
+@Entity
+public class WeddingInfo {
 
+    @Id
     private Long weddingid;
     private String churchname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -28,53 +28,25 @@ public class WeddingDTO {
     private String wRealPath;
     private String wWebAppPath;
 
-    public void setChurchInfo(ChurchInfo ch){
-        this.churchname = ch.getName();
-        this.ceremenytime = ch.getCeremenytime();
-        this.chLatitude = ch.getLatitude();
-        this.chLongitude = ch.getLongitude();
-        this.info = ch.getInfo();
-        this.churchaddress = ch.getAddress();
-        this.chWebAppPath = ch.getWebAppPath();
+    public void update(WeddingInfo weddingInfo) {
+        this.churchname = weddingInfo.getChurchname();
+        this.ceremenytime = weddingInfo.getCeremenytime();
+        this.chLongitude = weddingInfo.getChLongitude();
+        this.chLatitude = weddingInfo.getChLatitude();
+        this.churchaddress = weddingInfo.getChurchaddress();
+        this.info = weddingInfo.getInfo();
+
+        this.weddinghousename = weddingInfo.getWeddinghousename();
+        this.wLongitude = weddingInfo.getwLongitude();
+        this.wLatitude = weddingInfo.getwLatitude();
+        this.wAddress = weddingInfo.getwAddress();
     }
 
-    public ChurchInfo getChurchInfo(){
-        ChurchInfo churchInfo = new ChurchInfo();
-        churchInfo.setWeddingid(this.weddingid);
-        churchInfo.setCeremenytime(this.ceremenytime);
-        churchInfo.setName(churchname);
-        churchInfo.setAddress(churchaddress);
-        churchInfo.setLongitude(chLongitude);
-        churchInfo.setLatitude(chLatitude);
-        churchInfo.setInfo(info);
-        churchInfo.setRealPath(chRealPath);
-        churchInfo.setWebAppPath(chWebAppPath);
-        return churchInfo;
-    }
-
-    public void setWeddingInfo(WeddingInfo wf){
-        this.weddinghousename = wf.getName();
-        this.wAddress = wf.getAddress();
-        this.wLatitude = wf.getLatitude();
-        this.wLongitude = wf.getLongitude();
-        this.wRealPath = wf.getRealPath();
-        this.wWebAppPath = wf.getWebAppPath();
-    }
-
-    public WeddingInfo getWeddingInfo(){
-        WeddingInfo wi = new WeddingInfo();
-        wi.setWeddingid(weddingid);
-        wi.setName(weddinghousename);
-        wi.setAddress(wAddress);
-        wi.setLatitude(wLatitude);
-        wi.setLongitude(wLongitude);
-        wi.setRealPath(wRealPath);
-        wi.setWebAppPath(wWebAppPath);
-        return wi;
-    }
-
-    public WeddingDTO(Long weddingid) {
+    public WeddingInfo(Long weddingid) {
         this.weddingid = weddingid;
+    }
+
+    public WeddingInfo() {
     }
 
     public Long getWeddingid() {
@@ -196,4 +168,6 @@ public class WeddingDTO {
     public void setwWebAppPath(String wWebAppPath) {
         this.wWebAppPath = wWebAppPath;
     }
+
+
 }

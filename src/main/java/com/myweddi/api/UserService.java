@@ -35,10 +35,20 @@ public class UserService {
         this.fileService = fileService;
     }
 
-    public ResponseEntity<User> getUser(String username) {
+    public ResponseEntity<User> getUserResponseEntity(String username) {
         UserAuth userAuth = userAuthRepository.findByUsername(username);
-        User user = getUser(userAuth);
+        if(userAuth == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        User user = getUserResponseEntity(userAuth);
         return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    public User getUser(String username) {
+        UserAuth userAuth = userAuthRepository.findByUsername(username);
+        if(userAuth == null)
+            return null;
+        User user = getUserResponseEntity(userAuth);
+        return user;
     }
 
     public ResponseEntity<Host> getWeddingHosts(Long weddingid){
@@ -48,7 +58,7 @@ public class UserService {
 
     public String getEncodedPhoto(Long userid){
         UserAuth userAuth = userAuthRepository.findById(userid).get();
-        User user = getUser(userAuth);
+        User user = getUserResponseEntity(userAuth);
 
         String photoPath = user.getRealPath();
         String stringBytes = new String();
@@ -68,8 +78,7 @@ public class UserService {
         return stringBytes;
     }
 
-
-    private User getUser(UserAuth userAuth){
+    public User getUserResponseEntity(UserAuth userAuth){
         User user = null;
         switch (userAuth.getRole()){
             case "GUEST": user = new User(this.guestRepository.findById(userAuth.getId()).get()); break;

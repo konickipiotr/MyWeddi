@@ -6,6 +6,8 @@ import com.myweddi.modules.gift.model.GeneralGiftRepository;
 import com.myweddi.modules.gift.model.GeneralGifts;
 import com.myweddi.modules.gift.model.Gift;
 import com.myweddi.modules.gift.model.GiftRepository;
+import com.myweddi.modules.info.WeddingInfo;
+import com.myweddi.modules.info.WeddingInfoRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
@@ -25,8 +27,6 @@ public class DbInit implements CommandLineRunner {
 
     private UserAuthRepository userAuthRepository;
     private PasswordEncoder passwordEncoder;
-    private ChurchRepository churchRepository;
-    private WeddingInfoRepository weddingInfoRepository;
     private HostRepository hostRepository;
     private GuestRepository guestRepository;
     private OneTimeRepository oneTimeRepository;
@@ -37,13 +37,12 @@ public class DbInit implements CommandLineRunner {
     private TablePlaceRepository tablePlaceRepository;
     private GiftRepository giftRepository;
     private GeneralGiftRepository generalGiftRepository;
+    private WeddingInfoRepository weddingInfoRepository;
 
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, ChurchRepository churchRepository, WeddingInfoRepository weddingInfoRepository, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository, GiftRepository giftRepository, GeneralGiftRepository generalGiftRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository, GiftRepository giftRepository, GeneralGiftRepository generalGiftRepository, WeddingInfoRepository weddingInfoRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
-        this.churchRepository = churchRepository;
-        this.weddingInfoRepository = weddingInfoRepository;
         this.hostRepository = hostRepository;
         this.guestRepository = guestRepository;
         this.oneTimeRepository = oneTimeRepository;
@@ -54,13 +53,13 @@ public class DbInit implements CommandLineRunner {
         this.tablePlaceRepository = tablePlaceRepository;
         this.giftRepository = giftRepository;
         this.generalGiftRepository = generalGiftRepository;
+        this.weddingInfoRepository = weddingInfoRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         this.userAuthRepository.deleteAll();
         this.weddingInfoRepository.deleteAll();
-        this.churchRepository.deleteAll();
         this.hostRepository.deleteAll();
         this.guestRepository.deleteAll();
         this.oneTimeRepository.deleteAll();
@@ -90,27 +89,24 @@ public class DbInit implements CommandLineRunner {
         UserAuth ua6 = new UserAuth("sg2", passwordEncoder.encode("11"), "NEWGUEST", UserStatus.FIRSTLOGIN);
         this.userAuthRepository.save(ua6);
 
-        ChurchInfo churchInfo1 = new ChurchInfo();
-        churchInfo1.setWeddingid(ua2.getId());
-        churchInfo1.setCeremenytime(LocalDateTime.of(2021,06,16,17,00));
-        churchInfo1.setLatitude(50.294);
-        churchInfo1.setLongitude(16.8728);
-        churchInfo1.setAddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
-        churchInfo1.setName("Kościół M.B. Królowej Polski i św. Maternusa");
-        churchInfo1.setRealPath("https://lh3.googleusercontent.com/proxy/hbz2DwHE6bkH7YviqQVPmX6ummHKpdpC3wQKOBCNnmhFYM5OFeH7P6XnqPVl5qqC_2LmPdpWTfnxrgO7VFssLzj-ApI6XSZ6o_uv3WFwKRmUKBUa5lE0xJZJInvj6g");
-        //churchInfo1.setWebAppPath("/church/church.jpg");
-        churchInfo1.setWebAppPath("https://polska-org.pl/foto/6932/Kosciol_Matki_Bozej_Krolowej_Polski_i_sw_Maternusa_ul_Koscielna_Stronie_Slaskie_6932428.jpg");
-        this.churchRepository.save(churchInfo1);
 
-        WeddingInfo weddingInfo1 = new WeddingInfo();
-        weddingInfo1.setWeddingid(ua2.getId());
-        weddingInfo1.setLatitude(50.282);
-        weddingInfo1.setLongitude(16.880);
-        weddingInfo1.setAddress("Kochanowskiego 13, 57-550 Stronie Ślaskie");
-        weddingInfo1.setName("Górski Poranek");
-        //weddingInfo1.setWebAppPath("/weddinghouse/gorskiporanek.jpg");
-        weddingInfo1.setWebAppPath("https://meteor-turystyka.pl/images/base/16/15079/30937_40.jpg");
-        this.weddingInfoRepository.save(weddingInfo1);
+        WeddingInfo wi1 = new WeddingInfo(ua2.getId());
+        wi1.setWeddingid(ua2.getId());
+        wi1.setCeremenytime(LocalDateTime.of(2021,06,16,17,00));
+        wi1.setChLatitude(50.25);
+        wi1.setChLongitude(16.58);
+        wi1.setChurchname("Kościół M.B. Królowej Polski i św. Maternusa");
+        wi1.setwAddress("Mickiewicza 2/45, 57-550 Stronie Ślaskie");
+        wi1.setInfo("elo elo");
+
+        wi1.setWeddinghousename("Górski Poranek");
+        wi1.setwAddress("Kochanowskiego 13, 57-550 Stronie Ślaskie");
+        wi1.setwLatitude(50.44);
+        wi1.setwLongitude(15.55);
+
+        wi1.setChWebAppPath("https://polska-org.pl/foto/6932/Kosciol_Matki_Bozej_Krolowej_Polski_i_sw_Maternusa_ul_Koscielna_Stronie_Slaskie_6932428.jpg");
+        wi1.setwWebAppPath("https://meteor-turystyka.pl/images/base/16/15079/30937_40.jpg");
+        this.weddingInfoRepository.save(wi1);
 
 
         Host h1 = new Host();

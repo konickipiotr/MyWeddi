@@ -11,12 +11,16 @@ import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -26,18 +30,16 @@ import java.util.Optional;
 public class ForgotPasswordController {
 
     private UserAuthRepository userAuthRepository;
-    private HostRepository hostRepository;
     private PasswordRestRepository passwordRestRepository;
-    private final JavaMailSender javaMailSender;
     private PasswordEncoder passwordEncoder;
+    private RestTemplate restTemplate;
 
     @Autowired
-    public ForgotPasswordController(UserAuthRepository userAuthRepository, HostRepository hostRepository, PasswordRestRepository passwordRestRepository, JavaMailSender javaMailSender, PasswordEncoder passwordEncoder) {
+    public ForgotPasswordController(UserAuthRepository userAuthRepository, PasswordRestRepository passwordRestRepository, PasswordEncoder passwordEncoder, RestTemplate restTemplate) {
         this.userAuthRepository = userAuthRepository;
-        this.hostRepository = hostRepository;
         this.passwordRestRepository = passwordRestRepository;
-        this.javaMailSender = javaMailSender;
         this.passwordEncoder = passwordEncoder;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping
@@ -48,33 +50,18 @@ public class ForgotPasswordController {
     @PostMapping
     public String sendLink(@RequestParam("login") String login, RedirectAttributes ra){
 
-        String emaill = "";
-        Long userid;
-        if(!this.userAuthRepository.existsByUsername(login)){
-            Optional<Host> oBrideemail = this.hostRepository.findByBrideemail(login);
-            if(oBrideemail.isEmpty()) {
-                Optional<Host> oGroomemail = this.hostRepository.findByGroomemail(login);
-                if(oGroomemail.isEmpty()){
-                    ra.addAttribute("message", "Taki login/email nie istnieje");
-                    return "redirect:/login";
-                }else {
-                    emaill = oGroomemail.get().getGroomemail();
-                    userid = oGroomemail.get().getId();
-                }
-
-            }else {
-                emaill = oBrideemail.get().getBrideemail();
-                userid = oBrideemail.get().getId();
+        String path = Global.domain + "/api/forgotpassword";
+        ResponseEntity<Void> response = null;
+        try {
+            response = restTemplate.postForEntity(path, login, Void.class);
+        }catch (HttpClientErrorException e){
+            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND)){
+                ra.addAttribute("message", "Taki login/email nie istnieje");
+                return "redirect:/login";
             }
-        }else {
-            UserAuth userAuth = this.userAuthRepository.findByUsername(login);
-            emaill = userAuth.getUsername();
-            userid = userAuth.getId();
-        }
+            throw new RuntimeException("Unknown exception");
 
-        String passwordCode = RandomString.make(40);
-        this.passwordRestRepository.save(new PasswordReset(userid, passwordCode));
-        sendActivationLink(emaill,passwordCode);
+        }
 
         ra.addAttribute("message", "Aby zmienić hasło kliknij link w emailu");
         return "redirect:/login";
@@ -116,18 +103,5 @@ public class ForgotPasswordController {
     }
 
 
-    private void sendActivationLink(String email, String passwordCode){
 
-        String link = Global.domain + "/forgotpassword/new/" + passwordCode;
-
-        String message = "Witaj w MyWeddi!\n\n" +
-                "Kliknij w link poniżej zresetować hasło \n" + link;
-
-        SimpleMailMessage emailMessage = new SimpleMailMessage();
-        emailMessage.setTo(email);
-        emailMessage.setSubject("MyWeddi - nowe hasło");
-        emailMessage.setText(message);
-
-        javaMailSender.send(emailMessage);
-    }
 }
