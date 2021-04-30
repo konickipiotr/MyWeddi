@@ -1,56 +1,102 @@
-body{
+.login_container1{
+    background-color: #ebbec8;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
 
-}
-.topofpageregistration{
+.login_container2{
     display: flex;
-    justify-content: space-around;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    justify-content: space-evenly;
+    padding-bottom: 20px;
 }
+
+.login_container3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    background-color: #e6d1d6;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    margin: 50px 50px 50px 50px;
+    padding-bottom: 20px;
+}
+
+.login_container4{
+    display: flex;
+    margin: 50px 50px 50px 50px;
+}
+
+.login_container3 div{
+    display: flex;
+    align-self: center;
+    margin-bottom: 5px;
+    opacity: 80%;
+    width: 80%;
+}
+
+.login_container3 label{
+    display: block;
+    width: 30%;
+    padding: 5px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2em;
+}
+
+.login_container3 input{
+    display: block;
+    width: 70%;
+    padding: 5px;
+    border-radius: 5px ;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2em;
+    border-style:none;
+}
+
 .registrationLady{
     text-align: center;
     border: 1px solid white;
     width: 50%;
     height: 300px;
-    background-color: #ffbdff;
+    background-color: #ebbec8;;
 }
+
 .registrationLady p, .registrationMan p {
     font-family: 'Nunito', sans-serif;
     color: white;
     font-size: 30px;
     font-weight: 200;
 }
-.downofpageregistration p{
-    font-family: 'Nunito', sans-serif;
-    color: black;
-    font-size: 30px;
-    font-weight: 200;
-}
+
 .registrationMan{
     text-align: center;
     border: 1px solid white;
     width: 50%;
     height: 300px;
-    background-color: #af88e3;
+    background-color: #635a6e;
 }
-.downofpageregistration{
-    text-align: center;
-    border: 1px solid white;
-    height: 600px;
-    background-color: hsl(248, 91%, 65%);
-}
+
 .formRegistration{
     display: flex;
     flex-direction: column;
-    width: 100%;
-
 }
+
 .formRegistration div{
     display: flex;
     align-self: center;
     margin-bottom: 5px;
     opacity: 80%;
     width: 80%;
-
 }
+
 .formRegistration label{
     display: block;
     width: 30%;
@@ -58,6 +104,7 @@ body{
     font-family: 'Nunito', sans-serif;
     font-size: 1.2em;
 }
+
 .formRegistration input{
     display: block;
     width: 70%;
@@ -66,54 +113,51 @@ body{
     font-family: 'Nunito', sans-serif;
     font-size: 1.2em;
     border-style:none;
+}
 
+.login_container_5{
+    background-color: #e6d1d6;
+    font-family: 'Nunito', sans-serif;
+    margin: 50px 50px 50px 50px;
+    padding-bottom: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    padding-top:20px;
 }
-.enterRegistrationBtn{
-    justify-content: center;
-    margin-top: 30px;
+
+.login_container_5 input{
+    width: 40%;
+    padding: 5px;
+    border-radius: 5px ;
+    font-family: 'Nunito', sans-serif;
+    border-style:none;
+    text-align: center;
 }
-.enterRegistrationBtn button {
+
+.btn_login{
+    text-align: center;
+}
+
+.btn_login button{
     width: 200px;
     padding: 16px 16px;
-    margin-top: 15px;
     font-size: 20px;
     border-radius: 5px;
     color: #2E3E60;
     font-family: 'Nunito', sans-serif;
-    transition: all 0.5s;
-    cursor: pointer;
     text-decoration: none;
     border-style: none;
-    background-color: #bab2d6;
-
-
+    background-color: #ebbec8;
+    border: 2px solid white;
 }
-.enterRegistrationBtn span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
 
-  .enterRegistrationBtn span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-  }
-
-  .enterRegistrationBtn:hover span {
-    padding-right: 25px;
-
-  }
-  .enterRegistrationBtn button:hover {
+.btn_login button:hover {
     background-color: rgb(255, 255, 255);
     opacity: 30%;
   }
-  .enterRegistrationBtn:hover span:after {
-    opacity: 1;
-    right: 0;
 
+  .error-message{
+      display: flex;
+      justify-content: center;
   }
