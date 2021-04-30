@@ -107,6 +107,9 @@
         </div>
     </div>
     <div class="login_container_5" id="weddingCodeDiv">
+        <div th:if="${errorweddingcode}">
+            <p th:text="${errorweddingcode}" class="error-message"></p>
+        </div>
         <div>
             <label for="brideemail" th:text="#{weddingcode}"></label>
             <input type="text" minlength="3">

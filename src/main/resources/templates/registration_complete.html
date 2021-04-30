@@ -22,7 +22,7 @@
 
   <!-- ************************************* -->
   <div>
-    <p><span>Na adres </span> <span>email@email.com</span> <span>został wysłany link aktywacyjny</span></p>
+    <p><span>Na adres </span> <span th:text="${email}"></span> <span>został wysłany link aktywacyjny</span></p>
 
     <form th:action=@{/registration/sendagain} method="POST">
       <button type="submit" name="userid" th:value="${userid}">wyślij ponownie</button>

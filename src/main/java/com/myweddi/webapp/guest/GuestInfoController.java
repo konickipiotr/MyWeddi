@@ -23,7 +23,6 @@ import java.security.Principal;
 public class GuestInfoController {
 
     private final AuthServiceWebApp authServiceWebApp;
-    private final String ROOT_PATH = Global.domain + "/api/weddinginfo";
 
     @Autowired
     public GuestInfoController(AuthServiceWebApp authServiceWebApp) {
@@ -34,7 +33,7 @@ public class GuestInfoController {
     public String getWeddingInfo(Model model, Principal principal, RedirectAttributes ra){
         RestTemplate restTemplate = authServiceWebApp.configRestTemplate(principal.getName());
         Long weddingId = authServiceWebApp.getWeddingid(principal.getName());
-        String path = ROOT_PATH+ "/" + weddingId;
+        String path = Global.domain + "/api/weddinginfo/" + weddingId;
         ResponseEntity<WeddingInfo> response;
 
         try {

@@ -30,9 +30,6 @@ public class RegistrationValidator implements Validator {
             errors.rejectValue("username", "valid.msg.usernameexists");
 
         String usertype = rf.getUsertype();
-
-
-
     }
 
     private void checkNewHost(RegistrationForm rf, Errors errors){
@@ -46,7 +43,5 @@ public class RegistrationValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "weddingcode", "valid.msg.fieldcannotbeempty");
         ValidationUtils.rejectIfEmpty(errors, "firstname", "valid.msg.fieldcannotbeempty");
         ValidationUtils.rejectIfEmpty(errors, "lastname", "valid.msg.fieldcannotbeempty");
-
-
     }
 }
