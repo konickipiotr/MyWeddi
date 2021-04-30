@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
-    <title>MyWeddi</title>
+    <title th:text="#{appname}"></title>
 
     <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
     <link rel="stylesheet" type="text/css" href="/css/header.css">
@@ -18,10 +18,8 @@
 </head>
 <body>
 
-    <header th:replace="top :: top">
-    </header>
-    <header th:replace="header :: header">
-    </header>
+    <header th:replace="top :: top"></header>
+    <header th:replace="header :: header"></header>
     <div class="container" style="display: flex;">
       <aside class="menu" th:replace="menu :: menu"></aside>
       <!-- ************************************************** -->
@@ -30,7 +28,7 @@
         <div class=contentof_guestview>
             <div class="contentof_guestview_welcome">
                 <div>
-                    <p>Pobieramy się! Będzie nam bardzo miło jeśli tego wyjątkowego, dla nas, dnia będziecie razem z nami bawić się do białego rana. I dzień później teź ;D Poniżej znajdziecie informacje o uroczystości I przyjęciu. Po lewej stronie możecie skorzyctać z menu, które przeniesie was do rezerwacji prezentów, wirtualej galerii (wrzucajcie tam zdjęcia), podglądu na ułożenie stołów. Możecie też dodawać posty I potwierdzić obecność przechodząc do swojego profilu :)   </p>
+                    <p th:text="#{msg.info.invitationmsg}"></p>
                 </div>
 
                 <div>
@@ -38,20 +36,19 @@
                 </div>
             </div>
             <div class="welcome_guestview">
-                <div class="churchinfo_guestview">
-                    <p> <span th:text="${churchInfo.name}"</span><br> Godzina ceremonii: <br> Adres ceremonii:<br> <span th:text="${churchInfo.address}"></span><br> </p>
-                    <!-- <p>Kościół pod wezwaniem NŚMP <br> Godzina ceremonii: 17:00 <br> Adres ceremonii:<br> Kochanowskiego 1A <br> </p> -->
+                <div class="weddingInfo_guestview">
+                    <p> <span th:text="${weddingInfo.churchname}"></span><br> Godzina ceremonii: <br> Adres ceremonii:<br> <span th:text="${weddingInfo.churchaddress}"></span><br> </p>
                 </div>
                 <div class="weddinginfo_guestview">
-                    <p><span th:text="${weddingInfo.name}"></span><br> Godzina przyjęcia: 18:00 <br> Adres przyjęcia:<br> <span th:text="${weddingInfo.address}"></span> <br> </p>
-                 </div>
+                    <p><span th:text="${weddingInfo.weddinghousename}"></span><br> Godzina przyjęcia: 18:00 <br> Adres przyjęcia:<br> <span th:text="${weddingInfo.wAddress}"></span> <br> </p>
+                </div>
             </div>
             <div class="middle_of_guestview">
                 <div class="photos_guestview">
-                    <img th:src="@{${churchInfo.webAppPath}}" width="400" height="350">
+                    <img th:src="@{${weddingInfo.chWebAppPath}}" width="400" height="350">
                 </div>
                 <div class="photos_guestview">
-                    <img th:src="@{${weddingInfo.webAppPath}}" width="400" height="350">
+                    <img th:src="@{${weddingInfo.wWebAppPath}}" width="400" height="350">
                  </div>
             </div>
             <div class="middle_of_guestview">
@@ -63,7 +60,7 @@
                 </div>
             </div>
             <div class="down_of_guestview">
-                <p>Tutaj będzie miejsce na informacje które wpisze sobie para młoda <br> NP. Prosimy o potwierdzenie obecności do dnia 15.05.2021 <br> Można konraktować się z nami przez wiadomości w aplikacji <br> lub przez nr tel <br> Piotr 665 665 555 <br> Patrycja 555 555 555</p>
+                <p th:text="#{weddingInfo.infi}"></p>
             </div>
         </div>
       </section>

@@ -1,86 +1,82 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title th:text="#{appname}"></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
-    <title>MyWeddi</title>
-
+    
     <link rel="stylesheet" type="text/css" href="/css/registration.css">
     <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/menu.css">
     <link rel="stylesheet" type="text/css" href="/css/post.css">
-  
-    <link rel="stylesheet" type="text/css" href="../static/css/mainstyle.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/header.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/menu.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/post.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/registration.css">
 </head>
 
 <body>
     <div class="header-top">
         <div>
-          <p>MyWeddi.pl</p>
+          <p th:text="#{appdomen}"></p>
         </div>
     </div>
     <div class="login_container1">
-        REJESTRACJA I LOGOWANIE
+        <h2 th:text="#{header.registration}"></h2>
     </div>
+    <form th:action="@{/registration}" method="post" th:object="${registrationForm}">
     <div class="login_container2">
-        <label><input type="radio" name="guest_login">GOŚĆ</label>
-        <label><input type="radio" name="guest_login">PAŃSTWO MŁODZI</label>
-        <label><input type="radio" name="guest_login">FOTOGRAF</label>
-        <label><input type="radio" name="guest_login">DJ/ZESPÓŁ</label>
+        <input type="radio" name="usertype" value="GUEST" id="GUEST" onclick="chooseGuest()" checked ><label for="GUEST" th:text="#{role.guest}"></label>
+        <input type="radio" name="usertype" value="HOST" id="HOST" onclick="chooseHost()"><label for="HOST" th:text="#{role.host}"></label>
+        <input type="radio" name="usertype" value="DJ" id="DJ" onclick="chooseOther()()"><label  for="DJ" th:text="#{role.dj}"></label>
+        <input type="radio" name="usertype" value="PHOTOGRAPHER" id="PHOTOGRAPHER" onclick="chooseOther()()"><label  for="PHOTOGRAPHER" th:text="#{role.photographer}"></label>
     </div>
-
+    
     <div class="login_container3">
         <div class="error-message">
             <p class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
           </div>
           <div>
-              <label for="username">Login</label>
-              <input type="text" name="username" minlength="3" id="username" th:field="*{username}" required>
+              <label for="username" id="loginLabel" th:text="#{login}"></label>
+              <input type="email" name="username" minlength="4" id="username" th:field="*{username}">
           </div>
           <div class="error-message">
             <p class="error-message2" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
           </div>
           <div>
-              <label for="password">Hasło</label>
-              <input type="password" name="password" minlength="6" id="password" th:field="*{c}" required>
+              <label for="password" th:text="#{password}"></label>
+              <input type="password" name="password" minlength="6" id="password" th:field="*{password}" required>
           </div>
           <div>
-              <label for="password2">Hasło</label>
+              <label for="password2" th:text="#{passwordAgain}"></label>
               <input type="password" name="password2" minlength="6" id="password2" th:field="*{password2}" required>
           </div>
     </div>
-    <div class="login_container4">
+    <div class="login_container4" id="hostsInfo" style="display: none;">
         <div class="registrationLady">
     
             <div class="formRegistration">
-                <p>PANNA MLODA</p>
+                <p th:text="#{bride}"></p>
             <div>
               <p th:if="${#fields.hasErrors('bridefirstname')}" th:errors="*{bridefirstname}" class="error_message" ></p>
-                <label for="bridefirstname">Imię</label>
+                <label for="bridefirstname" th:text="#{firstname}"></label>
                 <input type="text" name="bridefirstname" minlength="3"  id="bridefirstname" th:field="*{bridefirstname}">
             </div>
             <div>
                   <p th:if="${#fields.hasErrors('bridelastname')}" th:errors="*{bridelastname}" class="error_message"></p>
-                <label for="bridelastname">Nazwisko</label>
+                <label for="bridelastname" th:text="#{lastname}"></label>
                 <input type="text" name="bridelastname" minlength="3" id="bridelastname" th:field="*{bridelastname}">
             </div>
             <div>
-                <label for="brideemail">E-mail</label>
+                <label for="brideemail" th:text="#{email}"></label>
                 <input type="email" name="brideemail" minlength="3" id="brideemail" th:field="*{brideemail}">
             </div>
             <div>
-                <label for="bridephone">Telefon</label>
+                <label for="bridephone" th:text="#{phone}"></label>
                 <input type="tel" name="bridephone" minlength="3" id="bridephone" th:field="*{bridephone}">
             </div>
             </div>
@@ -88,36 +84,91 @@
         <div class="registrationMan">
             
               <div class="formRegistration">
-                <p>PAN MLODY</p>
+                <p th:text="#{groom}"></p>
                 <div>
-                    <label for="groomfirstname">Imię</label>
+                    <label for="groomfirstname" th:text="#{firstname}"></label>
                     <p th:if="${#fields.hasErrors('groomfirstname')}" th:errors="*{groomfirstname}" class="error_message"></p>
                     <input type="text" name="groomfirstname" minlength="3" id="groomfirstname" th:field="*{groomfirstname}">
                 </div>
                 <div>
-                    <label for="groomlastname">Nazwisko</label>
+                    <label for="groomlastname" th:text="#{lastname}"></label>
                     <p th:if="${#fields.hasErrors('groomlastname')}" th:errors="*{groomlastname}" class="error_message"></p>
                     <input type="text" name="groomlastname" minlength="3" id="groomlastname" th:field="*{groomlastname}">
                 </div>
                 <div>
-                    <label for="groomemail">E-mail</label>
+                    <label for="groomemail" th:text="#{email}"></label>
                     <input type="email" name="groomemail" minlength="3" id="groomemail" th:field="*{groomemail}">
                 </div>
                 <div>
-                    <label for="groomphone">Telefon</label>
+                    <label for="groomphone" th:text="#{phone}"></label>
                     <input type="tel" name="groomphone" minlength="3" id="groomphone" th:field="*{groomphone}">
                 </div>
               </div>
         </div>
     </div>
-    <div class="login_container_5">
+    <div class="login_container_5" id="weddingCodeDiv">
         <div>
-            <label for="brideemail">Kod wesela</label>
+            <label for="brideemail" th:text="#{weddingcode}"></label>
             <input type="text" minlength="3">
         </div>
     </div>
-    <div class = "btn_login">
-        <button>DALEJ</button>
+    <div class="login_container3" id="otherInfo" style="padding-top: 10px;">
+          <div>
+            <label for="guestFirstName" th:text="#{firstname}"></label>
+            <input type="text" id="guestFirstName" name="guestFirstName" th:field="*{firstname}"/>
+          </div>
+          <div>
+            <label for="guestLastName" th:text="#{lastname}"></label>
+            <input type="text" id="guestLastName" name="guestLastName" th:field="*{lastname}"/>
+          </div>
+            <div>
+                <div>
+                    <label for="genderM" th:text="#{gender_man}"></label>
+                    <input type="radio" id="genderM" name="gender" value="M"  checked />
+                </div>
+                <div>
+                    <label for="genderF" th:text="#{gender_female}"></label>
+                    <input type="radio" id="genderF" name="gender" value="F"/>
+                </div>
+            </div>
     </div>
+    <div class="btn_login">
+        <button type="submit">DALEJ</button>
+    </div>
+    </form>
 
 </body>
+<script>
+
+function chooseHost(){
+    document.getElementById("loginLabel").innerHTML = "login";
+    document.getElementById("username").type = 'text';
+
+    document.getElementById("hostsInfo").style.display = "block";
+    
+
+    document.getElementById("otherInfo").style.display = "none";
+    document.getElementById("weddingCodeDiv").style.display = "none";
+}
+
+function chooseGuest(){
+    document.getElementById("loginLabel").innerHTML = "email";
+    document.getElementById("username").type = 'email';
+
+    document.getElementById("hostsInfo").style.display = "none";
+
+    document.getElementById("otherInfo").style.display = "block";
+    document.getElementById("weddingCodeDiv").style.display = "block";
+}
+
+function chooseOther(){
+    document.getElementById("loginLabel").innerHTML = "email";
+    document.getElementById("username").type = 'email';
+
+    document.getElementById("hostsInfo").style.display = "none";
+    document.getElementById("weddingCodeDiv").style.display = "none";
+    document.getElementById("otherInfo").style.display = "block";
+}
+
+</script>   
+</html>
