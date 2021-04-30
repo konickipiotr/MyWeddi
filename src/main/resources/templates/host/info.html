@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>MyWeddi</title>
+  <title th:text="#{appname}"></title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,27 +19,25 @@
 </head>
 
 <body>
-  <header th:replace="top :: top">
-  </header>
-  <header th:replace="header :: header">
-  </header>
+  <header th:replace="top :: top"></header>
+  <header th:replace="header :: header"></header>
 
   <div class="container" style="display: flex;">
     <aside class="menu" th:replace="menu :: menu"></aside>
     <!-- ************************************************** -->
     <section class="content">
       <!-- ************************************************** -->
-      <form th:action="@{/host/info/church}" method="post" th:object="${churchInfo}" enctype="multipart/form-data">
-        <input type="hidden" name="weddingid" th:value="${churchInfo.weddingid}" />
+      <form th:action="@{/host/info}" method="post" th:object="${weddingInfo}" enctype="multipart/form-data" name="weddingInfoForm">
+        <input type="hidden" name="weddingid" th:value="${weddingInfo.weddingid}" />
         <p th:if="${massage != null}" th:class="${class}" th:text="${message}"></p>
           <div class="generalinfo">
             <div class="dateofwedding">
-              <label for="ceremenytime">Data ślubu</label>
+              <label for="ceremenytime" th:text="#{label.info.weddingdate}"></label>
               <input type="datetime-local" name="ceremenytime" id="ceremenytime" minlength="3" th:field="*{ceremenytime}" required>
             </div>
             <div class="infoofwedding">
               <label for="info">INFO</label>
-              <textarea id="info" name="info" rows="4" cols="50" th:text="${churchInfo.info}"></textarea>
+              <textarea id="info" name="info" rows="4" cols="50" th:text="${weddingInfo.info}"></textarea>
             </div>
           </div>
 
@@ -47,46 +45,45 @@
 
           <div class="church_info">
             <div>
-              <label for="name">Kościół</label>
-              <input type="text" name="name" id="nameC" minlength="3" th:field="*{name}" required>
+              <label for="name" th:text="#{label.church}"></label>
+              <input type="text" name="name" id="nameC" minlength="3" th:field="*{churchname}" required>
             </div>
             <div>
-              <label for="address">Adres Kościoła</label>
-              <input type="text" name="address" id="address" minlength="3" th:field="*{address}" required>
+              <label for="wAddress" th:text="#{label.address}"></label>
+              <input type="text" name="wAddress" id="wAddress" minlength="3" th:field="*{churchaddress}" required>
             </div>
             <div>
-              <label for="latitude">Współrzędne X</label>
-              <input type="number" name="latitude" id="latitude" min="-180" max="180" step="0.000001" minlength="3" th:field="*{latitude}" required>
+              <label for="wLatitude" th:text="#{label.latitude}"></label>
+              <input type="number" name="wLatitude" id="wLatitude" min="-180" max="180" step="0.000001" minlength="3" th:field="*{chLatitude}">
             </div>
             <div>
-              <label for="longitude">Współrzędne Y</label>
-              <input type="number" name="longitude" id="longitude" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
+              <label for="wLongitude" th:text="#{label.longitude}"></label>
+              <input type="number" name="wLongitude" id="wLongitude" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{chLongitude}">
             </div>
-            <div th:if="${churchInfo.webAppPath != null}">
-             <img class="photo" th:src="@{${churchInfo.webAppPath}}" />
+            <div th:if="${weddingInfo.chWebAppPath != null}">
+             <img class="photo" th:src="@{${weddingInfo.chWebAppPath}}" />
             </div>
           </div>
 
-
           <div class="place_info">
             <div>
-              <label for="name">Sala</label>
-              <input type="text" name="name" id="name" minlength="3" th:field="*{name}" required>
+              <label for="name" th:text="#{label.weddingHouse}"></label>
+              <input type="text" name="name" id="name" minlength="3" th:field="*{weddinghousename}" required>
             </div>
             <div>
-              <label for="address">Adres Sali</label>
-              <input type="text" name="address" id="addressS" minlength="3" th:field="*{address}" required>
+              <label for="address" th:text="#{label.address}"></label>
+              <input type="text" name="address" id="addressS" minlength="3" th:field="*{wAddress}" required>
             </div>
             <div>
-              <label for="latitude">Współrzędne X</label>
-              <input type="number" name="latitude" id="latitudeS" min="-180" max="180" step="0.000001" minlength="3" th:field="*{latitude}" required>
+              <label for="latitude" th:text="#{label.latitude}"></label>
+              <input type="number" name="latitude" id="latitudeS" min="-180" max="180" step="0.000001" minlength="3" th:field="*{wLatitude}">
             </div>
             <div>
-              <label for="longitude">Współrzędne Y</label>
-              <input type="number" name="longitude" id="longitudeS" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{longitude}" required>
+              <label for="longitude" th:text="#{label.longitude}"></label>
+              <input type="number" name="longitude" id="longitudeS" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{wLongitude}">
             </div>
-            <div th:if="${weddingInfo.webAppPath != null}">
-             <img class="photo" th:src="@{${weddingInfo.webAppPath}}" />
+            <div th:if="${weddingInfo.wWebAppPath != null}">
+             <img class="photo" th:src="@{${weddingInfo.wWebAppPath}}" />
             </div>
           </div>
         </div>
@@ -95,11 +92,14 @@
           <div class="church_info">
             <div class="downofinfo">
               <div class="uploadpictureinfo">
-                <div class = add_img_btn>
-                <label th:if="${weddingInfo.webAppPath != null}" for="imagewedding">Dodaj zdjęcie</label>
-                <label th:unless="${weddingInfo.webAppPath != null}" for="imagechurch">Zmień zdjęcie</label>
+                <div class="add_img_btn" id="uploadChurchBtn" onclick="chooseChurchPhoto()">
+                  <span th:if="${weddingInfo.chWebAppPath == null}" th:text="#{label.addPhoto}"></span>
+                  <span th:unless="${weddingInfo.chWebAppPath == null}" th:text="#{label.changePhoto}"></span>
+                  
                 </div>
-                <input type="file" name="image" id="imagewedding" multiple>
+                <div style='height: 0px;width:0px; overflow:hidden;'>
+                  <input type="file" id="churchPhotoInput" name="chimage" accept="image/*"value="upload" onchange="uploadChurchPhoto(this)" multiple />
+                </div>
               </div>
             </div>
           </div>
@@ -107,20 +107,22 @@
           <div class="place_info">
             <div class="downofinfo">
               <div class="uploadpictureinfo">
-                <div class = add_img_btn>
-                <label th:if="${churchInfo.webAppPath != null}" for="imagechurch">Dodaj zdjęcie</label>
-                <label th:unless="${churchInfo.webAppPath != null}" for="imagechurch">Zmień zdjęcie</label>
+                <div class="add_img_btn" id="uploadWeddingBtn" onclick="chooseWeddingPhoto()">
+                  <span th:if="${weddingInfo.wWebAppPath == null}" th:text="#{label.addPhoto}"></span>
+                  <span th:unless="${weddingInfo.wWebAppPath == null}" th:text="#{label.changePhoto}"></span>
+                  
                 </div>
-                <input type="file" name="image" id="imagechurch" multiple>
+                <div style='height: 0px;width:0px; overflow:hidden;'>
+                  <input type="file" id="weddingPhotoInput" name="wimage" accept="image/*" value="upload" onchange="uploadWeddingPhoto(this)" multiple />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="enterbtninfo">
-          <button type="submit" class="btn"><span>Z R O B I O N E</span></button>
+          <button type="submit" class="btn"><span th:text="#{label.info.done}"></span></button>
         </div>
-
       </form>
       <!-- ************************************************** -->
     </section>
@@ -128,3 +130,48 @@
   </div>
   <footer th:replace="footer :: footer"></footer>
 </body>
+
+<script>
+  var extList = ['jpg', 'png', 'bmp'];
+
+  function chooseChurchPhoto() {
+    document.getElementById("churchPhotoInput").click();
+  }
+
+  function chooseWeddingPhoto() {
+    document.getElementById("weddingPhotoInput").click();
+  }
+
+  function uploadChurchPhoto(obj) {
+    let file = obj.value;
+    let fileNameArr = file.split("\\");
+    let fileName = fileNameArr[fileNameArr.length - 1];
+    let ext = fileName.substring(fileName.length - 3);
+    
+    if(!extList.includes(ext)){
+      alert("The file is not of img type.")
+      return;
+    }
+
+    document.getElementById("uploadChurchBtn").innerHTML = fileName[fileName.length - 1];
+    document.weddingInfoForm.submit();
+    event.preventDefault();
+  }
+
+  function uploadWeddingPhoto(obj) {
+    let file = obj.value;
+    let fileNameArr = file.split("\\");
+    let fileName = fileNameArr[fileNameArr.length - 1];
+    let ext = fileName.substring(fileName.length - 3);
+    
+    if(!extList.includes(ext)){
+      alert("The file is not of img type.")
+      return;
+    }
+
+    document.getElementById("uploadWeddingBtn").innerHTML = fileName;
+    document.weddingInfoForm.submit();
+    event.preventDefault();
+  }
+</script>
+</html>

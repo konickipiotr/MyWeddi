@@ -78,9 +78,9 @@ class PostServiceTest {
 
         Host h1 = new Host();
         Host h2 = new Host();
-        Guest g1 = new Guest(ua2.getId(), ua1.getId(), "jola.patola@xxx.pl", "Jola", "Patola", "GUEST", GuestStatus.CONFIRMED);
-        Guest g11 = new Guest(ua22.getId(), ua1.getId(), "mariola.patola@xxx.pl", "Mariola", "Patola", "GUEST", GuestStatus.CONFIRMED);
-        Guest g2 = new Guest(ua4.getId(), ua3.getId(), "adam.nowak@xxx.pl", "Adam", "Nowak", "GUEST", GuestStatus.CONFIRMED);
+        Guest g1 = new Guest(ua2.getId(), ua1.getId(), "jola.patola@xxx.pl", "Jola", "Patola", GuestStatus.CONFIRMED);
+        Guest g11 = new Guest(ua22.getId(), ua1.getId(), "mariola.patola@xxx.pl", "Mariola", "Patola", GuestStatus.CONFIRMED);
+        Guest g2 = new Guest(ua4.getId(), ua3.getId(), "adam.nowak@xxx.pl", "Adam", "Nowak", GuestStatus.CONFIRMED);
         h1.setId(ua1.getId());
         h2.setId(ua3.getId());
         this.hostRepository.save(h1);

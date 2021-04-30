@@ -1,6 +1,5 @@
 package com.myweddi.api;
 
-import com.myweddi.modules.gift.GiftService;
 import com.myweddi.modules.gift.GiftWrapper;
 import com.myweddi.modules.gift.model.GiftIn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +34,15 @@ public class GiftAPIController {
     @PostMapping("/remove")
     public void removerGift(@RequestBody Long giftid, Principal principal){
         giftService.removeGift(giftid, principal.getName());
+    }
+
+    @PostMapping("/book")
+    public ResponseEntity bookGift(@RequestBody Long giftid, Principal principal){
+        return giftService.bookGift(giftid, principal.getName());
+    }
+
+    @PostMapping("/unbook")
+    public ResponseEntity<String> unbookGift(@RequestBody Long giftid, Principal principal){
+        return giftService.unbookGift(giftid, principal.getName());
     }
 }

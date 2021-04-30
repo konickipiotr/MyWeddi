@@ -59,11 +59,11 @@ class PostRepositoryTest {
 
         this.userAuthRepository.saveAll(Arrays.asList(ua11, ua12, ua13, ua2, ua3, ua4, ua5, ua6));
 
-        Guest g1 = new Guest(ua2.getId(), ua11.getId(), "jola.patola@xxx.pl", "Jola", "Patola", "GUEST", GuestStatus.CONFIRMED);
-        Guest g2 = new Guest(ua3.getId(), ua11.getId(), "adam.nowak@xxx.pl", "Adam", "Nowak", "GUEST", GuestStatus.CONFIRMED);
-        Guest g3 = new Guest(ua4.getId(), ua12.getId(), "zosia.samosia@xxx.pl", "Zosia", "Samosia", "GUEST", GuestStatus.CONFIRMED);
-        Guest g4 = new Guest(ua5.getId(), ua12.getId(), "marian.kowalski@xxx.pl", "Marian", "Kowalski", "GUEST", GuestStatus.CONFIRMED);
-        Guest g5 = new Guest(ua6.getId(), ua13.getId(), "halina.hubska@xxx.pl", "Halina", "Hubska", "GUEST", GuestStatus.CONFIRMED);
+        Guest g1 = new Guest(ua2.getId(), ua11.getId(), "jola.patola@xxx.pl", "Jola", "Patola", GuestStatus.CONFIRMED);
+        Guest g2 = new Guest(ua3.getId(), ua11.getId(), "adam.nowak@xxx.pl", "Adam", "Nowak", GuestStatus.CONFIRMED);
+        Guest g3 = new Guest(ua4.getId(), ua12.getId(), "zosia.samosia@xxx.pl", "Zosia", "Samosia", GuestStatus.CONFIRMED);
+        Guest g4 = new Guest(ua5.getId(), ua12.getId(), "marian.kowalski@xxx.pl", "Marian", "Kowalski", GuestStatus.CONFIRMED);
+        Guest g5 = new Guest(ua6.getId(), ua13.getId(), "halina.hubska@xxx.pl", "Halina", "Hubska", GuestStatus.CONFIRMED);
 
         this.guestRepository.saveAll(Arrays.asList(g1, g2, g3, g4, g5));
 

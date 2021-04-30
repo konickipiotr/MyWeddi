@@ -66,8 +66,22 @@ public class FileService {
 
         realPath += filename;
 
-
         return new FileNameStruct(realPath, wepAppPath);
+    }
+
+    public FileNameStruct uploadPhoto(MultipartFile uploadfile, PhotoCat photoCat){
+        if (uploadfile == null || uploadfile.isEmpty()) return null;
+
+        FileNameStruct fileNameStruct = createFileName(uploadfile, photoCat);
+
+        Path fullpath = Paths.get(fileNameStruct.realPath);
+        try {
+            Files.copy(uploadfile.getInputStream(), fullpath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return fileNameStruct;
     }
 
     public List<FileNameStruct> uploadPhotos(List<MultipartFile> uploadfiles, PhotoCat photoCat){

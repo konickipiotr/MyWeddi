@@ -24,12 +24,12 @@
         <div class="middle_cont_firstVisit">
             <p>Czy potwierdzasz?<p></p>
             <label class="radio">
-                <input name="radio" type="radio" checked>
-                <span>TAK</span>
+                <input id="confirm" name="confirm" type="radio" checked>
+                <label for="confirm">TAK</label>
             </label>
             <label class="radio">
-                <input name="radio" type="radio">
-                <span>NIE</span>
+                <input id="reject" name="reject" type="radio">
+                <label for="reject">NIE</label>
             </label>
         </div>
         <div class="middle_cont_firstVisit">
@@ -38,27 +38,32 @@
         <div class="middle_cont_firstVisit">
             <p>Czy będziesz z osobą towarzyszącą?</p>
             <label class="radio">
-                <input name="radio" type="radio" checked>
-                <span>TAK</span>
+                <input name="partner" id="partner-true" type="radio" checked>
+                <label for="partner-true">TAK</label>
             </label>
             <label class="radio">
-                <input name="radio" type="radio">
-                <span>NIE</span>
+                <input name="partner" id="partner-false" type="radio">
+                <label for="partner-false">NIE</label>
             </label>
         </div>
         <div class="middle_cont_firstVisit">
             <p>Ile dzieci?</p>
-            <input type="number">
+            <input type="number" name="children" min="0" step="1" value="0">
         </div>
         <div class="middle_cont_firstVisit">
             <p>Czy potrzebujesz noclegu?</p>
             <label class="radio">
-                <input name="radio" type="radio" checked>
-                <span>TAK</span>
+                <input name="bed" id="bed-true"  type="radio" checked>
+                <label for="bed-true">TAK</label>
             </label>
             <label class="radio">
-                <input name="radio" type="radio">
-                <span>NIE</span>
+                <input name="bed" id="bed-false" type="radio">
+                <label for="bed-false">NIE</label>
+            </label><br />
+
+            <label class="radio">
+                <label for="numofbed">Ile łóżek potrzenujesz?</label>
+                <input type="number" id="numofbed" name="numofbed" min="0" step="1" value="1">
             </label>
         </div>
         <div class="enter">

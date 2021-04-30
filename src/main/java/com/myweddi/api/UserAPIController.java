@@ -2,7 +2,6 @@ package com.myweddi.api;
 
 import com.myweddi.user.Host;
 import com.myweddi.user.User;
-import com.myweddi.user.UserAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class UserAPIController {
 
     @GetMapping
     public ResponseEntity<User> getUserAuth(Principal principal){
-        return userService.getUser(principal.getName());
+        return userService.getUserResponseEntity(principal.getName());
     }
 
     @PostMapping("/host")

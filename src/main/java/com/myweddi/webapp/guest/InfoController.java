@@ -1,8 +1,6 @@
 package com.myweddi.webapp.guest;
 
 import com.myweddi.conf.Global;
-import com.myweddi.model.ChurchInfo;
-import com.myweddi.model.WeddingInfo;
 import com.myweddi.user.Guest;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.UserAuth;
@@ -35,33 +33,33 @@ public class InfoController {
         this.restTemplate = restTemplate;
     }
 
-    @GetMapping
-    public String getInfo(Model model, Principal principal){
-        UserAuth user = userAuthRepository.findByUsername(principal.getName());
-        Guest guest = guestRepository.findById(user.getId()).get();
-
-        String path = Global.domain + "/api/churchinfo/" + guest.getWeddingid();
-        restTemplate.getInterceptors().clear();
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
-        ResponseEntity<ChurchInfo> response = restTemplate.getForEntity(path, ChurchInfo.class);
-
-        path = Global.domain + "/api/weddinginfo/" +  guest.getWeddingid();
-        ResponseEntity<WeddingInfo> response2 = restTemplate.getForEntity(path, WeddingInfo.class);
-        if(response.getStatusCode() == HttpStatus.OK){
-            ChurchInfo churchInfo = response.getBody();
-            model.addAttribute("churchInfo", churchInfo);
-        }else {
-            model.addAttribute("churchInfo", new ChurchInfo(user.getId()));
-        }
-
-        if(response2.getStatusCode() == HttpStatus.OK){
-            WeddingInfo weddingInfo = response2.getBody();
-            model.addAttribute("weddingInfo", weddingInfo);
-        }else {
-            model.addAttribute("weddingInfo", new WeddingInfo(user.getId()));
-        }
-
-        model.addAttribute("menu", Menu.guestMenu);
-        return "guest/infoview";
-    }
+//    @GetMapping
+//    public String getInfo(Model model, Principal principal){
+//        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+//        Guest guest = guestRepository.findById(user.getId()).get();
+//
+//        String path = Global.domain + "/api/churchinfo/" + guest.getWeddingid();
+//        restTemplate.getInterceptors().clear();
+//        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
+//        ResponseEntity<ChurchInfo> response = restTemplate.getForEntity(path, ChurchInfo.class);
+//
+//        path = Global.domain + "/api/weddinginfo/" +  guest.getWeddingid();
+//        ResponseEntity<WeddingInfo> response2 = restTemplate.getForEntity(path, WeddingInfo.class);
+//        if(response.getStatusCode() == HttpStatus.OK){
+//            ChurchInfo churchInfo = response.getBody();
+//            model.addAttribute("churchInfo", churchInfo);
+//        }else {
+//            model.addAttribute("churchInfo", new ChurchInfo(user.getId()));
+//        }
+//
+//        if(response2.getStatusCode() == HttpStatus.OK){
+//            WeddingInfo weddingInfo = response2.getBody();
+//            model.addAttribute("weddingInfo", weddingInfo);
+//        }else {
+//            model.addAttribute("weddingInfo", new WeddingInfo(user.getId()));
+//        }
+//
+//        model.addAttribute("menu", Menu.guestMenu);
+//        return "guest/infoview";
+//    }
 }

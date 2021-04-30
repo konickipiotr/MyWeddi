@@ -10,12 +10,16 @@ public class Guest{
     private Long id;
     private Long weddingid;
     private String email;
-    private Long partner;
     private String firstname;
     private String lastname;
     private String realPath;
     private String webAppPath;
-    private String role;
+    private boolean confirm;
+    private boolean partner;
+    private int children;
+    private boolean bed;
+    private int numofbed;
+
     @Enumerated(EnumType.STRING)
     private GuestStatus status;
 
@@ -25,13 +29,12 @@ public class Guest{
     public Guest() {
     }
 
-    public Guest(Long id, Long weddingid, String email, String firstname, String lastname, String role, GuestStatus status) {
+    public Guest(Long id, Long weddingid, String email, String firstname, String lastname, GuestStatus status) {
         this.id = id;
         this.weddingid = weddingid;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.role = role;
         this.status = status;
     }
 
@@ -41,7 +44,6 @@ public class Guest{
         this.weddingid = weddingid;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.role = "NEWGUEST";
         this.status = GuestStatus.NOTCONFIRMED;
         this.setWebAppPath("img/user.png");
     }
@@ -51,7 +53,6 @@ public class Guest{
         this.weddingid = weddingid;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.role = "GUEST";
         this.status = GuestStatus.NOTCONFIRMED;
     }
 
@@ -65,6 +66,14 @@ public class Guest{
             case CONFIRMED: this.statusIco = "fas fa-user-check" ;break;
             case REJECTED: this.statusIco = "fas fa-user-minus" ;break;
         }
+    }
+
+    public void setFirstLoginData(FirstLoginForm flf){
+        this.confirm = flf.isConfirm();
+        this.partner = flf.isPartner();
+        this.children = flf.getChildren();
+        this.bed = flf.isBed();
+        this.numofbed = flf.getNumofbed();
     }
 
     public Long getId() {
@@ -89,14 +98,6 @@ public class Guest{
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Long getPartner() {
-        return partner;
-    }
-
-    public void setPartner(Long partner) {
-        this.partner = partner;
     }
 
     public String getFirstname() {
@@ -131,12 +132,44 @@ public class Guest{
         this.webAppPath = webAppPath;
     }
 
-    public String getRole() {
-        return role;
+    public boolean isConfirm() {
+        return confirm;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setConfirm(boolean confirm) {
+        this.confirm = confirm;
+    }
+
+    public boolean isPartner() {
+        return partner;
+    }
+
+    public void setPartner(boolean partner) {
+        this.partner = partner;
+    }
+
+    public int getChildren() {
+        return children;
+    }
+
+    public void setChildren(int children) {
+        this.children = children;
+    }
+
+    public boolean isBed() {
+        return bed;
+    }
+
+    public void setBed(boolean bed) {
+        this.bed = bed;
+    }
+
+    public int getNumofbed() {
+        return numofbed;
+    }
+
+    public void setNumofbed(int numofbed) {
+        this.numofbed = numofbed;
     }
 
     public GuestStatus getStatus() {

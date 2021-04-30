@@ -27,7 +27,6 @@
     <aside class="menu" th:replace="menu :: menu"></aside>
     <!-- ************************************************** -->
     <section class="content">
-    <form th:action="@{/host/guest}" method="post" class="addguest_form">
         <div class="addGifts_top">
             <h1>STREFA PREZENTÓW</h1>
             <div class="addg_guestviev_middle">
@@ -55,18 +54,31 @@
            
             <div class="listofguest">
                 <table class="table_gifts_gv">
-                      <td>1</td>
-                      <td><strong>COŚ</strong></td>
-                      <td><button>REZERWUJ</button></td>
-                      <td><button><i class="far fa-times-circle"></i></button></td>
-                      <td>ZAREZERWOWANE</td>
+                    <tr th:each="g, it: ${giftwrapper.gifts}">
+                      <td th:text="${it.count}"></td>
+                      <td><strong th:text="${g.name}">COŚ</strong></td>
+
+
+                      <td th:if="${g.username == null}">
+                            <form th:action="@{/guest/gift/book}" method="POST">
+                              <button type="submit" name="giftid" th:value="${g.id}">REZERWUJ</button>
+                            </form>
+                        </td>
+                        <td th:unless="${g.username == null}" th:text="${g.username}">
+                        </td>
+
+
+                        <td th:if="${g.userid == session.userid}">
+                            <form th:action="@{/guest/gift/unbook}" method="POST">
+                                <button type="submit" name="giftid" th:value="${g.id}"><i class="fas fa-user-minus"></i></button>
+                            </form>
+                        </td>
                     </tr>
-                    <!-- <tr><td>1</td><td></td><td><a></i></a></td><td>komórka 4</td><td>komórka 5</td><td></td><td></td></tr>
+                    <!-- th:if="${g.userid == session.userid}" <tr><td>1</td><td></td><td><a></i></a></td><td>komórka 4</td><td>komórka 5</td><td></td><td></td></tr>
                     <tr><td>2</td><td><i class="fas fa-user-minus"></i></td><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr>
                     <tr><td>3</td><td><i class="far fa-question-circle"></i><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr> -->
                 </table>
             </div>
-    </form>
        
   </section>
 
