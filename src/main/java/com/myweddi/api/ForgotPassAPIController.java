@@ -43,6 +43,7 @@ public class ForgotPassAPIController {
             login = login.replaceAll("\"", "");
 
         String emaill = "";
+        String email2 = "";
         Long userid;
         if(!this.userAuthRepository.existsByUsername(login)){
             Optional<Host> oBrideemail = this.hostRepository.findByBrideemail(login);
@@ -61,13 +62,26 @@ public class ForgotPassAPIController {
             }
         }else {
             UserAuth userAuth = this.userAuthRepository.findByUsername(login);
-            emaill = userAuth.getUsername();
-            userid = userAuth.getId();
+            if(userAuth.getRole().equals("HOST")){
+                Optional<Host> oHost = this.hostRepository.findById(userAuth.getId());
+                if(oHost.isEmpty())
+                    return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+                Host host = oHost.get();
+                emaill = host.getBrideemail();
+                email2 = host.getGroomemail();
+                userid = host.getId();
+            }else {
+                emaill = userAuth.getUsername();
+                userid = userAuth.getId();
+            }
         }
 
         String passwordCode = RandomString.make(40);
         this.passwordRestRepository.save(new PasswordReset(userid, passwordCode));
         sendActivationLink(emaill,passwordCode);
+        if(!email2.isBlank())
+            sendActivationLink(email2,passwordCode);
 
         return new ResponseEntity(HttpStatus.OK);
     }

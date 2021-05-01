@@ -22,7 +22,7 @@
 <body>
     <div class="header-top">
         <div>
-          <p th:text="#{appdomen}"></p>
+          <p th:text="#{appdomain}"></p>
         </div>
     </div>
     <div class="login_container1">
@@ -136,10 +136,10 @@
             </div>
     </div>
     <div class="btn_login">
-        <button type="submit">DALEJ</button>
+        <button type="submit" th:text="#{button.registration}">DALEJ</button>
     </div>
     </form>
-
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 <script>
 
