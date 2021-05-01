@@ -9,6 +9,7 @@ import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import com.myweddi.user.reposiotry.WeddingCodeRepository;
 import net.bytebuddy.utility.RandomString;
+import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,7 +106,11 @@ public class RegistrationAPIController {
 
         Activation activationcode = this.activationRepository.findByActivationcode(activationCode);
         UserAuth user = this.userAuthRepository.findById(activationcode.getUserid()).get();
-        user.setStatus(UserStatus.FIRSTLOGIN);
+
+        if(user.getRole().equals("GUEST"))
+            user.setStatus(UserStatus.FIRSTLOGIN);
+        else
+            user.setStatus(UserStatus.ACTIVE);
         this.userAuthRepository.save(user);
         this.activationRepository.deleteById(activationcode.getUserid());
 
@@ -113,7 +118,7 @@ public class RegistrationAPIController {
     }
 
     @PostMapping("/sendagain")
-    public ResponseEntity<Void> sendActivationCodeAgain(@RequestBody Long userid){
+    public ResponseEntity<String> sendActivationCodeAgain(@RequestBody Long userid){
         Optional<Activation> optionalActivation = this.activationRepository.findById(userid);
         if(optionalActivation.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -129,15 +134,18 @@ public class RegistrationAPIController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         UserAuth user = oUser.get();
-        if(!user.getRole().equals("HOST"))
+        String email;
+        if(!user.getRole().equals("HOST")) {
+            email = user.getUsername();
             sendActivationLink(user.getUsername(), newActivationCode);
-        else {
+        }else {
             Host host = this.hostRepository.findById(userid).get();
             sendActivationLink(host.getBrideemail(), newActivationCode);
             sendActivationLink(host.getGroomemail(), newActivationCode);
+            email = host.getBrideemail() + " " + host.getGroomemail();
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
     private void sendActivationLink(String email, String activationCode){

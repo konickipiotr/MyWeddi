@@ -44,7 +44,7 @@ public class ForgotPasswordController {
 
     @GetMapping
     public String forgotPasswordForm(){
-        return "public/askfornewpassword";
+        return "public/password/askfornewpassword";
     }
 
     @PostMapping
@@ -77,7 +77,7 @@ public class ForgotPasswordController {
 
         PasswordReset passwordCodeObject = this.passwordRestRepository.findByPasswordcode(passwordcode);
         model.addAttribute("passwordForm", new PasswordForm(passwordCodeObject.getUserid()));
-        return "public/newpassword";
+        return "public/password/newpassword";
     }
 
     @PostMapping("/new")
@@ -86,7 +86,7 @@ public class ForgotPasswordController {
         if(!passwordForm.passwordsAreCorrect()){
             model.addAttribute("passwordForm", passwordForm);
             model.addAttribute("errormessage", "Hasła nie są takie same");
-            return "public/newpassword";
+            return "public/password/newpassword";
         }
 
         Optional<UserAuth> oUser = this.userAuthRepository.findById(passwordForm.getUserid());

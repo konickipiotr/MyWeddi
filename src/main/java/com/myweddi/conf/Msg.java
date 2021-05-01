@@ -10,11 +10,10 @@ public class Msg {
     public static String errorWeddingCode = "Błędy kod ślubu";
     public static String errorActivationCode = "Błednhy kod aktywacyjny. Upewnij sie czy już nie został wykorzystany";
 
-
-
     public static String couldNotUploadChurchPhoto = "Nie udało się zapisać zdjęcia Koscioła";
     public static String couldNotUploadWeddingHousePhoto = "Nie udało się zapisać zdjęcia sali weselnej ";
 
     public static String info_activationLinkSentAgain = "Ponownie wysłano link aktywacyjny";
+    public static String info_activationSuccess = "Konto zostało pomyślnie aktywowane";
 }
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title th:text="#{appname}"></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,45 +13,39 @@
     <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/loginpage.css">
-
-    <link rel="stylesheet" type="text/css" href="../static/css/loginpage.css">
-    <title>MyWeddi</title>
 </head>
 <body>
     <div class="welcome">
-        <h1>Witaj w aplikacji MyWeddi.pl</h1>
+        <h1 th:text="#{login_welcome}"></h1>
     </div>
     <div class="heart">
         <img src="/img/heart.png" width="100" height="100">
     </div>
 
+    <p th:text="${error_message}"></p>
     <p th:text="${message}"></p>
     <form th:action="@{/login}" method="post"  class="formlogin">
-
-        
         <div class="login">
             <div>
-            <label for="username">Login</label>
+            <label for="username" th:text="#{loginEmail}"></label>
             <input type="text" name="username" id="username" value="so">
             </div>
 
             <div>
-            <label for="password">Hasło</label>
+            <label for="password" th:text="#{password}"></label>
             <input type="password" name="password" id="password" value="11">
             </div>
         </div>
         <div class="enter">
-            <button type="submit" class="enterbtn"><span>Z A L O G U J</span></button>
+            <button type="submit" class="enterbtn"><span th:text="#{button.Login}"></span></button>
         </div>
         <div class="login_rej">
-            <a th:href="@{/registration}">rejestracja</a>
+            <a th:href="@{/registration}" th:text="#{button.registration}"></a>
         </div>
         <div class="login_rej">
-            <a th:href="@{/forgotpassword}">przypomnij hasło</a>
+            <a th:href="@{/forgotpassword}" th:text="#{button.forgotpassword}"></a>
         </div>
-
     </form>
-
-
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

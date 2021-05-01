@@ -18,12 +18,10 @@
     <link rel="stylesheet" type="text/css" href="/css/addguest.css">
 </head>
 <body>
-  <header th:replace="top :: top">
-  </header>
-  <header th:replace="header :: header">
-  </header>
-  <div class="container" style="display: flex;">
-    <aside class="menu" th:replace="menu :: menu"></aside>
+    <header th:replace="fragments/top :: top"></header>
+    <header th:replace="fragments/header :: header"></header>
+    <div class="container" style="display: flex;">
+      <aside class="menu" th:replace="fragments/menu :: menu"></aside>
     <!-- ************************************************** -->
 
     <section class="content">
@@ -51,9 +49,6 @@
                   <td><a><i class="fas fa-arrow-down"></i></a></td>
                   <td><a><i class="far fa-trash-alt"></i></a></td>
                 </tr>
-                <!-- <tr><td>1</td><td></td><td><a></i></a></td><td>komórka 4</td><td>komórka 5</td><td></td><td></td></tr>
-                <tr><td>2</td><td><i class="fas fa-user-minus"></i></td><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr>
-                <tr><td>3</td><td><i class="far fa-question-circle"></i><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr> -->
             </table>
       </div>
 
@@ -61,5 +56,5 @@
 
   <!-- ************************************************** -->
   </div>
-  <footer th:replace="footer :: footer"></footer>
+  <footer th:replace="fragments/footer :: footer"></footer>
 </body>

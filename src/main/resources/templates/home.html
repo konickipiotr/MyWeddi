@@ -25,12 +25,11 @@
 </head>
 
 <body>
-  <header th:replace="top :: top">
-  </header>
-  <header th:replace="header :: header">
+  <header th:replace="fragments/top :: top"></header>
+  <header th:replace="fragments/header :: header">
   </header>
   <div class="container" style="display: flex;">
-    <aside class="menu" th:replace="menu :: menu"></aside>
+    <aside class="menu" th:replace="fragments/menu :: menu"></aside>
     <!-- ************************************************** -->
 
     <section class="content">
@@ -139,7 +138,7 @@
 
     <!-- ************************************************** -->
   </div>
-  <footer th:replace="footer :: footer"></footer>
+  <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 <script src="js/uploadphoto.js"></script>
 <script>

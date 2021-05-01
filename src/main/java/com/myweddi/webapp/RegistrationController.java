@@ -1,4 +1,4 @@
-package com.myweddi.webapp.host.registration;
+package com.myweddi.webapp;
 
 import com.myweddi.conf.Global;
 import com.myweddi.conf.Msg;
@@ -35,7 +35,7 @@ public class RegistrationController {
     @GetMapping
     public String toRegistration(Model model){
         model.addAttribute("registrationForm", new RegistrationForm());
-        return "registration";
+        return "public/registration/registration";
     }
 
     @PostMapping
@@ -43,7 +43,7 @@ public class RegistrationController {
         new RegistrationValidator(userAuthRepository).validate(rf, result);
         if(result.hasErrors()){
             model.addAttribute("registrationForm", rf);
-            return "registration";
+            return "public/registration/registration";
         }
 
         String path = ROOT_PATH;
@@ -58,7 +58,7 @@ public class RegistrationController {
             if(e.getStatusCode().equals(HttpStatus.NOT_FOUND)){
                 model.addAttribute("errorweddingcode", Msg.errorWeddingCode);
                 model.addAttribute("registrationForm", rf);
-                return "registration";
+                return "public/registration/registration";
 
             }else {
                 model.addAttribute("errormessage", Msg.unknownProblem);
@@ -74,7 +74,7 @@ public class RegistrationController {
 
         model.addAttribute("email", email);
         model.addAttribute("userid", response.getBody());
-        return "registration_complete";
+        return "public/registration/registration_complete";
     }
 
     @GetMapping("/activation/{activationcode}")
@@ -85,31 +85,41 @@ public class RegistrationController {
         try {
             response = restTemplate.postForEntity(path, activationCode, Long.class);
         }catch (HttpClientErrorException e){
-            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
-                model.addAttribute("errormessage", Msg.errorActivationCode);
-            else
+            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                model.addAttribute("error_message", Msg.errorActivationCode);
+                return "login";
+            }
+            else {
                 model.addAttribute("errormessage", Msg.unknownProblem);
-            return "error";
+                return "error";
+            }
         }
 
-        model.addAttribute("userid", response.getBody());
-        return "activation_success";
+        model.addAttribute("message", Msg.info_activationSuccess);
+        return "login";
     }
 
     @PostMapping("/sendagain")
-    public String activeAccount(Long userid, Model model, RedirectAttributes ra){
+    public String activeAccount(Long userid, Model model){
 
         String path = ROOT_PATH + "/sendagain";
+        ResponseEntity<String> response;
         try {
-            restTemplate.postForEntity(path, userid, Void.class);
+            response = restTemplate.postForEntity(path, userid, String.class);
         }catch (HttpClientErrorException e){
-            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND))
-                model.addAttribute("errormessage", Msg.errorActivationCode);
-            else
+            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                model.addAttribute("error_message", Msg.errorActivationCode);
+                return "login";
+            }
+            else {
                 model.addAttribute("errormessage", Msg.unknownProblem);
-            return "error";
+                return "error";
+            }
         }
-        ra.addAttribute("message", Msg.info_activationLinkSentAgain);
-        return "redirect:/login";
+
+        model.addAttribute("message", Msg.info_activationLinkSentAgain);
+        model.addAttribute("email", response.getBody());
+        model.addAttribute("userid", userid);
+        return "public/registration/registration_complete";
     }
 }
