@@ -13,20 +13,22 @@
     <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/ask_for_new_password.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
 </head>
 <body>
 
   <div class="header-top">
     <div>
-      <p th:text="#{appdomain}"></p>
+      <a th:text="#{appdomain}"></a>
     </div>
   </div>
 
-  <div>
+  <div class="reset_password">
     <p><span th:text="#{reg_complete_msg_part1}"> </span> <span th:text="${email}"></span> <span th:text="#{reg_complete_msg_part2}"></span></p>
 
     <form th:action=@{/registration/sendagain} method="POST">
-      <button type="submit" name="userid" th:value="${userid}" th:text="#{button.sendAgain}"></button>
+      <button class="btn_reset_pass" type="submit" name="userid" th:value="${userid}" th:text="#{button.sendAgain}"></button>
     </form>
     <a th:href="@{/login}" th:text="#{button.backToLoginPage}"></a>
   </div>

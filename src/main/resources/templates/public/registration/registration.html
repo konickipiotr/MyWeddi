@@ -22,7 +22,7 @@
 <body>
     <div class="header-top">
         <div>
-          <p th:text="#{appdomain}"></p>
+          <a th:text="#{appdomain}"></a>
         </div>
     </div>
     <div class="login_container1">
@@ -115,6 +115,19 @@
             <input type="text" minlength="3">
         </div>
     </div>
+        <div class="login_container_sex">
+            <div>
+                <input type="radio" id="genderF" name="gender" value="F"/>
+                <label for="genderF" th:text="#{gender_female}"></label>
+
+            </div>
+                <div>
+                    <input type="radio" id="genderM" name="gender" value="M"  checked />
+                    <label for="genderM" th:text="#{gender_man}"></label>
+
+                </div>
+
+        </div>
     <div class="login_container3" id="otherInfo" style="padding-top: 10px;">
           <div>
             <label for="guestFirstName" th:text="#{firstname}"></label>
@@ -124,16 +137,7 @@
             <label for="guestLastName" th:text="#{lastname}"></label>
             <input type="text" id="guestLastName" name="guestLastName" th:field="*{lastname}"/>
           </div>
-            <div>
-                <div>
-                    <label for="genderM" th:text="#{gender_man}"></label>
-                    <input type="radio" id="genderM" name="gender" value="M"  checked />
-                </div>
-                <div>
-                    <label for="genderF" th:text="#{gender_female}"></label>
-                    <input type="radio" id="genderF" name="gender" value="F"/>
-                </div>
-            </div>
+
     </div>
     <div class="btn_login">
         <button type="submit" th:text="#{button.registration}">DALEJ</button>
@@ -147,7 +151,7 @@ function chooseHost(){
     document.getElementById("loginLabel").innerHTML = "login";
     document.getElementById("username").type = 'text';
 
-    document.getElementById("hostsInfo").style.display = "block";
+    document.getElementById("hostsInfo").style.display = "flex";
     
 
     document.getElementById("otherInfo").style.display = "none";
@@ -160,7 +164,7 @@ function chooseGuest(){
 
     document.getElementById("hostsInfo").style.display = "none";
 
-    document.getElementById("otherInfo").style.display = "block";
+    document.getElementById("otherInfo").style.display = "flex";
     document.getElementById("weddingCodeDiv").style.display = "block";
 }
 
@@ -170,7 +174,7 @@ function chooseOther(){
 
     document.getElementById("hostsInfo").style.display = "none";
     document.getElementById("weddingCodeDiv").style.display = "none";
-    document.getElementById("otherInfo").style.display = "block";
+    document.getElementById("otherInfo").style.display = "flex";
 }
 
 </script>   
