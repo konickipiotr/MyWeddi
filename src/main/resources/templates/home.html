@@ -43,24 +43,23 @@
         <form th:action="@{/home}" method="post" enctype="multipart/form-data">
           <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
           <div class="added_post_top">
-            <img th:src="@{${session.profilePhoto}}" class="profile-photo">
-            <p>DODAJ POST I ZDJĘCIA</p>
+            <div><img th:src="@{${session.profilePhoto}}" class="profile-photo"></div>
+            <div><p>DODAJ POST I ZDJĘCIA</p></div>
           </div>
-
           <div class="added_post_top">
-            <div class="upload">
-              <i class="fas fa-image fa-3x"></i>
-              <label><em>Wybierz zdjęcie z komputera</em></label>
-              <input type="file" class="input_add_post" id="myFile" name="images" multiple>
-            </div>
             <textarea class="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
           </div>
-
           <div class="added_post_down">
             <button type="submit" class="entercomment"><span>Dodaj</span></button>
+            <div class="upload">
+              <i class="fas fa-image fa-1x"></i>
+              <label><em>Pzeglądaj</em></label>
+              <input type="file" class="input_add_post" id="myFile" name="images" multiple>
+            </div>
           </div>
         </form>
       </div>
+
       <!-- ######################### POST FORM END ##################################### -->
 
       <div class="content_post" th:each="p : ${posts}">

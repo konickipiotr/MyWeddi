@@ -1,55 +1,45 @@
-.content{
-    background-color: rgb(224, 202, 217);
+.gifts_H{
     font-family: 'Nunito', sans-serif;
-    display: flex;
+    font-size: 30px;
+    text-align: center;
+    display:flex;
     justify-content: center;
 }
-.addGifts_top h1{
-    display: block;
-    font-family: 'Nunito', sans-serif;
-    color: white;
-    font-size: 40px;
-    font-weight: 200;
-    text-align: center;
-    margin-top: 10px;
-}
-.addGifts_top i {
 
-    padding: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-}
-.addg_guestviev_middle{
+.gifts_guestview{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    background-color: #e0d1e3;
+    padding-bottom: 10px;
 }
-.addg_guestviev_middle div{
-    text-align: center;
-}
-.p0{
-    color:rgb(150, 91, 135);
-    text-align: center;
-}
-.p1{
-    color: rgb(184, 97, 133)
-}
-.p2{
-    color: rgb(129, 102, 114);
-}
-.p3{
-    color: rgb(211, 82, 88)
-}
+
 .textarea_addGifts{
+    font-family: 'Dancing Script', cursive;
+    color: pink;
+    font-size: 35px;
     text-align: center;
-    padding-top: 20px;
+    margin-bottom: 30px;
 }
+
+.p0{
+    background-color: #e0d1e3;
+}
+
+.down_of_addgifts{
+    font-family: 'Nunito', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 40px;
+}
+
 .table_gifts_gv button{
-    background-color: transparent;
     border-style: none;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 15px 0px 15px 0px;
     height: 40px;
-    background-color: rgb(235, 140, 160);
-    border: 1px solid black;
+    background-color: #464047;
+    color: white;
 }
+
 .table_gifts_gv button:hover{
-    background-color: rgb(161, 71, 76);
+    opacity: 60%;
 }

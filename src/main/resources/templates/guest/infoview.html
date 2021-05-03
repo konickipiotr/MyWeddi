@@ -24,48 +24,47 @@
       <!-- ************************************************** -->
 
       <section class="content">
-        <div class=contentof_guestview>
-            <div class="contentof_guestview_welcome">
-                <div>
-                    <p th:text="#{msg.info.invitationmsg}"></p>
-                </div>
+          <div class=contentof_guestview>
+              <div class="contentof_guestview_welcome">
+                  <div>
+                      <p th:text="#{msg.info.invitationmsg}"></p>
+                  </div>
+                  <div>
+                      <img src="/img/cake.png" width="200" height="300">
+                  </div>
+              </div>
+              <div class="guest_church_info">
+                  <p> <span th:text="${weddingInfo.churchname}"></span><br> Godzina ceremonii: <br> Adres ceremonii:<br> <span th:text="${weddingInfo.churchaddress}"></span><br> </p>
+              </div>
+              <div class="church_maps_and_photo">
+                  <div class="photos_guestview">
+                      <img th:src="@{${weddingInfo.chWebAppPath}}" width="400" height="350">
+                  </div>
+                  <div class="infos_guestview">
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2548.9565220516606!2d16.871053300676273!3d50.29273945649738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4711e2a5b792efa3%3A0xa7ec42b62211d89e!2sParafia%20pw.%20M.B.%20Kr%C3%B3lowej%20Polski%20i%20%C5%9Bw.%20Maternusa!5e0!3m2!1spl!2spl!4v1614455709356!5m2!1spl!2spl" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                  </div>
+              </div>
 
-                <div>
-                    <img src="/img/cake.png" width="200" height="300">
-                </div>
-            </div>
-            <div class="welcome_guestview">
-                <div class="weddingInfo_guestview">
-                    <p> <span th:text="${weddingInfo.churchname}"></span><br> Godzina ceremonii: <br> Adres ceremonii:<br> <span th:text="${weddingInfo.churchaddress}"></span><br> </p>
-                </div>
-                <div class="weddinginfo_guestview">
-                    <p><span th:text="${weddingInfo.weddinghousename}"></span><br> Godzina przyjęcia: 18:00 <br> Adres przyjęcia:<br> <span th:text="${weddingInfo.wAddress}"></span> <br> </p>
-                </div>
-            </div>
-            <div class="middle_of_guestview">
-                <div class="photos_guestview">
-                    <img th:src="@{${weddingInfo.chWebAppPath}}" width="400" height="350">
-                </div>
-                <div class="photos_guestview">
-                    <img th:src="@{${weddingInfo.wWebAppPath}}" width="400" height="350">
-                 </div>
-            </div>
-            <div class="middle_of_guestview">
-                <div class="infos_guestview">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2548.9565220516606!2d16.871053300676273!3d50.29273945649738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4711e2a5b792efa3%3A0xa7ec42b62211d89e!2sParafia%20pw.%20M.B.%20Kr%C3%B3lowej%20Polski%20i%20%C5%9Bw.%20Maternusa!5e0!3m2!1spl!2spl!4v1614455709356!5m2!1spl!2spl" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                <div class="middle_of_guestview">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.4927293906544!2d16.87836965067584!3d50.28272960721687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4711e2b48a25904d%3A0x594477d9c0634619!2sG%C3%B3rski%20Poranek!5e0!3m2!1spl!2spl!4v1614455898106!5m2!1spl!2spl" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-            <div class="down_of_guestview">
-                <p th:text="#{weddingInfo.infi}"></p>
-            </div>
-        </div>
+                  <div class="guest_church_info">
+                      <p><span th:text="${weddingInfo.weddinghousename}"></span><br> Godzina przyjęcia: 18:00 <br> Adres przyjęcia:<br> <span th:text="${weddingInfo.wAddress}"></span> <br> </p>
+                  </div>
+              <div class="church_maps_and_photo">
+                  <div class="photos_guestview">
+                      <img th:src="@{${weddingInfo.wWebAppPath}}" width="400" height="350">
+                  </div>
+                  <div class="middle_of_guestview">
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.4927293906544!2d16.87836965067584!3d50.28272960721687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4711e2b48a25904d%3A0x594477d9c0634619!2sG%C3%B3rski%20Poranek!5e0!3m2!1spl!2spl!4v1614455898106!5m2!1spl!2spl" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                  </div>
+              </div>
+
+              <div class="down_of_guestview">
+                  <p th:text="#{weddingInfo.info}"></p>
+                  <p>XXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+              </div>
       </section>
 
       <!-- ************************************************** -->
     </div>
-    <fo<footer th:replace="fragments/footer :: footer"></footer>
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

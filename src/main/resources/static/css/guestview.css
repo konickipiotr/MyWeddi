@@ -1,5 +1,4 @@
 .contentof_guestview_welcome{
-    background-color: rgb(241, 235, 239);
     display: flex;
     font-family: 'Nunito', sans-serif;
     font-size: 30px;
@@ -9,29 +8,25 @@
     padding-left: 50px;
     padding-right: 50px;
 }
-.middle_of_guestview{
-    background-color: white;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.churchinfo_guestview, .weddinginfo_guestview{
+
+.guest_church_info{
+    background-color: rgb(241, 235, 239);
     margin-top: 40px;
     font-family: 'Nunito', sans-serif;
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 200;
     text-align: center;
 }
+
+.church_maps_and_photo{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .down_of_guestview{
     background-color: rgb(241, 235, 239);
     font-family: 'Nunito', sans-serif;
     font-size: 35px;
     font-weight: 200;
     text-align: center;
-}
-.welcome_guestview{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
 }
