@@ -12,10 +12,11 @@
     color: #e2e2e2;
 
 }
-.header-top p{
+.header-top a{
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
     color: gray;
+    text-decoration:none;
 }
 .header-top-settings{
     display: flex;

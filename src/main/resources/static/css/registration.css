@@ -6,16 +6,25 @@
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
+
 }
 
-.login_container2{
+.login_container2, .login_container_sex{
     display: flex;
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
     margin-top: 15px;
     margin-bottom: 15px;
-    justify-content: space-evenly;
+    justify-content: center;
     padding-bottom: 20px;
+    font-weight:bold;
+}
+
+.login_container2 input{
+    margin-left:50px;
+}
+.login_container_sex input{
+    margin-left:50px;
 }
 
 .login_container3{
@@ -26,8 +35,9 @@
     background-color: #e6d1d6;
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
-    margin: 50px 50px 50px 50px;
+    margin: 40px 50px 50px 50px;
     padding-bottom: 20px;
+    padding-top:20px;
 }
 
 .login_container4{
@@ -150,11 +160,11 @@
     border-style: none;
     background-color: #ebbec8;
     border: 2px solid white;
+    cursor: pointer;
 }
 
 .btn_login button:hover {
-    background-color: rgb(255, 255, 255);
-    opacity: 30%;
+    opacity: 60%;
   }
 
   .error-message{
