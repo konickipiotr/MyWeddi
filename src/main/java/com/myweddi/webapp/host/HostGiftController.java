@@ -51,7 +51,6 @@ public class HostGiftController {
     @PostMapping
     public String changeGift(GiftIn giftIn, Principal principal, Model model){
         configRestTemplate(principal.getName());
-        System.out.println(giftIn);
         String path = Global.domain + "/api/gift";
         restTemplate.postForEntity(path, giftIn, Void.class);
         return "redirect:/host/gift";
@@ -60,7 +59,6 @@ public class HostGiftController {
     @PostMapping("/add")
     public String addGift(@RequestParam("giftname") String giftname, Principal principal,  Model model){
         configRestTemplate(principal.getName());
-        System.out.println(giftname);
         String path = Global.domain + "/api/gift/add";
         restTemplate.postForEntity(path, giftname, Void.class);
         return "redirect:/host/gift";
@@ -69,7 +67,6 @@ public class HostGiftController {
     @PostMapping("/remove")
     public String removeGift(@RequestParam("giftid") Long giftid, Principal principal,  Model model){
         configRestTemplate(principal.getName());
-        System.out.println(giftid);
         String path = Global.domain + "/api/gift/remove";
         restTemplate.postForEntity(path, giftid, Void.class);
         return "redirect:/host/gift";

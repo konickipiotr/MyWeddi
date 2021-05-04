@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title th:text="#{appname}"></title>
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
@@ -11,16 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
 
-
   <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
   <link rel="stylesheet" type="text/css" href="/css/header.css">
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" type="text/css" href="/css/post.css">
-
-  <link rel="stylesheet" type="text/css" href="../static/css/mainstyle.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/header.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/menu.css">
-  <link rel="stylesheet" type="text/css" href="../static/css/post.css">
 
 </head>
 
@@ -34,8 +28,8 @@
 
     <section class="content">
       <div th:if="${session.role == 'HOST'}">
-        <a th:href="@{/home}">Mój ślub</a>
-        <a th:href="@{/home/public}">Publiczne</a>
+        <a th:href="@{/home}" th:text="#{button_home_private_posts}"></a>
+        <a th:href="@{/home/public}" th:text="#{button_home_public_posts}"></a>
         <!-- <a th:href="@{/gust/watched}">Obserwowane</a> -->
       </div>
       <!-- ######################### POST FORM ##################################### -->
@@ -44,17 +38,16 @@
           <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
           <div class="added_post_top">
             <div><img th:src="@{${session.profilePhoto}}" class="profile-photo"></div>
-            <div><p>DODAJ POST I ZDJĘCIA</p></div>
+            <div><p th:text="#{header_add_post}"></p></div>
           </div>
           <div class="added_post_top">
-            <textarea class="writecomment" id="writecomment" name="description" rows="3" cols="40"></textarea>
+            <textarea class="writecomment" name="description" rows="3" cols="40"></textarea>
           </div>
           <div class="added_post_down">
-            <button type="submit" class="entercomment"><span>Dodaj</span></button>
-            <div class="upload">
-              <i class="fas fa-image fa-1x"></i>
-              <label><em>Pzeglądaj</em></label>
-              <input type="file" class="input_add_post" id="myFile" name="images" multiple>
+            <button type="submit" class="entercomment"><span th:text="#{button_add}"></span></button>
+            <div class="upload" onclick="choosePhoto()">
+              <p><i class="fas fa-image fa-1x"></i> <span id="uploadedPostPhotoLabel" th:text="#{button_add_photo}"></span></p>
+              <input type="file" class="input_add_post" id="uploadedPostPhoto" name="images" multiple style="display: none;">
             </div>
           </div>
         </form>
@@ -76,7 +69,7 @@
 
             <div class="nameuser_post_delete_div">
               <form th:if="${p.myPost}" th:action="@{/home/deletepost}" method="post">
-                <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                <input type="hidden" name="posttype" th:value="${posttype.name()}">
                 <button class="nameuser_post_delete"  type="submit" name="postid" th:value="${p.id}"><i class="fas fa-trash fa-2x"></i></button>
               </form>
             </div>
@@ -89,7 +82,7 @@
           <div>
 
             <form th:action="@{/home/star}" method="post" style="display: flex">
-              <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+              <input type="hidden" name="posttype" th:value="${posttype.name()}">
               <button class="btn_like" th:if="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}"><i class="fas fa-heart fa-3x"></i></button>
               <button class="btn_like" th:unless="${p.weddiLike}" type="submit" name="postid" th:value="${p.id}"><i class="far fa-heart fa-3x"></i></button>
               <p><b><span class="nr_like" th:text="${p.likeNumber}"></span></b></p>
@@ -114,7 +107,7 @@
               </div>
               <div>
                 <form th:if="${c.myComment}" th:action="@{/home/deletecomment}" method="post">
-                  <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+                  <input type="hidden" name="posttype" th:value="${posttype.name()}">
                   <button class="nameuser_post_delete" type="submit" name="commentid" th:value="${c.id}"><i class="fas fa-trash fa-2x"></i></button>
                 </form>
               </div>
@@ -126,9 +119,9 @@
           <div class="comments_down">
             <form th:action="@{/home/addcomment}" method="post">
               <input type="hidden" name="postid" th:value="${p.id}" />
-              <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
+              <input type="hidden" name="posttype" th:value="${posttype.name()}">
               <textarea class="writecomment" id="writecomment" name="content" rows="3" cols="40"></textarea>
-              <button type="submit" class="entercomment"><span>Skomentuj</span></button>
+              <button type="submit" class="entercomment"><span th:text="#{button_add_comment}"></span></button>
             </form>
           </div>
         </div>
@@ -139,14 +132,19 @@
   </div>
   <footer th:replace="fragments/footer :: footer"></footer>
 </body>
-<script src="js/uploadphoto.js"></script>
+<script src="/js/uploadphoto.js"></script>
 <script>
-document.getElementById("upload-file").onchange = function () {
+
+function choosePhoto(){
+  document.getElementById("uploadedPostPhoto").click();
+}
+
+document.getElementById("uploadedPostPhoto").onchange = function () {
   if(this.value.split(/(\\|\/)/g).pop()=='') {
-    document.getElementById("upload-label").innerHTML = '<em>Wybierz plik z komputera</em>';
+    document.getElementById("uploadedPostPhotoLabel").innerHTML = 'Przeglądaj';
   }
   else {
-    document.getElementById("upload-label").innerHTML = this.value.split(/(\\|\/)/g).pop();
+    document.getElementById("uploadedPostPhotoLabel").innerHTML = "Pliki gotowe do załadowania";
   }
 };
 </script>

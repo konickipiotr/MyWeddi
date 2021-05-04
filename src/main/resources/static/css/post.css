@@ -223,6 +223,11 @@ upload label{
     color: white;
     font-family: 'Nunito', sans-serif;
     margin-left: 5px;
+    cursor: pointer;
+}
+
+.upload:hover{
+  background-color: #504e52;
 }
 
 .input_add_post{

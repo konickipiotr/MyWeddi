@@ -34,71 +34,63 @@
     <aside class="menu" th:replace="fragments/menu :: menu"></aside>
     <!-- ************************************************** -->
 
-    <p class="error-message" th:text="${errormessage}"></p>
+    
     <section class="content">
       <form th:action="@{/host/gift}" method="post" class="addgift_form">
         <div class="addGifts_top">
           <p class="p1"><b>GŁÓWNY PREZENT</b> </p>
           <div class="bigGifts">
-            <button th:if="${giftIn.GIFTS}" type="submit" class="gift-btn-selected" onclick="mainGiftSelect(this)" name="GIFTS" id="GIFTS" style="background-image: url(/img/prezent.png)">
-            </button>
-            <button th:unless="${giftIn.GIFTS}" type="submit" class="gift-btn" onclick="mainGiftSelect(this)" name="GIFTS" id="GIFTS" style="background-image: url(/img/prezent.png)">
-            </button>
 
-            <button th:if="${giftIn.MONEY}" type="submit" class="gift-btn-selected" onclick="mainGiftSelect(this)" name="MONEY" id="MONEY" style="background-image: url(/img/koperta.png)">
+            <input type="hidden" name="GIFTS" id="GIFTS" th:value="${giftIn.GIFTS}">
+            <button th:if="${giftIn.GIFTS}" type="button" class="gift-btn-selected" onclick="mainGiftSelect(this, 'GIFTS')" id="bGIFTS" style="background-image: url(/img/prezent.png)"></button>
+            <button th:unless="${giftIn.GIFTS}" type="button" class="gift-btn" onclick="mainGiftSelect(this, 'GIFTS')" id="bGIFTS" style="background-image: url(/img/prezent.png)"></button>
 
-            </button>
-            <button th:unless="${giftIn.MONEY}" type="submit" class="gift-btn" onclick="mainGiftSelect(this)" name="MONEY" id="MONEY" style="background-image: url(/img/koperta.png)">
-            </button>
+            <input type="hidden" name="MONEY" id="MONEY" th:value="${giftIn.MONEY}">
+            <button th:if="${giftIn.MONEY}" type="button" class="gift-btn-selected" onclick="mainGiftSelect(this, 'MONEY')" id="bMONEY" style="background-image: url(/img/koperta.png)"></button>
+            <button th:unless="${giftIn.MONEY}" type="button" class="gift-btn" onclick="mainGiftSelect(this, 'MONEY')" id="bMONEY" style="background-image: url(/img/koperta.png)"></button>
 
           </div>
           <p class="p00"><b>PREZENT ZAMIAST KWIATÓW (OPCIONALNIE)</b></p>
           <div class="smallGifts">
             <div class="column">
               <div class="gift-row">
-                <button th:if="${giftIn.POTTEDFLOWERS}" type="submit" class="gift-btn-selected" name="POTTEDFLOWERS" id="POTTEDFLOWERS" onclick="smallGiftSelect(this)" th:value="${giftIn.POTTEDFLOWERS}" style="background-image: url(/img/kwiat.png)">
-                </button>
-                <button th:unless="${giftIn.POTTEDFLOWERS}" type="submit" class="gift-btn" name="POTTEDFLOWERS" id="POTTEDFLOWERS" onclick="smallGiftSelect(this)" th:value="${giftIn.POTTEDFLOWERS}" style="background-image: url(/img/kwiat.png)">
-                </button>
+                <input type="hidden" name="POTTEDFLOWERS" id="POTTEDFLOWERS" th:value="${giftIn.POTTEDFLOWERS}">
+                <button th:if="${giftIn.POTTEDFLOWERS}" type="button" class="gift-btn-selected" id="bPOTTEDFLOWERS" onclick="smallGiftSelect(this, 'POTTEDFLOWERS')" style="background-image: url(/img/kwiat.png)"></button>
+                <button th:unless="${giftIn.POTTEDFLOWERS}" type="button" class="gift-btn" id="bPOTTEDFLOWERS" onclick="smallGiftSelect(this, 'POTTEDFLOWERS')" style="background-image: url(/img/kwiat.png)"></button>
                 <label>Kwiaty doniczkowe</label>
               </div>
 
               <div class="gift-row">
-                <button th:if="${giftIn.WINE}" type="submit" class="gift-btn-selected" name="WINE" id="WINE" onclick="smallGiftSelect(this)" th:value="${giftIn.WINE}" style="background-image: url(/img/wino.png)">
-                </button>
-                <button th:unless="${giftIn.WINE}" type="submit" class="gift-btn" name="WINE" id="WINE" onclick="smallGiftSelect(this)" th:value="${giftIn.WINE}" style="background-image: url(/img/wino.png)">
-                </button>
+                <input type="hidden" name="WINE" id="WINE" th:value="${giftIn.WINE}">
+                <button th:if="${giftIn.WINE}" type="button" class="gift-btn-selected" id="bWINE" onclick="smallGiftSelect(this, 'WINE')" style="background-image: url(/img/wino.png)"></button>
+                <button th:unless="${giftIn.WINE}" type="button" class="gift-btn" id="bWINE" onclick="smallGiftSelect(this, 'WINE')" style="background-image: url(/img/wino.png)"></button>
                 <label>Wino</label>
               </div>
 
               <div class="gift-row">
-                <button th:if="${giftIn.BOOKS}" type="submit" class="gift-btn-selected" name="BOOKS" id="BOOKS" onclick="smallGiftSelect(this)" th:value="${giftIn.BOOKS}" style="background-image: url(/img/ksiazka.png)">
-                </button>
-                <button th:unless="${giftIn.BOOKS}" type="submit" class="gift-btn" name="BOOKS" id="BOOKS" onclick="smallGiftSelect(this)" th:value="${giftIn.BOOKS}" style="background-image: url(/img/ksiazka.png)">
-                </button>
+                <input type="hidden" name="BOOKS" id="BOOKS" th:value="${giftIn.BOOKS}">
+                <button th:if="${giftIn.BOOKS}" type="button" class="gift-btn-selected" id="bBOOKS" onclick="smallGiftSelect(this, 'BOOKS')" style="background-image: url(/img/ksiazka.png)"></button>
+                <button th:unless="${giftIn.BOOKS}" type="button" class="gift-btn" id="bBOOKS" onclick="smallGiftSelect(this, 'BOOKS')"  style="background-image: url(/img/ksiazka.png)"></button>
                 <label>Książki</label>
               </div>
             </div>
             <div class="column">
               <div class="gift-row">
-                <button th:if="${giftIn.FOODER}" type="submit" class="gift-btn-selected" name="FOODER" id="FOODER" onclick="smallGiftSelect(this)" th:value="${giftIn.FOODER}" style="background-image: url(/img/karma.png)">
-                </button>
-                <button th:unless="${giftIn.FOODER}" type="submit" class="gift-btn" name="FOODER" id="FOODER" onclick="smallGiftSelect(this)" th:value="${giftIn.FOODER}" style="background-image: url(/img/karma.png)">
-                </button>
+                <input type="hidden" name="FOODER" id="FOODER" th:value="${giftIn.FOODER}">
+                <button th:if="${giftIn.FOODER}" type="button" class="gift-btn-selected" id="bFOODER" onclick="smallGiftSelect(this, 'FOODER')" style="background-image: url(/img/karma.png)"></button>
+                <button th:unless="${giftIn.FOODER}" type="button" class="gift-btn" id="bFOODER" onclick="smallGiftSelect(this, 'FOODER')" style="background-image: url(/img/karma.png)"></button>
                 <label>Karma dla zwierząt</label>
               </div>
               <div class="gift-row">
-                <button th:if="${giftIn.LOTTERY}" type="submit" class="gift-btn-selected" name="LOTTERY" id="LOTTERY" onclick="smallGiftSelect(this)" th:value="${giftIn.LOTTERY}" style="background-image: url(/img/lotto.png)">
-                </button>
-                <button th:unless="${giftIn.LOTTERY}" type="submit" class="gift-btn" name="LOTTERY" id="LOTTERY" onclick="smallGiftSelect(this)" th:value="${giftIn.LOTTERY}" style="background-image: url(/img/lotto.png)">
-                </button>
+                <input type="hidden" name="LOTTERY" id="LOTTERY" th:value="${giftIn.LOTTERY}">
+                <button th:if="${giftIn.LOTTERY}" type="button" class="gift-btn-selected" id="bLOTTERY" onclick="smallGiftSelect(this, 'LOTTERY')" style="background-image: url(/img/lotto.png)"></button>
+                <button th:unless="${giftIn.LOTTERY}" type="button" class="gift-btn" id="bLOTTERY" onclick="smallGiftSelect(this, 'LOTTERY')" style="background-image: url(/img/lotto.png)"></button>
                 <label>Kupony na loterii</label>
               </div>
               <div class="gift-row">
-                <button th:if="${giftIn.CHARITY}" type="submit" class="gift-btn-selected" name="CHARITY" id="CHARITY" onclick="smallGiftSelect(this)" th:value="${giftIn.CHARITY}" style="background-image: url(/img/dobroczynność.png)">
-                </button>
-                <button th:unless="${giftIn.CHARITY}" type="submit" class="gift-btn" name="CHARITY" id="CHARITY" onclick="smallGiftSelect(this)" th:value="${giftIn.CHARITY}" style="background-image: url(/img/dobroczynność.png)">
-                </button>
+                <input type="hidden" name="CHARITY" id="CHARITY" th:value="${giftIn.CHARITY}">
+                <button th:if="${giftIn.CHARITY}" type="button" class="gift-btn-selected" id="CHARITY" onclick="smallGiftSelect(this, 'CHARITY')" style="background-image: url(/img/dobroczynność.png)"></button>
+                <button th:unless="${giftIn.CHARITY}" type="button" class="gift-btn" id="CHARITY" onclick="smallGiftSelect(this, 'CHARITY')" style="background-image: url(/img/dobroczynność.png)"></button>
                 <label>Dobroczynność</label>
               </div>
             </div>
@@ -112,7 +104,7 @@
             </textarea>
         </div>
         <div class="enterbtn_addGifts">
-          <button type="submit" class="btn00">D O D A J</button>
+          <button type="submit" class="btn00">Z A P I S Z</button>
         </div>
       </form>
       <div class ="textarea_addGifts2" >
@@ -157,39 +149,55 @@
   </div>
   <footer th:replace="fragments/footer :: footer"></footer>
 </body>
+<script src="/js/uploadphoto.js"></script>
 <script>
-  function smallGiftSelect(btn) {
+  function smallGiftSelect(selectedBtn, idname) {
 
-    let isSelected = btn.value;
+    let selectedInput = document.getElementById(idname);
+
+    let isSelected = selectedInput.value;
     if (isSelected === "true") {
-      btn.value = false;
-      btn.className = "gift-btn";
+      selectedInput.value = false;
+      selectedBtn.className = "gift-btn";
     } else {
-      btn.value = true;
-      btn.className = "gift-btn-selected";
+      selectedInput.value = true;
+      selectedBtn.className = "gift-btn-selected";
     }
   }
 
-  function mainGiftSelect(btn) {
+  function mainGiftSelect(selectedBtn, idname) {
+
+    let selectedInput = document.getElementById(idname);
 
     let money = document.getElementById("MONEY");
+    let moneyBtn = document.getElementById("bMONEY");
     let gifts = document.getElementById("GIFTS");
-
-    money.value = false;
-    gifts.value = false;
-    money.className = "gift-btn";
-    gifts.className = "gift-btn";
+    let giftsBtn = document.getElementById("bGIFTS");
 
 
-    let isSelected = btn.value;
-    if (isSelected === "true") {
-      btn.value = false;
-      btn.className = "gift-btn";
-    } else {
-      btn.value = true;
-      btn.className = "gift-btn-selected";
+    let otherBtn = null;
+    let otherInput = null;
+    if(selectedInput.id == money.id){
+      otherBtn = giftsBtn;
+      otherInput = gifts;
+    }
+    else{
+      otherBtn = moneyBtn;
+      otherInput = money;
+    }
+
+
+    if(selectedInput.value == "true"){
+      selectedInput.value = "false";
+      selectedBtn.className = "gift-btn";
+      return;
+    }else{
+      selectedInput.value = true;
+      otherInput.value = false;
+
+      selectedBtn.className = "gift-btn-selected";
+      otherBtn.className = "gift-btn";
     }
   }
 </script>
-
 </html>
