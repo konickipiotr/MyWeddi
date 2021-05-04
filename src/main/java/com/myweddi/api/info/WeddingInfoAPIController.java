@@ -30,12 +30,12 @@ public class WeddingInfoAPIController {
     }
 
     @PostMapping("/{weddingid}/churchphoto")
-    public ResponseEntity<Void> saveChurchPhoto(@PathVariable("weddingid") Long weddingid, MultipartFile photo){
+    public ResponseEntity<Void> saveChurchPhoto(@PathVariable("weddingid") Long weddingid, @RequestBody String photo){
         return weddingInfoAPIService.saveWeddingInfoPhoto(weddingid, photo, PhotoCat.CHURCH);
     }
 
     @PostMapping("/{weddingid}/weddinghousephoto")
-    public ResponseEntity<Void> saveWeddingHousePhoto(@PathVariable("weddingid") Long weddingid, MultipartFile photo){
+    public ResponseEntity<Void> saveWeddingHousePhoto(@PathVariable("weddingid") Long weddingid, @RequestBody String photo){
         return weddingInfoAPIService.saveWeddingInfoPhoto(weddingid, photo, PhotoCat.WEDDINGHOUSE);
     }
 }

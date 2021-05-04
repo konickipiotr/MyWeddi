@@ -1,35 +1,28 @@
 package com.myweddi.model;
 
+import java.util.List;
+
 public class TableTempObject {
 
-    private int tablesid[];
-    private int capacity[];
+    private List<Integer> capacity;
     private Long weddingid;
     private Long userid;
 
     public TableTempObject() {
     }
 
-    public TableTempObject(int[] tablesid, int[] capacity, Long weddingid, Long userid) {
-        this.tablesid = tablesid;
+    public TableTempObject(List<Integer> capacity, Long weddingid, Long userid) {
+        this.capacity = capacity;
         this.capacity = capacity;
         this.weddingid = weddingid;
         this.userid = userid;
     }
 
-    public int[] getTablesid() {
-        return tablesid;
-    }
-
-    public void setTablesid(int[] tablesid) {
-        this.tablesid = tablesid;
-    }
-
-    public int[] getCapacity() {
+    public List<Integer> getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int[] capacity) {
+    public void setCapacity(List<Integer> capacity) {
         this.capacity = capacity;
     }
 

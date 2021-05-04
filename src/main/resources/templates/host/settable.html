@@ -31,7 +31,6 @@
       <form th:action="@{/host/tables/add}" method="post">
         <input type="hidden" name="weddingid" th:value="${weddingid}" />
         <div th:each="i : ${#numbers.sequence(1,numoftables)}">
-          <input type="hidden" name="tableid" th:value="${i}">
           <label th:text="${'stół ' + i + ' - ilość miejsc: '}"></label>
           <input type="number" min="1" step="1" value="1" name="capacity">
         </div>

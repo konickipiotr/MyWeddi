@@ -114,4 +114,13 @@ public class FileService {
         }
         return mFiles;
     }
+
+    public MultipartFile convertToMultipartFile(String imagesStringBytes){
+        if(imagesStringBytes.startsWith("\""))
+            imagesStringBytes = imagesStringBytes.replaceAll("\"", "");
+
+        byte[] imgbyte = Base64.getDecoder().decode(imagesStringBytes);
+        MultipartFile mFiles = new CustomMultipartFile(imgbyte);
+        return mFiles;
+    }
 }

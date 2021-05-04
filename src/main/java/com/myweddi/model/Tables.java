@@ -3,6 +3,7 @@ package com.myweddi.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 public class Tables {
@@ -18,12 +19,12 @@ public class Tables {
     public Tables() {
     }
 
-    public Tables(Long weddingid, int numoftables, int capacity[]) {
+    public Tables(Long weddingid, int numoftables, List<Integer> capacityVal) {
         this.weddingid = weddingid;
         this.numoftables = numoftables;
-        assert numoftables == capacity.length;
+        assert numoftables == capacityVal.size();
         for(int i = 0; i < numoftables; i++){
-            this.capacity += capacity[i];
+            this.capacity += capacityVal.get(i);
         }
         this.free = this.capacity;
         this.realPath = "";

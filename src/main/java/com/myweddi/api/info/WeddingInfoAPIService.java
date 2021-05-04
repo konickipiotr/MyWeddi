@@ -63,7 +63,7 @@ public class WeddingInfoAPIService {
         return new ResponseEntity<>(oWeddingInfo.get(), HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> saveWeddingInfoPhoto(Long weddingId, MultipartFile photo, PhotoCat photoCat){
+    public ResponseEntity<Void> saveWeddingInfoPhoto(Long weddingId, String photo, PhotoCat photoCat){
         if(!photoCat.equals(PhotoCat.CHURCH) && !photoCat.equals(PhotoCat.WEDDINGHOUSE))
             throw  new IllegalArgumentException();
 
@@ -72,7 +72,8 @@ public class WeddingInfoAPIService {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         WeddingInfo weddingInfo = oWeddingInfo.get();
 
-        FileNameStruct fileNameStruct = fileService.uploadPhoto(photo, photoCat);
+        MultipartFile multipartFile = fileService.convertToMultipartFile(photo);
+        FileNameStruct fileNameStruct = fileService.uploadPhoto(multipartFile, photoCat);
         if(fileNameStruct == null)
             throw new FailedSaveFileException();
 

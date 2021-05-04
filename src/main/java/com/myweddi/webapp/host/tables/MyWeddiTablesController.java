@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("/host/tables")
@@ -83,15 +85,14 @@ public class MyWeddiTablesController {
     }
 
     @PostMapping("/add")
-    public String finalizeTable(@RequestParam("weddingid") Long weddingid,
-                                int tableid[], int capacity[], Principal principal){
+    public String finalizeTable(@RequestParam("weddingid") Long weddingid, Integer capacity[], Principal principal){
 
         UserAuth user = userAuthRepository.findByUsername(principal.getName());
         String path = Global.domain + "/api/table";
         restTemplate.getInterceptors().clear();
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(user.getUsername(), user.getPassword()));
 
-        TableTempObject tto = new TableTempObject(tableid, capacity, weddingid, user.getId());
+        TableTempObject tto = new TableTempObject(Arrays.asList(capacity), weddingid, user.getId());
         ResponseEntity response = restTemplate.postForEntity(path, tto, Void.class);
         if(!response.getStatusCode().is2xxSuccessful()){
             System.err.println("cannot create tables");

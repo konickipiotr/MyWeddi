@@ -3,6 +3,8 @@ package com.myweddi.api;
 import com.myweddi.conf.Global;
 import com.myweddi.db.ActivationRepository;
 import com.myweddi.model.Activation;
+import com.myweddi.modules.info.WeddingInfo;
+import com.myweddi.modules.info.WeddingInfoRepository;
 import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
@@ -33,11 +35,13 @@ public class RegistrationAPIController {
     private final JavaMailSender javaMailSender;
     private final ActivationRepository activationRepository;
     private final PasswordEncoder passwordEncoder;
+    private final WeddingInfoRepository weddingInfoRepository;
+
 
     public final int ACTIVATION_CODE_LENGTH = 40;
 
     @Autowired
-    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository, WeddingCodeRepository weddingCodeRepository, GuestRepository guestRepository, GiftService giftService, JavaMailSender javaMailSender, ActivationRepository activationRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository, WeddingCodeRepository weddingCodeRepository, GuestRepository guestRepository, GiftService giftService, JavaMailSender javaMailSender, ActivationRepository activationRepository, PasswordEncoder passwordEncoder, WeddingInfoRepository weddingInfoRepository) {
         this.userAuthRepository = userAuthRepository;
         this.hostRepository = hostRepository;
         this.weddingCodeRepository = weddingCodeRepository;
@@ -46,6 +50,7 @@ public class RegistrationAPIController {
         this.javaMailSender = javaMailSender;
         this.activationRepository = activationRepository;
         this.passwordEncoder = passwordEncoder;
+        this.weddingInfoRepository = weddingInfoRepository;
     }
 
     @PostMapping
@@ -63,6 +68,7 @@ public class RegistrationAPIController {
         this.hostRepository.save(host);
         this.giftService.newAccount(userAuth.getUsername());
         this.weddingCodeRepository.save(new WeddingCode(userAuth.getId(), generateWeddingCode()));
+        this.weddingInfoRepository.save(new WeddingInfo(userAuth.getId()));
 
         String activationCode = RandomString.make(ACTIVATION_CODE_LENGTH);
         this.activationRepository.save(new Activation(userAuth.getId(), activationCode));

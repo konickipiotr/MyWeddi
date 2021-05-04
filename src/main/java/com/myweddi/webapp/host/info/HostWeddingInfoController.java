@@ -3,7 +3,6 @@ package com.myweddi.webapp.host.info;
 import com.myweddi.conf.Global;
 import com.myweddi.conf.Msg;
 import com.myweddi.modules.info.WeddingInfo;
-import com.myweddi.utils.MultipartInputStreamFileResource;
 import com.myweddi.utils.PhotoCat;
 import com.myweddi.webapp.AuthServiceWebApp;
 import com.myweddi.webapp.Menu;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 
 @Controller
 @RequestMapping("/host/info")
@@ -46,14 +45,13 @@ public class HostWeddingInfoController {
         try {
             response = restTemplate.getForEntity(path, WeddingInfo.class);
         }catch (HttpClientErrorException e){
-            String errormessage;
             HttpStatus statusCode = e.getStatusCode();
 
-            if(statusCode.equals(HttpStatus.NOT_FOUND)) errormessage = Msg.notFoundWeddingInfo;
-            else if(statusCode.equals(HttpStatus.FORBIDDEN)) errormessage = Msg.forbiddenUser;
-            else errormessage = Msg.unknownProblem;
+            if(statusCode.equals(HttpStatus.NOT_FOUND)) errorMessage += Msg.notFoundWeddingInfo;
+            else if(statusCode.equals(HttpStatus.FORBIDDEN)) errorMessage += Msg.forbiddenUser;
+            else errorMessage += Msg.unknownProblem;
 
-            ra.addAttribute("errormessage", errormessage);
+            ra.addAttribute("errormessage", errorMessage);
             return  "redirect:/err";
         }
 
@@ -84,7 +82,7 @@ public class HostWeddingInfoController {
 
         errorMessage += uploadPhoto(chimage, weddingId, PhotoCat.CHURCH, restTemplate);
         errorMessage += uploadPhoto(wimage, weddingId, PhotoCat.WEDDINGHOUSE, restTemplate);
-        ra.addFlashAttribute("errorMessage", errorMessage);
+        ra.addAttribute("errorMessage", errorMessage);
         return "redirect:/host/info";
     }
 
@@ -101,15 +99,14 @@ public class HostWeddingInfoController {
             potentialErrorMsg = Msg.couldNotUploadWeddingHousePhoto;
         }
 
-        LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        String stringByteImage;
         try {
-            if(!file.isEmpty())
-                body.add("photo", new MultipartInputStreamFileResource(file.getInputStream(), file.getOriginalFilename()));
-
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-            if(!body.isEmpty()){
-                restTemplate.postForObject(path, new HttpEntity<>(body, headers), String.class);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            if(!file.isEmpty()){
+                stringByteImage = Base64.getEncoder().encodeToString(file.getBytes());
+                restTemplate.postForObject(path, new HttpEntity<>(stringByteImage, headers), String.class);
             }
         } catch (IOException | HttpClientErrorException e) {
             errorMessage = potentialErrorMsg;

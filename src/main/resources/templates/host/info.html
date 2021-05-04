@@ -25,6 +25,7 @@
     <aside class="menu" th:replace="fragments/menu :: menu"></aside>
     <!-- ************************************************** -->
     <section class="content">
+      <p class="error-message" th:text="${errorMessage}"></p>
       <!-- ************************************************** -->
       <form th:action="@{/host/info}" method="post" th:object="${weddingInfo}" enctype="multipart/form-data" name="weddingInfoForm">
         <input type="hidden" name="weddingid" th:value="${weddingInfo.weddingid}" />

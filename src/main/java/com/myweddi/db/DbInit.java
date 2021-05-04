@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -39,8 +40,12 @@ public class DbInit implements CommandLineRunner {
     private GeneralGiftRepository generalGiftRepository;
     private WeddingInfoRepository weddingInfoRepository;
 
+    private ActivationRepository activationRepository;
+    private PasswordRestRepository passwordRestRepository;
+
+
     @Autowired
-    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository, GiftRepository giftRepository, GeneralGiftRepository generalGiftRepository, WeddingInfoRepository weddingInfoRepository) {
+    public DbInit(UserAuthRepository userAuthRepository, PasswordEncoder passwordEncoder, HostRepository hostRepository, GuestRepository guestRepository, OneTimeRepository oneTimeRepository, PostRepository postRepository, CommentRepository commentRepository, PhotoRepository photoRepository, TablesRepository tablesRepository, TablePlaceRepository tablePlaceRepository, GiftRepository giftRepository, GeneralGiftRepository generalGiftRepository, WeddingInfoRepository weddingInfoRepository, ActivationRepository activationRepository, PasswordRestRepository passwordRestRepository) {
         this.userAuthRepository = userAuthRepository;
         this.passwordEncoder = passwordEncoder;
         this.hostRepository = hostRepository;
@@ -54,6 +59,8 @@ public class DbInit implements CommandLineRunner {
         this.giftRepository = giftRepository;
         this.generalGiftRepository = generalGiftRepository;
         this.weddingInfoRepository = weddingInfoRepository;
+        this.activationRepository = activationRepository;
+        this.passwordRestRepository = passwordRestRepository;
     }
 
     @Override
@@ -70,6 +77,9 @@ public class DbInit implements CommandLineRunner {
         this.tablesRepository.deleteAll();
         this.giftRepository.deleteAll();
         this.generalGiftRepository.deleteAll();
+
+        activationRepository.deleteAll();
+        passwordRestRepository.deleteAll();
 
         UserAuth ua1 = new UserAuth("sa", passwordEncoder.encode("11"), "ADMIN", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua1);
@@ -156,15 +166,16 @@ public class DbInit implements CommandLineRunner {
 
 
         int tableid[] = {1,2,3};
-        int capacity[] = {3,4,1};
-        Tables tables = new Tables(ua2.getId(), capacity.length, capacity);
+
+        List<Integer> capacity = Arrays.asList(3,4,1);
+        Tables tables = new Tables(ua2.getId(), capacity.size(), capacity);
         this.tablesRepository.save(tables);
 
         List<TablePlace> tp = new ArrayList<>();
         for(int i = 0; i < tableid.length; i++){
 
-            for(int j = 0; j < capacity[i]; j++)
-                tp.add(new TablePlace(tableid[i], (j + 1), ua2.getId()));
+            for(int j = 0; j < capacity.get(i); j++)
+                tp.add(new TablePlace(i, j, ua2.getId()));
         }
         this.tablePlaceRepository.saveAll(tp);
         this.generalGiftRepository.save(new GeneralGifts(ua2.getId()));

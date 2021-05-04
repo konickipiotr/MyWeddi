@@ -46,18 +46,17 @@ public class TableService {
 
     public ResponseEntity createTables(TableTempObject tto){
 
-        int[] tablesids = tto.getTablesid();
-        int[] capacity = tto.getCapacity();
-        Tables tables = new Tables(tto.getWeddingid(), tablesids.length, capacity);
+        List<Integer> capacity = tto.getCapacity();
+        Tables tables = new Tables(tto.getWeddingid(), capacity.size(), capacity);
 
         if(tablePlaceRepository.existsByWeddingid(tto.getWeddingid()))
             tablePlaceRepository.deleteByWeddingid(tto.getWeddingid());
 
         List<TablePlace> tp = new ArrayList<>();
-        for(int i = 0; i < tablesids.length; i++){
+        for(int i = 0; i < capacity.size(); i++){
 
-            for(int j = 0; j < capacity[i]; j++)
-                tp.add(new TablePlace(tablesids[i], (j + 1), tto.getWeddingid()));
+            for(int j = 0; j < capacity.get(i); j++)
+                tp.add(new TablePlace(i, j, tto.getWeddingid()));
         }
 
         this.tablePlaceRepository.saveAll(tp);
