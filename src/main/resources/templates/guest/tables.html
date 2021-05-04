@@ -16,6 +16,7 @@
   <link rel="stylesheet" type="text/css" href="/css/header.css">
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" type="text/css" href="/css/info.css">
+  <link rel="stylesheet" type="text/css" href="/css/tables_guest.css">
 </head>
 
 <body>
@@ -26,10 +27,11 @@
     <!-- ************************************************** -->
 
     <section class="content">
+        <h1 class="h_tablesgest">SPRAWDZ GDZIE BEDZIESZ SIEDZIAL/A</h1>
       <div>
         <img th:src="@{${tables.webAppPath}}">
       </div>
-      <div th:each="t : ${tablesList}">
+      <div class="tables_lists_guest" th:each="t : ${tablesList}">
         <p th:if="${t.username != null}"><span>Stół: </span> <span th:text="${t.tableid}"></span> <span th:text="${t.username}"></span> </p>
         <p th:unless="${t.username != null}"><span>Stół: </span> <span th:text="${t.tableid}"></span> <span th:text="${defaultMessage}"></span> </p>
       </div>

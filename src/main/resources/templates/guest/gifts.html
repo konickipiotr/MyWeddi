@@ -25,46 +25,48 @@
       <aside class="menu" th:replace="fragments/menu :: menu"></aside>
     <!-- ************************************************** -->
     <section class="content">
-        <div class="addGifts_top">
-            <h1>STREFA PREZENTÓW</h1>
-            <div class="addg_guestviev_middle">
-                <div>
-                    <p class="p0"><strong>PREZENT ZAMIAST KWIATÓW</strong></p>
-                    <div class="smallGifts">
-                        <i class="fas fa-book-open fa-3x"></i> 
-                    </div>
-                </div>
-                <div>
-                    <p class="p1"><strong>GŁÓWNY PREZENT</strong> </p>
-                    <div class="bigGifts">
-                        <i class="fas fa-envelope fa-3x"></i>
-                    </div>
-                </div>
-             </div> 
-            <div class="textarea_addGifts">
-                <p class="p3"><strong> "Nasi Kochani Goście<br>
-                    Kwiatków nam nie przynoście,<br>
-                    wolimy dostać flaszeczkę wina<br>
-                    będzie się cieszyć cała rodzina"</strong></p>
-            </div>  
-            <div class="down_of_addgifts">
+
+    <div class="gifts_H">
+        <div><h1>STREFA PREZENTÓW</h1></div>
+        <div><img src="../img/balon.png"width="100px" height="100px"></div>
+    </div>
+    <div class="gifts_guestview">
+        <div>
+            <p class="p1"><strong>GŁÓWNY PREZENT</strong> </p>
+            <div class="bigGifts">
+                <i class="fas fa-envelope fa-3x"></i>
+            </div>
+        </div>
+        <div>
+            <p class="p0"><strong>PREZENT ZAMIAST KWIATÓW</strong></p>
+            <div class="smallGifts">
+                <i class="fas fa-book-open fa-3x"></i>
+            </div>
+        </div>
+     </div>
+     <div class="textarea_addGifts">
+        <p class="p3"><strong> "Nasi Kochani Goście<br>
+           Kwiatków nam nie przynoście,<br>
+           wolimy dostać flaszeczkę wina<br>
+           będzie się cieszyć cała rodzina"</strong></p>
+     </div>
+
+        <div class="down_of_addgifts">
             <p class="p0"><strong>LISTA PREZENTÓW (prosimy o rezerwowanie) </strong></p>
-           
+
             <div class="listofguest">
                 <table class="table_gifts_gv">
                     <tr th:each="g, it: ${giftwrapper.gifts}">
-                      <td th:text="${it.count}"></td>
-                      <td><strong th:text="${g.name}">COŚ</strong></td>
+                        <td th:text="${it.count}"></td>
+                        <td><strong th:text="${g.name}">COŚ</strong></td>
 
-
-                      <td th:if="${g.username == null}">
+                        <td th:if="${g.username == null}">
                             <form th:action="@{/guest/gift/book}" method="POST">
-                              <button type="submit" name="giftid" th:value="${g.id}">REZERWUJ</button>
+                                <button type="submit" name="giftid" th:value="${g.id}">REZERWUJ</button>
                             </form>
                         </td>
                         <td th:unless="${g.username == null}" th:text="${g.username}">
                         </td>
-
 
                         <td th:if="${g.userid == session.userid}">
                             <form th:action="@{/guest/gift/unbook}" method="POST">
@@ -77,8 +79,7 @@
                     <tr><td>3</td><td><i class="far fa-question-circle"></i><td><a><i class="far fa-user-circle"></i></a></td><td>komórka 4</td><td>komórka 5</td><td><a><i class="fas fa-arrow-down"></i></a></td><td><a><i class="far fa-trash-alt"></i></a></td></tr> -->
                 </table>
             </div>
-       
-  </section>
+    </section>
 
   <!-- ************************************************** -->
   </div>
