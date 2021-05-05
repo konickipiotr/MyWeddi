@@ -12,14 +12,22 @@
     border: 2px solid #fff2f5;
 }
 
-  .btn:hover {
+.btn:hover {
     background-color: #ebbec8;
     opacity: 80%;
     border: 2px solid #fff2f5;
-  }
+}
+
 .menu{
     display: flex;
-        align-items: center;
+    align-items: center;
     flex-direction: column;
+}
 
+.menuNav{
+     position: fixed;
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     width: 25%;
 }

@@ -4,7 +4,10 @@
 </head>
 <body>
     <aside class="menu" th:fragment="menu">
+        <div class="menuNav">
         <a th:each="m : ${menu}" th:href="@{${m.value}}" class="btn" th:text="${m.key}"></a>
+        </div>
     </aside>
+
 </body>
 </html>
