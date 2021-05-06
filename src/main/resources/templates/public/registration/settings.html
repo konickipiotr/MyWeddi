@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title th:text="#{appname}"></title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cc786d7d3d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+
+    <link rel="stylesheet" type="text/css" href="../../../static/css/settings.css">
+
+</head>
+
+<body>
+<header th:replace="fragments/top :: top"></header>
+<header th:replace="fragments/header :: header">
+</header>
+<div class="container" style="display: flex;">
+    <aside class="menu" th:replace="fragments/menu :: menu"></aside>
+    <!-- ************************************************** -->
+
+    <section class="content">
+     <div class ="container_settings">
+    <h1>USTAWIENIA</h1>
+        <div class = "settings_1">
+            <img src="../../../static/img/emptyPhoto.png" width="30%" height="30%"/>
+            <button class="btn_settings">ZMIEN</button>
+        </div>
+         <div class="settings_password">
+             <h3>ZMIEN HASLO</h3>
+             <label for="old_pass_settings">Stare hasło:</label>
+             <input type="text" id="old_pass_settings">
+             <label for="new_pass_settings">Nowe hasło:</label>
+             <input type="text" id="new_pass_settings">
+             <label for="new_pass_settings1">Nowe hasło:</label>
+             <input type="text" id="new_pass_settings1">
+             <button class="btn_settings">ZMIEN</button>
+         </div>
+        <div class="settings_2">
+            <div>
+            <h3>OBECNOSC</h3>
+            </div>
+            <div class="settings_2b">
+            <input type="radio" id="yes">
+            <label for="yes">Potwierdzam</label>
+            <input type="radio" id="yesorno">
+            <label for="yesorno">Zastanawiam sie</label>
+            <input type="radio" id="no">
+            <label for="yes">Nie bedzie mnie</label>
+            </div>
+        </div>
+        <div class="settings_3">
+            <div>
+                <h3>OSOBA TOWARZYSZACA</h3>
+            </div>
+            <div class="settings_3b">
+            <input type="radio" id="yes1">
+            <label for="yes1">Będę z osobą towarzyszącą</label>
+            <input type="radio" id="no1">
+            <label for="no1">Będę sam/a</label>
+            </div>
+        </div>
+         <div class="middle_cont_firstVisit">
+             <p>Ile dzieci?</p>
+             <input type="number" name="children" min="0" step="1" value="0">
+         </div>
+         <div class="middle_cont_firstVisit">
+             <p>Czy potrzebujesz noclegu?</p>
+             <label class="radio">
+                 <input name="bed" id="bed-true"  type="radio" checked>
+                 <label for="bed-true">TAK</label>
+             </label>
+             <label class="radio">
+                 <input name="bed" id="bed-false" type="radio">
+                 <label for="bed-false">NIE</label>
+             </label><br />
+
+             <label class="radio">
+                 <label for="numofbed">Ile łóżek potrzenujesz?</label>
+                 <input type="number" id="numofbed" name="numofbed" min="0" step="1" value="1">
+             </label>
+         </div>
+         <div>
+             <button class="btn_settings">A K C E P T U J</button>
+         </div>
+     </div>
+    </section>
+
+    <!-- ************************************************** -->
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+<script src="/js/uploadphoto.js"></script>
+
+</html>
