@@ -37,16 +37,12 @@
         <form th:action="@{/home}" method="post" enctype="multipart/form-data">
           <input type="hidden" id="posttype" name="posttype" th:value="${posttype.name()}">
           <div class="added_post_top">
-            <div><img th:src="@{${session.profilePhoto}}" class="profile-photo"></div>
-            <div><p th:text="#{header_add_post}"></p></div>
-          </div>
-          <div class="added_post_top">
             <textarea class="writecomment" name="description" rows="3" cols="40"></textarea>
           </div>
           <div class="added_post_down">
             <button type="submit" class="entercomment"><span th:text="#{button_add}"></span></button>
             <div class="upload" onclick="choosePhoto()">
-              <p><i class="fas fa-image fa-1x"></i> <span id="uploadedPostPhotoLabel" th:text="#{button_add_photo}"></span></p>
+              <p style="margin:0px; padding:0px;"><i class="fas fa-image fa-1x"></i> <span id="uploadedPostPhotoLabel" th:text="#{button_add_photo}"></span></p>
               <input type="file" class="input_add_post" id="uploadedPostPhoto" name="images" multiple style="display: none;">
             </div>
           </div>

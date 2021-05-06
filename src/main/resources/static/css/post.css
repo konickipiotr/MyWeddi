@@ -122,7 +122,6 @@
   width: 90%;
   display: flex;
   padding-top:10px;
-  padding-bottom:10px ;
 }
 
 .added_post form{
@@ -224,6 +223,11 @@ upload label{
     font-family: 'Nunito', sans-serif;
     margin-left: 5px;
     cursor: pointer;
+    border-radius: 15px 0px 15px 0px;
+    width: 60%;
+    height: 20px;
+    cursor: pointer;
+    text-align: center;
 }
 
 .upload:hover{
