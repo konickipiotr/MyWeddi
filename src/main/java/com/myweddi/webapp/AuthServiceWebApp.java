@@ -57,8 +57,9 @@ public class AuthServiceWebApp {
     private User getUser(UserAuth userAuth){
         User user = null;
         switch (userAuth.getRole()){
-            case "GUEST": user = new User(this.guestRepository.findById(userAuth.getId()).get()); break;
-            case "HOST": user = new User(this.hostRepository.findById(userAuth.getId()).get()); break;
+            case "NEWGUEST":
+            case "GUEST": user = new User(this.guestRepository.findById(userAuth.getId()).get(), userAuth.getStatus()); break;
+            case "HOST": user = new User(this.hostRepository.findById(userAuth.getId()).get(), userAuth.getStatus()); break;
         }
         user.setRole(userAuth.getRole());
         return user;

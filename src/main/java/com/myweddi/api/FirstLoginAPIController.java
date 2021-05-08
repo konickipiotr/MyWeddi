@@ -1,9 +1,6 @@
 package com.myweddi.api;
 
-import com.myweddi.user.FirstLoginForm;
-import com.myweddi.user.Guest;
-import com.myweddi.user.UserAuth;
-import com.myweddi.user.UserStatus;
+import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +44,20 @@ public class FirstLoginAPIController {
 
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("GUEST"));
+
+        this.userAuthRepository.save(user);
+        this.guestRepository.save(guest);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/api")
+    public ResponseEntity firstApiLoginAccept(@RequestBody Guest guest, Principal principal){
+        UserAuth user = userAuthRepository.findByUsername(principal.getName());
+        if(guest.getStatus().equals(GuestStatus.CONFIRMED)) {
+            user.setRole("GUEST");
+            user.setStatus(UserStatus.ACTIVE);
+        }
 
         this.userAuthRepository.save(user);
         this.guestRepository.save(guest);

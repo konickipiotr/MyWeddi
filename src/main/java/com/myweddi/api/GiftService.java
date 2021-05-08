@@ -146,9 +146,9 @@ public class GiftService {
         User user = null;
 
         if(ua.getRole().equals("HOST")){
-            user = new User(this.hostRepository.findById(ua.getId()).get());
+            user = new User(this.hostRepository.findById(ua.getId()).get(), ua.getStatus());
         }else if(ua.getRole().equals("GUEST")){
-            user = new User(this.guestRepository.findById(ua.getId()).get());
+            user = new User(this.guestRepository.findById(ua.getId()).get(), ua.getStatus());
         }
         user.setRole(ua.getRole());
         return user;

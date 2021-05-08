@@ -1,5 +1,6 @@
 package com.myweddi.api;
 
+import com.myweddi.user.Guest;
 import com.myweddi.user.Host;
 import com.myweddi.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,16 @@ public class UserAPIController {
     @PostMapping("/host")
     public ResponseEntity<Host> getWeddingHostsInfo(@RequestBody Long weddingid){
         return userService.getWeddingHosts(weddingid);
+    }
+
+    @PostMapping("/guest")
+    public ResponseEntity<Guest> getGuestInfo(@RequestBody Long userid){
+        return userService.getGuest(userid);
+    }
+
+    @PostMapping("/saveguest")
+    public void getSaveGuestInfo(@RequestBody Guest guest){
+        userService.getSaveGuest(guest);
     }
 
     @PostMapping("/photo")

@@ -1,6 +1,7 @@
 package com.myweddi.api;
 
 import com.myweddi.db.PhotoRepository;
+import com.myweddi.user.Guest;
 import com.myweddi.user.Host;
 import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.Base64;
+import java.util.Optional;
 
 
 @Service
@@ -81,10 +83,25 @@ public class UserService {
     public User getUserResponseEntity(UserAuth userAuth){
         User user = null;
         switch (userAuth.getRole()){
-            case "GUEST": user = new User(this.guestRepository.findById(userAuth.getId()).get()); break;
-            case "HOST": user = new User(this.hostRepository.findById(userAuth.getId()).get()); break;
+            case "NEWGUEST":
+            case "GUEST": user = new User(this.guestRepository.findById(userAuth.getId()).get(), userAuth.getStatus()); break;
+            case "HOST": user = new User(this.hostRepository.findById(userAuth.getId()).get(), userAuth.getStatus()); break;
         }
         user.setRole(userAuth.getRole());
         return user;
+    }
+
+    public ResponseEntity<Guest> getGuest(Long userid) {
+
+        Optional<Guest> oGuest = this.guestRepository.findById(userid);
+        if(oGuest.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        Guest guest = oGuest.get();
+        return new ResponseEntity<>(guest, HttpStatus.OK);
+    }
+
+    public void getSaveGuest(Guest guest) {
+        this.guestRepository.save(guest);
     }
 }

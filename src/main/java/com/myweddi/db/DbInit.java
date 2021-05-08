@@ -87,7 +87,7 @@ public class DbInit implements CommandLineRunner {
         UserAuth ua2 = new UserAuth("so", passwordEncoder.encode("11"), "HOST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua2);
 
-        UserAuth ua3 = new UserAuth("patrycia.puchalska@gmail.com", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
+        UserAuth ua3 = new UserAuth("sg", passwordEncoder.encode("11"), "GUEST", UserStatus.ACTIVE);
         this.userAuthRepository.save(ua3);
 
         UserAuth ua4 = new UserAuth("sd", passwordEncoder.encode("11"), "DJ", UserStatus.ACTIVE);
@@ -179,8 +179,6 @@ public class DbInit implements CommandLineRunner {
         }
         this.tablePlaceRepository.saveAll(tp);
         this.generalGiftRepository.save(new GeneralGifts(ua2.getId()));
-
-
         this.giftRepository.save(new Gift(ua2.getId(), "Rower"));
         this.giftRepository.save(new Gift(ua2.getId(), "Auto"));
     }

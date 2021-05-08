@@ -75,7 +75,8 @@ public class NewSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers("/api/registration/**", "/api/forgotpassword/**").permitAll()
-                .antMatchers("/api/firstlogin").hasRole("NEWGUEST")
+                .antMatchers("/api/firstlogin/**").hasRole("NEWGUEST")
+                .antMatchers("/api/user/**").hasAnyRole("NEWGUEST", "ADMIN","HOST", "GUEST")
                 .antMatchers("/api/**").hasAnyRole("ADMIN","HOST", "GUEST")
 
                 .and()
