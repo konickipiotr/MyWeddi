@@ -1,0 +1,65 @@
+body {
+    border: 80px solid #ebbec8;
+}
+
+.container{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.container_settings{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 25px;
+    color: #2E3E60;
+}
+
+.btn_settings {
+    width: 200px;
+    padding: 16px 16px;
+    margin-top: 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+    border-style: none;
+    background-color: RosyBrown;
+    border: 2px solid white;
+    margin-top: 25px;
+}
+
+.btn_settings:hover {
+    opacity: 60%;
+    width: 230px;
+}
+
+.settings_1, .settings_2, .settings_3, .settings_password, .middle_cont_firstVisit{
+    margin-bottom: 20px;
+    border: 0.5rem outset #ebbec8;
+    font: bold 1rem sans-serif;
+    margin: 2rem;
+    padding: 1rem;
+    outline-offset: 0.5rem;
+    font-family: 'Nunito';
+    font-size: 25px;
+    color: #2E3E60;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings_2b, .settings_3b{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.radio{
+    font-size: 20px;
+}
