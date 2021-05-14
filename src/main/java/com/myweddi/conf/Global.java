@@ -13,4 +13,6 @@ public class Global {
 
     //public static final String domain = "http://80.211.245.217:8081";
     //public final static String appPath = "/home/cloud/myweddi/";
+
+    public static final Long ACCOUNT_REMOVED = -1l;
 }

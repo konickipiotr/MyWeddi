@@ -96,12 +96,7 @@ public class WeddingInfoAPIService {
     private void removeOldFile(WeddingInfo weddingInfo, PhotoCat photoCat){
         String path = photoCat.equals(PhotoCat.CHURCH) ? weddingInfo.getChRealPath() : weddingInfo.getwRealPath();
         if(path != null && !path.isBlank()) {
-            try {
-                fileService.deleteFile(path);
-            } catch (IOException e) {
-                System.err.println("file not exist");
-                e.printStackTrace();
-            }
+            fileService.deleteFile(path);
         }
     }
 }

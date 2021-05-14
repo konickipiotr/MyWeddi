@@ -12,4 +12,7 @@ public interface TablePlaceRepository extends JpaRepository<TablePlace, Long> {
     boolean existsByWeddingid(Long aLong);
     List<TablePlace> findByWeddingid(Long weddingid);
     void deleteByWeddingid(Long weddingid);
+
+    boolean existsByUserid(Long userid);
+    TablePlace findByUserid(Long userid);
 }

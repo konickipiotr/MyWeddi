@@ -58,6 +58,7 @@ public class GiftService {
                 break;
             }
         }
+        wrapper.setReservationImpossible(reservationImpossible);
 
         if(reservationImpossible){
             for(Gift g : gifts){

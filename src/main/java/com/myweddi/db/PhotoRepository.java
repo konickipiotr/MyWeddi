@@ -10,4 +10,5 @@ import java.util.List;
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
     List<Photo> findByPostid(Long postid);
     void deleteByPostid(Long postid);
+    List<Photo> findByUserid(Long userid);
 }

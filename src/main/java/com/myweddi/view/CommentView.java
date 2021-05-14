@@ -1,5 +1,7 @@
 package com.myweddi.view;
 
+import com.myweddi.conf.Global;
+import com.myweddi.conf.Msg;
 import com.myweddi.model.Comment;
 import com.myweddi.user.User;
 
@@ -21,6 +23,19 @@ public class CommentView implements Comparable<Comment> {
     private boolean myComment;
 
     public CommentView() {
+    }
+
+    public CommentView(Comment c) {
+        this.id = c.getId();
+        this.postid = c.getPostid();
+        this.userid = c.getUserid();
+        this.content = c.getContent();
+        this.creationdate = c.getCreationdate();
+        if(this.userid == Global.ACCOUNT_REMOVED){
+            this.username = Msg.account_removed;
+            this.userphoto = "img/user.png";
+        }
+
     }
 
     public CommentView(Comment c, User user) {

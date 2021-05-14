@@ -102,7 +102,7 @@ class RegistrationAPIControllerTest {
     void create_guest_account() throws Exception {
         RegistrationForm rf = new RegistrationForm();
         rf.setUsertype("HOST");
-        rf.setUsername("user1");
+        rf.setUsername("user1@com");
         rf.setPassword("111");
         rf.setBridefirstname("Zosia");
         rf.setBridelastname("Samosia");
@@ -124,7 +124,7 @@ class RegistrationAPIControllerTest {
 
         RegistrationForm rf2 = new RegistrationForm();
         rf2.setUsertype("GUSET");
-        rf2.setUsername("user2");
+        rf2.setUsername("user2@com");
         rf2.setPassword("111");
         rf2.setFirstname("Adam");
         rf2.setLastname("Nowak");

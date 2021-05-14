@@ -46,7 +46,7 @@ public class PostService {
     private PhotoRepository photoRepository;
     private LikeRepository likeRepository;
 
-    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 2;
 
 
     @Autowired
@@ -90,9 +90,7 @@ public class PostService {
         if(currentUser.getRole().equals("GUEST"))
             throw new ForbiddenException();
 
-        page--;
-
-        List<Post> posts = this.postRepository.findByPosttypeOrderByCreationdateDesc(Posttype.PUBLIC, PageRequest.of(page, PAGE_SIZE));
+        List<Post> posts = this.postRepository.findByPosttypeOrderByCreationdateDesc(Posttype.PUBLIC, PageRequest.of(0, PAGE_SIZE * page));
 
         List<PostView> postViews = new ArrayList<>();
         for(Post post : posts)
@@ -106,9 +104,7 @@ public class PostService {
 
         User currentUser = getUser(this.userAuthRepository.findByUsername(username).getId());
 
-        page--;
-
-        List<Post> posts = this.postRepository.findByWeddingidOrderByCreationdateDesc(currentUser.getWeddingid(), PageRequest.of(page, PAGE_SIZE));
+        List<Post> posts = this.postRepository.findByWeddingidOrderByCreationdateDesc(currentUser.getWeddingid(), PageRequest.of(0, PAGE_SIZE * page));
 
         List<PostView> postViews = new ArrayList<>();
         for(Post post : posts)
@@ -149,12 +145,18 @@ public class PostService {
         List<CommentView> commentViewsList = new ArrayList<>();
         for(Comment c : comments){
 
-            User user = getUser(c.getUserid());
-            CommentView cv = new CommentView(c, user);
+            CommentView cv;
+            if(c.getUserid().equals(Global.ACCOUNT_REMOVED)){
+                cv = new CommentView(c);
+            }else {
+                User user = getUser(c.getUserid());
+                cv = new CommentView(c, user);
+            }
+
             if(currentUser.getRole().equals("HOST"))
                 cv.setMyComment(true);
             else
-                cv.setMyComment(currentUser.getId().equals(user.getId()));
+                cv.setMyComment(currentUser.getId().equals(c.getUserid()));
             commentViewsList.add(cv);
         }
         commentViewsList.forEach(i -> i.covert());
@@ -219,12 +221,8 @@ public class PostService {
 
         List<Photo> postPhotos = photoRepository.findByPostid(postid);
         for(Photo p : postPhotos){
-            try {
-                if(p.getRealPath() != null)
-                    fileService.deleteFile(p.getRealPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            if(p.getRealPath() != null)
+                fileService.deleteFile(p.getRealPath());
             photoRepository.deleteById(p.getId());
         }
         return true;

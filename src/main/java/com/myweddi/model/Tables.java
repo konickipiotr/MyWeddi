@@ -31,6 +31,10 @@ public class Tables {
         this.webAppPath = "";
     }
 
+    public void removeGuest(){
+        this.free++;
+    }
+
     public Long getWeddingid() {
         return weddingid;
     }

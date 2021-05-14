@@ -13,6 +13,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByUseridOrderByCreationdateDesc(long userid);
     List<Post> findAllByOrderByCreationdateDesc(Pageable pageable);
 
+    List<Post> findByUserid(Long userid);
+    List<Post> findByWeddingid(Long weddingid);
 
     List<Post> findByWeddingidOrderByCreationdateDesc(Long hostweddingid, Pageable pageable);
     List<Post> findByPosttypeOrderByCreationdateDesc(Posttype posttype, Pageable pageable);

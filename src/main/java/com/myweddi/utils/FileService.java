@@ -23,14 +23,12 @@ import java.util.List;
 public class FileService {
     private static long photoId = 1;
 
-//    public void createUserDirectory(User user){
-//        Path pp = Paths.get(getUserDirPath(user));
-//        new File(pp.toAbsolutePath().toString()).mkdirs();
-//    }
-//
-    public void deleteFile(String path) throws IOException {
+    public void deleteFile(String path){
+        if(path == null || path.isBlank())
+            return;
         new File(path).delete();
     }
+
 
     private FileNameStruct createFileName(MultipartFile mFile, PhotoCat photoCat){
         String orginalFileName = mFile.getOriginalFilename();

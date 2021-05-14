@@ -1,5 +1,7 @@
 package com.myweddi.view;
 
+import com.myweddi.conf.Global;
+import com.myweddi.conf.Msg;
 import com.myweddi.model.Photo;
 import com.myweddi.model.Post;
 import com.myweddi.user.User;
@@ -40,8 +42,13 @@ public class PostView {
         this.userid = p.getUserid();
         this.creationdate = p.getCreationdate();
         this.description = p.getDescription();
-        this.username = user.getName();
-        this.userphoto = user.getWebAppPath();
+        if(this.userid.equals(Global.ACCOUNT_REMOVED)){
+            this.username = Msg.account_removed;
+            this.userphoto = "img/user.png";
+        }else {
+            this.username = user.getName();
+            this.userphoto = user.getWebAppPath();
+        }
     }
 
     public void covert() {
