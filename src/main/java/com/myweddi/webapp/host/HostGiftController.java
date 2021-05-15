@@ -43,7 +43,7 @@ public class HostGiftController {
         GiftWrapper wrapper = response.getBody();
 
         model.addAttribute("giftWrapper", wrapper);
-        model.addAttribute("giftIn", new GiftIn(wrapper.getSelectedGift()));
+        model.addAttribute("giftIn", new GiftIn(wrapper));
         model.addAttribute("menu", Menu.hostMenu);
         return "host/gifts";
     }

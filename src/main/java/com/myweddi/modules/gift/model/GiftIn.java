@@ -1,6 +1,7 @@
 package com.myweddi.modules.gift.model;
 
 import com.myweddi.modules.gift.GiftType;
+import com.myweddi.modules.gift.GiftWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,8 +49,9 @@ public class GiftIn {
     public GiftIn() {
     }
 
-    public GiftIn(Map<GiftType, Boolean> map) {
-        mapToGift(map);
+    public GiftIn(GiftWrapper wrapper) {
+        this.giftInfo = wrapper.getGiftInfo();
+        mapToGift(wrapper.getSelectedGift());
     }
 
     public Boolean getPOTTEDFLOWERS() {

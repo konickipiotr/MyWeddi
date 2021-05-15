@@ -1,27 +1,33 @@
 package com.myweddi.webapp;
 
+import com.myweddi.utils.Duo;
+import org.springframework.data.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Menu {
-    public static final Map<String, String> adminMenu = new TreeMap<>();
-    public static final Map<String, String> hostMenu = new TreeMap<>();
-    public static final Map<String, String> guestMenu = new TreeMap<>();
-    public static final Map<String, String> djMenu = new TreeMap<>();
-    public static final Map<String, String> photojMenu = new TreeMap<>();
+    public static final List<Duo> adminMenu = new ArrayList<>();
+    public static final List<Duo> hostMenu = new ArrayList<>();
+    public static final List<Duo> guestMenu = new ArrayList<>();
+    public static final List<Duo> djMenu = new ArrayList<>();
+    public static final List<Duo> photojMenu = new ArrayList<>();
+
     static {
-        adminMenu.put("home", "/admin/");
+        adminMenu.add(new Duo("home", "/admin/"));
 
-        guestMenu.put("home", "/home");
-        guestMenu.put("Informacje", "/info");
-        guestMenu.put("STOŁY", "/guest/tables");
-        guestMenu.put("PREZENTY", "/guest/gift");
+        guestMenu.add(new Duo("Strona Główna", "/home"));
+        guestMenu.add(new Duo("Informacje", "/info"));
+        guestMenu.add(new Duo("Prezenty", "/guest/gift"));
+        guestMenu.add(new Duo("Stoły", "/guest/tables"));
 
-        hostMenu.put("home", "/home");
-        hostMenu.put("Informacje", "/host/info");
-        hostMenu.put("Goście", "/host/guest");
-        hostMenu.put("Stoły", "/host/tables");
-        hostMenu.put("PREZENTY", "/host/gift");
+        hostMenu.add(new Duo("Strona Główna", "/home"));
+        hostMenu.add(new Duo("Informacje", "/host/info"));
+        hostMenu.add(new Duo("Prezenty", "/host/gift"));
+        hostMenu.add(new Duo("Stoły", "/host/tables"));
+        hostMenu.add(new Duo("Goście", "/host/guest"));
 
 
 
