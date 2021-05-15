@@ -136,7 +136,7 @@
               <td th:unless="${g.userid == null}"></td>
               <td>
                 <form th:action="@{/host/gift/remove}" method="post">
-                  <button type="submit" name="giftid" th:value="${g.id}">Usuń</button>
+                  <button class="btn_delete_gifts" type="submit" name="giftid" th:value="${g.id}">Usuń</button>
                 </form>
               </td>
             </tr>
