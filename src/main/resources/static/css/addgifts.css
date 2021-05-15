@@ -177,3 +177,15 @@ color: #2b272a;
     text-align:center;
     font-size:25px;
 }
+.btn_delete_gifts{
+    text-decoration: none;
+    border-style: none;
+    padding: 2px 12px;
+    background-color: #2b272a;
+    border-radius: 15px 0px 15px 0px;
+    color: white;
+    margin-top: 10px;
+}
+.btn_delete_gifts:hover{
+opacity: 60%;
+}
