@@ -39,6 +39,12 @@
   padding: 0px 10px 0px 10px;
 }
 
+.header_post_1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .middle_post{
   display: flex;
   flex-direction: column;
@@ -144,7 +150,6 @@
     padding-left: 10px;
 }
 
-
 .writecomment{
   width: 400px;
   resize: none;
@@ -155,14 +160,23 @@
   background:none;
   margin-right: 20px;
   cursor: pointer;
+  margin-left:2px;
+}
+
+.post_name_user{
+  margin: 0px;
+  color: black;
+  margin-left: 5px;
 }
 
 .nameuser_post_delete i:hover {
   color: black;
 }
+.nameuser_post{
+  margin: 0;
+}
 
 .nameuser_post_delete_div{
-  margin-top: 12px;
   font-size: 20px;
 }
 
@@ -198,11 +212,9 @@ form{
 }
 
 form .upload {
-    width: 20%;
-	padding: 10px;
+  width: 20%;
+  padding: 10px;
   margin-right: 10px;
-
-
 }
 
 .added_post_down{
@@ -210,10 +222,6 @@ form .upload {
   padding: 10px;
   display: flex;
   justify-content: center;
-}
-
-upload label{
-
 }
 
 .upload{
@@ -236,5 +244,4 @@ upload label{
 
 .input_add_post{
   color: transparent;
-
 }

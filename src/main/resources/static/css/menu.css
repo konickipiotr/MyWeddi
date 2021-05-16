@@ -8,13 +8,13 @@
     color: #2E3E60;
     text-decoration: none;
     background-color: #ebbec8;
-    opacity: 40%;
+    opacity: 80%;
     border: 2px solid #fff2f5;
 }
 
 .btn:hover {
     background-color: #ebbec8;
-    opacity: 80%;
+    opacity: 40%;
     border: 2px solid #fff2f5;
 }
 
