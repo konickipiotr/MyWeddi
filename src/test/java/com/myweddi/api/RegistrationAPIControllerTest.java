@@ -110,6 +110,7 @@ class RegistrationAPIControllerTest {
                 .andExpect(status().isOk());
 
         UserAuth userA = this.userAuthRepository.findByUsername(rf.getUsername());
+        Host host = this.hostRepository.findById(userA.getId()).get();
 
         RegistrationForm rf2 = new RegistrationForm();
         rf2.setUsertype("GUSET");
@@ -118,6 +119,7 @@ class RegistrationAPIControllerTest {
         rf2.setFirstname("Adam");
         rf2.setLastname("Nowak");
         rf2.setGender("M");
+        rf2.setWeddingcode(host.getWeddingcode());
 
 
         mockMvc.perform(post("/api/registration/guest")
