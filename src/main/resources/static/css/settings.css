@@ -1,12 +1,4 @@
-body {
-    border: 80px solid #ebbec8;
-}
 
-.container{
-     display: flex;
-     align-items: center;
-     justify-content: center;
-}
 
 .container_settings{
     display: flex;
@@ -62,4 +54,11 @@ body {
 
 .radio{
     font-size: 20px;
+}
+
+.error_message_set{
+    color: red;
+
+.ok_message_set{
+    color: green;
 }

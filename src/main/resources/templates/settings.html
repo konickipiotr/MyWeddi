@@ -48,8 +48,8 @@
          <form th:action="@{${passPath}}" method="post" th:object="${passwordForm}">
          <div class="settings_password">
              <h3>ZMIEN HASLO</h3>
-             <p th:if="${errpassmessage}" th:text="${errpassmessage}"></p>
-             <p th:if="${green}" th:text="${green}"></p>
+             <p class="error_message_set" th:if="${errpassmessage}" th:text="${errpassmessage}"></p>
+             <p class="ok_message_set" th:if="${green}" th:text="${green}"></p>
              <label for="old_pass_settings">Stare hasło:</label>
              <input type="text" id="old_pass_settings" name="passold" th:field="*{passold}" required>
              <label for="new_pass_settings">Nowe hasło:</label>

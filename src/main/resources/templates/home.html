@@ -55,10 +55,15 @@
         <div class="user_posts">
 
           <div class="header_post">
-            <img class="profile-photo" th:src="@{${p.userphoto}}" />
-            <div class="nameuser_post">
-              <a th:text="${p.username}"></a>
+            <div class="header_post_1">
+              <div>
+              <img class="profile-photo" th:src="@{${p.userphoto}}" />
+              </div>
+              <div class="nameuser_post">
+                <a class="post_name_user" th:text="${p.username}"></a>
+              </div>
             </div>
+            <div class="header_post_1">
             <div class="data_post">
                 <p th:text="${p.postdatetime}"></p>
             </div>
@@ -68,6 +73,7 @@
                 <input type="hidden" name="posttype" th:value="${posttype.name()}">
                 <button class="nameuser_post_delete"  type="submit" name="postid" th:value="${p.id}"><i class="fas fa-trash fa-2x"></i></button>
               </form>
+            </div>
             </div>
           </div>
           <!-- ************************************************** -->

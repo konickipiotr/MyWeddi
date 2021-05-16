@@ -70,3 +70,13 @@ span {
     color: #411624;
     cursor: pointer;
 }
+
+.fa-cog:hover{
+    color: #411624;
+    cursor: pointer;
+}
+
+.fa-sign-out-alt:hover{
+    color: #411624;
+    cursor: pointer;
+}
