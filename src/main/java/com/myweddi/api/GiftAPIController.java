@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/gift")
@@ -27,8 +28,9 @@ public class GiftAPIController {
     }
 
     @PostMapping("/add")
-    public void saveGift(@RequestBody String name, Principal principal){
-        giftService.saveGift(name, principal.getName());
+    public void saveGift(@RequestBody Map<String, String> body, Principal principal){
+
+        giftService.saveGift(body.get("name"), principal.getName());
     }
 
     @PostMapping("/remove")

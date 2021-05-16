@@ -3,14 +3,13 @@ package com.myweddi.webapp;
 import com.myweddi.conf.Global;
 import com.myweddi.exception.FailedSaveFileException;
 import com.myweddi.model.Posttype;
+import com.myweddi.user.User;
 import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import com.myweddi.utils.MultipartInputStreamFileResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -42,10 +43,10 @@ public class ProfilePhotoController {
     }
 
     @PostMapping
-    public String uploadProfilePhoto(MultipartFile profilePhoto, Principal principal){
-        UserAuth user = configRestTemplate(principal.getName());
+    public String uploadProfilePhoto(MultipartFile profilePhoto, String returnView, Principal principal, HttpSession session){
+        UserAuth userAuth = configRestTemplate(principal.getName());
 
-        String path =   Global.domain + "/api/profilephoto/"+ user.getId();
+        String path =   Global.domain + "/api/profilephoto/"+ userAuth.getId();
 
         List<String> sImage = new ArrayList<>();
         if (!profilePhoto.isEmpty()) {
@@ -63,6 +64,16 @@ public class ProfilePhotoController {
         HttpEntity<Object> requestEntity = new HttpEntity<Object>(sImage, headers);
         restTemplate.postForObject(path, requestEntity, String.class);
 
+        path =   Global.domain + "/api/user";
+        ResponseEntity<User> response = restTemplate.getForEntity(path, User.class);
+        User user = response.getBody();
+
+        session.setAttribute("profilePhoto", user.getWebAppPath());
+
+        switch (returnView){
+            case "GUESTSETTINGS": return "redirect:/guest/settings";
+            case "HOSTSETTINGS": return "redirect:/host/settings";
+        }
         return "redirect:/";
     }
 

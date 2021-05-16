@@ -48,6 +48,7 @@
     opacity: 40%;
 }
 .enterbtn_addGifts2 button{
+       display: block;
       text-decoration: none;
       border-style: none;
       padding: 12px 12px;
@@ -108,6 +109,8 @@
 }
 .down_of_addgifts{
     padding-top: 20px;
+    display: flex;
+    justify: center;
 }
 
 .smallGifts{
@@ -169,8 +172,8 @@
 .textarea_addGifts2{
    background-color: #d9d2d9;
    padding-bottom:15px;
-text-align:center;
-width: 90%;
+   text-align:center;
+   width: 90%;
 }
 .p00{
 color: #2b272a;

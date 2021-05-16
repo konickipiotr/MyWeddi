@@ -29,6 +29,14 @@ public class Guest{
     public Guest() {
     }
 
+    public void updateAdditionalInfo(Guest guest){
+        this.status = guest.status;
+        this.partner = guest.partner;
+        this.children = guest.children;
+        this.bed = guest.bed;
+        this.numofbed = guest.getNumofbed();
+    }
+
     public Guest(Long id, Long weddingid, String email, String firstname, String lastname, GuestStatus status) {
         this.id = id;
         this.weddingid = weddingid;
@@ -67,6 +75,8 @@ public class Guest{
             case REJECTED: this.statusIco = "fas fa-user-minus" ;break;
         }
     }
+
+
 
     public void setFirstLoginData(FirstLoginForm flf){
         this.confirm = flf.isConfirm();

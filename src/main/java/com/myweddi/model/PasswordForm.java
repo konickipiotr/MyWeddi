@@ -5,6 +5,7 @@ import org.apache.coyote.RequestGroupInfo;
 public class PasswordForm {
 
     private Long userid;
+    private String passold;
     private String pass1;
     private String pass2;
 
@@ -13,8 +14,9 @@ public class PasswordForm {
 
     public PasswordForm(Long userid) {
         this.userid = userid;
-        this.pass1 = "fff";
-        this.pass2 = "xxx";
+        this.pass1 = "";
+        this.pass2 = "";
+        this.passold = "";
     }
 
     public boolean passwordsAreCorrect(){
@@ -45,5 +47,13 @@ public class PasswordForm {
 
     public void setPass2(String pass2) {
         this.pass2 = pass2;
+    }
+
+    public String getPassold() {
+        return passold;
+    }
+
+    public void setPassold(String passold) {
+        this.passold = passold;
     }
 }

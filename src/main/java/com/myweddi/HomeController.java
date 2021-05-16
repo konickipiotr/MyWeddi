@@ -38,6 +38,8 @@ public class HomeController {
 
     @GetMapping
     public String home(Principal principal, HttpSession session){
+        if(principal == null)
+            return "redirect:/logout";
         UserAuth userAuth = userAuthRepository.findByUsername(principal.getName());
 
         String view = "";

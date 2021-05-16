@@ -14,15 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.thymeleaf.model.IStandaloneElementTag;
 
 import javax.transaction.Transactional;
-import com.myweddi.user.WeddingCode;
-import com.myweddi.user.reposiotry.WeddingCodeRepository;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,21 +30,19 @@ class RegistrationAPIControllerTest {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
-    private RegistrationAPIController registrationAPIController;
     private UserAuthRepository userAuthRepository;
     private HostRepository hostRepository;
     private GuestRepository guestRepository;
-    private WeddingCodeRepository weddingCodeRepository;
+
 
     @Autowired
-    public RegistrationAPIControllerTest(MockMvc mockMvc, ObjectMapper objectMapper, RegistrationAPIController registrationAPIController, UserAuthRepository userAuthRepository, HostRepository hostRepository, GuestRepository guestRepository, WeddingCodeRepository weddingCodeRepository) {
+    public RegistrationAPIControllerTest(MockMvc mockMvc, ObjectMapper objectMapper, UserAuthRepository userAuthRepository, HostRepository hostRepository, GuestRepository guestRepository) {
+
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
-        this.registrationAPIController = registrationAPIController;
         this.userAuthRepository = userAuthRepository;
         this.hostRepository = hostRepository;
         this.guestRepository = guestRepository;
-        this.weddingCodeRepository = weddingCodeRepository;
     }
 
     @BeforeEach
@@ -57,7 +50,6 @@ class RegistrationAPIControllerTest {
         this.userAuthRepository.deleteAll();
         this.hostRepository.deleteAll();
         this.guestRepository.deleteAll();
-        this.weddingCodeRepository.deleteAll();
     }
 
     @Test
@@ -83,7 +75,6 @@ class RegistrationAPIControllerTest {
 
         UserAuth userA = this.userAuthRepository.findByUsername(rf.getUsername());
         Host host = this.hostRepository.findById(userA.getId()).get();
-        WeddingCode wc = this.weddingCodeRepository.findById(userA.getId()).get();
 
         assertEquals(rf.getUsername(), userA.getUsername());
         assertEquals(rf.getBridefirstname(), host.getBridefirstname());
@@ -95,7 +86,6 @@ class RegistrationAPIControllerTest {
         assertEquals(rf.getGroomemail(), host.getGroomemail());
         assertEquals(rf.getGroomphone(), host.getGroomphone());
         assertEquals(userA.getId(), host.getId());
-        assertEquals(userA.getId(), wc.getWeddingid());
     }
 
     @Test
@@ -120,7 +110,6 @@ class RegistrationAPIControllerTest {
                 .andExpect(status().isOk());
 
         UserAuth userA = this.userAuthRepository.findByUsername(rf.getUsername());
-        WeddingCode wc = this.weddingCodeRepository.findById(userA.getId()).get();
 
         RegistrationForm rf2 = new RegistrationForm();
         rf2.setUsertype("GUSET");
@@ -129,7 +118,6 @@ class RegistrationAPIControllerTest {
         rf2.setFirstname("Adam");
         rf2.setLastname("Nowak");
         rf2.setGender("M");
-        rf2.setWeddingcode(wc.getWeddingcode());
 
 
         mockMvc.perform(post("/api/registration/guest")
@@ -139,12 +127,10 @@ class RegistrationAPIControllerTest {
 
         UserAuth userA2 = this.userAuthRepository.findByUsername(rf2.getUsername());
         Guest guest = this.guestRepository.findById(userA2.getId()).get();
-        wc = this.weddingCodeRepository.findById(userA.getId()).get();
 
 
         assertEquals(rf2.getUsername(), userA2.getUsername());
         assertEquals(userA2.getId(), guest.getId());
-        assertEquals(userA.getId(), wc.getWeddingid());
 
         assertEquals(rf2.getFirstname(), guest.getFirstname());
         assertEquals(rf2.getLastname(), guest.getLastname());

@@ -11,4 +11,7 @@ public interface HostRepository extends JpaRepository<Host, Long> {
 
     Optional<Host> findByBrideemail(String email);
     Optional<Host> findByGroomemail(String email);
+
+    boolean existsByWeddingcode(String weddingcode);
+    Host findByWeddingcode(String weddingcode);
 }

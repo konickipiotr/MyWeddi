@@ -33,8 +33,8 @@ public class SettingsAPIController {
     }
 
     @PostMapping("/updateguest")
-    public ResponseEntity<Void> updateGuest(@RequestBody Guest guest){
-        return settingsService.updateGuest(guest);
+    public ResponseEntity<Void> updateGuest(@RequestBody Guest guest, Principal principal){
+        return settingsService.updateGuest(guest, principal.getName());
     }
 
     @PostMapping("/removeguest")

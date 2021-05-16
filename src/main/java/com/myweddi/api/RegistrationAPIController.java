@@ -9,9 +9,7 @@ import com.myweddi.user.*;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.HostRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
-import com.myweddi.user.reposiotry.WeddingCodeRepository;
 import net.bytebuddy.utility.RandomString;
-import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +27,6 @@ public class RegistrationAPIController {
 
     private final UserAuthRepository userAuthRepository;
     private final HostRepository hostRepository;
-    private final WeddingCodeRepository weddingCodeRepository;
     private final GuestRepository guestRepository;
     private final GiftService giftService;
     private final JavaMailSender javaMailSender;
@@ -41,10 +38,9 @@ public class RegistrationAPIController {
     public final int ACTIVATION_CODE_LENGTH = 40;
 
     @Autowired
-    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository, WeddingCodeRepository weddingCodeRepository, GuestRepository guestRepository, GiftService giftService, JavaMailSender javaMailSender, ActivationRepository activationRepository, PasswordEncoder passwordEncoder, WeddingInfoRepository weddingInfoRepository) {
+    public RegistrationAPIController(UserAuthRepository userAuthRepository, HostRepository hostRepository, GuestRepository guestRepository, GiftService giftService, JavaMailSender javaMailSender, ActivationRepository activationRepository, PasswordEncoder passwordEncoder, WeddingInfoRepository weddingInfoRepository) {
         this.userAuthRepository = userAuthRepository;
         this.hostRepository = hostRepository;
-        this.weddingCodeRepository = weddingCodeRepository;
         this.guestRepository = guestRepository;
         this.giftService = giftService;
         this.javaMailSender = javaMailSender;
@@ -65,10 +61,13 @@ public class RegistrationAPIController {
         userAuth  = this.userAuthRepository.save(userAuth);
 
         Host host = new Host(userAuth.getId(), rf);
+        String weddingCode = generateWeddingCode();
+        host.setWeddingcode(weddingCode);
         this.hostRepository.save(host);
         this.giftService.newAccount(userAuth.getUsername());
-        this.weddingCodeRepository.save(new WeddingCode(userAuth.getId(), generateWeddingCode()));
-        this.weddingInfoRepository.save(new WeddingInfo(userAuth.getId()));
+        WeddingInfo weddingInfo = new WeddingInfo(userAuth.getId());
+        weddingInfo.setWeddingcode(weddingCode);
+        this.weddingInfoRepository.save(weddingInfo);
 
         String activationCode = RandomString.make(ACTIVATION_CODE_LENGTH);
         this.activationRepository.save(new Activation(userAuth.getId(), activationCode));
@@ -87,15 +86,15 @@ public class RegistrationAPIController {
             return  new ResponseEntity<>(HttpStatus.FOUND);
         }
 
-        if(!this.weddingCodeRepository.existsByWeddingcode(rf.getWeddingcode())){
+        if(!this.hostRepository.existsByWeddingcode(rf.getWeddingcode())){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        WeddingCode weddingCode = this.weddingCodeRepository.findByWeddingcode(rf.getWeddingcode());
+        Host host = this.hostRepository.findByWeddingcode(rf.getWeddingcode());
 
         userAuth = new UserAuth(rf);
         userAuth.setPassword(passwordEncoder.encode(rf.getPassword()));
         this.userAuthRepository.save(userAuth);
-        this.guestRepository.save(new Guest(userAuth.getId(), weddingCode.getWeddingid(), userAuth.getUsername(), rf.getFirstname(), rf.getLastname()));
+        this.guestRepository.save(new Guest(userAuth.getId(), host.getId(), userAuth.getUsername(), rf.getFirstname(), rf.getLastname()));
 
         String activationCode = RandomString.make(ACTIVATION_CODE_LENGTH);
         this.activationRepository.save(new Activation(userAuth.getId(), activationCode));
@@ -171,7 +170,7 @@ public class RegistrationAPIController {
 
     private String generateWeddingCode(){
         String generatedString = RandomString.make(8);
-        while (this.weddingCodeRepository.existsByWeddingcode(generatedString)){
+        while (this.hostRepository.existsByWeddingcode(generatedString)){
             generatedString = RandomString.make(8);
         }
         return generatedString;

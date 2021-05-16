@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/menu.css">
 
-    <link rel="stylesheet" type="text/css" href="../../../static/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
 
 </head>
 
@@ -30,68 +30,113 @@
     <section class="content">
      <div class ="container_settings">
     <h1>USTAWIENIA</h1>
-        <div class = "settings_1">
-            <img src="../../../static/img/emptyPhoto.png" width="30%" height="30%"/>
-            <button class="btn_settings">ZMIEN</button>
-        </div>
+         <form th:action="@{/profilphoto}" method="post" enctype="multipart/form-data" name="profilePhotoForm">
+             <input type="hidden" name="returnView" th:value="${returnView}">
+             <div class = "settings_1">
+                <img th:src="@{${session.profilePhoto}}" width="30%" height="30%"/>
+
+                 <div style='height: 0px;width:0px; overflow:hidden;'>
+                     <input type="file" id="upladaprofilefile" name="profilePhoto" value="upload" onchange="submitProfilePhoto(this)" multiple />
+                 </div>
+                 <div class="btn_settings" id="uploadProfileBtn" onclick="getProfilePhotoFile()">
+                     <span>ZMIEN</span>
+                 </div>
+             </div>
+         </form>
+
+
+         <form th:action="@{${passPath}}" method="post" th:object="${passwordForm}">
          <div class="settings_password">
              <h3>ZMIEN HASLO</h3>
+             <p th:if="${errpassmessage}" th:text="${errpassmessage}"></p>
+             <p th:if="${green}" th:text="${green}"></p>
              <label for="old_pass_settings">Stare hasło:</label>
-             <input type="text" id="old_pass_settings">
+             <input type="text" id="old_pass_settings" name="passold" th:field="*{passold}" required>
              <label for="new_pass_settings">Nowe hasło:</label>
-             <input type="text" id="new_pass_settings">
+             <input type="text" id="new_pass_settings" name="pass1" th:field="*{pass1}" required>
              <label for="new_pass_settings1">Nowe hasło:</label>
-             <input type="text" id="new_pass_settings1">
+             <input type="text" id="new_pass_settings1" name="pass2" th:field="*{pass2}" required>
              <button class="btn_settings">ZMIEN</button>
          </div>
-        <div class="settings_2">
+         </form>
+
+        <form th:action="@{/guest/settings/update}" method="post" th:if="${session.role.name() == 'GUEST'}">
+        <div class="settings_2" >
             <div>
             <h3>OBECNOSC</h3>
             </div>
             <div class="settings_2b">
-            <input type="radio" id="yes">
-            <label for="yes">Potwierdzam</label>
-            <input type="radio" id="yesorno">
-            <label for="yesorno">Zastanawiam sie</label>
-            <input type="radio" id="no">
-            <label for="yes">Nie bedzie mnie</label>
+
+            <input th:if="${guest.status.name() == 'CONFIRMED'}" type="radio" name="status" value="CONFIRMED" id="CONFIRMED" checked>
+            <input th:unless="${guest.status.name() == 'CONFIRMED'}" type="radio" name="status" value="CONFIRMED" id="CONFIRMED">
+            <label for="CONFIRMED">Potwierdzam</label>
+
+            <input th:if="${guest.status.name() == 'NOTCONFIRMED'}" type="radio" name="status" value="NOTCONFIRMED"  id="NOTCONFIRMED" checked>
+            <input th:unless="${guest.status.name() == 'NOTCONFIRMED'}" type="radio" name="status" value="NOTCONFIRMED"  id="NOTCONFIRMED">
+            <label for="NOTCONFIRMED">Zastanawiam sie</label>
+
+            <input th:if="${guest.status.name() == 'REJECTED'}" type="radio" name="status" value="REJECTED" id="REJECTED" checked>
+            <input th:unless="${guest.status.name() == 'REJECTED'}" type="radio" name="status" value="REJECTED" id="REJECTED">
+            <label for="REJECTED">Nie będzie mnie</label>
             </div>
         </div>
-        <div class="settings_3">
+        <div class="settings_3" id="partnerBlock">
             <div>
                 <h3>OSOBA TOWARZYSZACA</h3>
             </div>
             <div class="settings_3b">
-            <input type="radio" id="yes1">
+
+            <input th:if="${guest.partner == true}" type="radio" name="partner" value="true" id="yes1" checked>
+            <input th:unless="${guest.partner == true}" type="radio" name="partner" value="true" id="yes1">
             <label for="yes1">Będę z osobą towarzyszącą</label>
-            <input type="radio" id="no1">
+
+            <input th:if="${guest.partner == false}" type="radio" name="partner" value="false" id="no1" checked>
+            <input th:unless="${guest.partner == false}" type="radio"  name="partner" value="false" id="no1">
             <label for="no1">Będę sam/a</label>
             </div>
         </div>
-         <div class="middle_cont_firstVisit">
+         <div class="middle_cont_firstVisit" id="childrenBlock" >
              <p>Ile dzieci?</p>
-             <input type="number" name="children" min="0" step="1" value="0">
+             <input type="number" name="children" min="0" step="1" th:value="${guest.children}">
          </div>
-         <div class="middle_cont_firstVisit">
+         <div class="middle_cont_firstVisit" id="bedBlock">
              <p>Czy potrzebujesz noclegu?</p>
              <label class="radio">
-                 <input name="bed" id="bed-true"  type="radio" checked>
+                 <input th:if="${guest.bed == true}" name="bed" value="true"  id="bed-true"  type="radio" checked>
+                 <input th:unless="${guest.bed == true}" name="bed" value="true"  id="bed-true"  type="radio">
                  <label for="bed-true">TAK</label>
              </label>
              <label class="radio">
-                 <input name="bed" id="bed-false" type="radio">
+                 <input th:if="${guest.bed == false}" name="bed" value="false" id="bed-false"  type="radio" checked>
+                 <input th:unless="${guest.bed == false}" name="bed" value="false" id="bed-false"  type="radio">
                  <label for="bed-false">NIE</label>
              </label><br />
 
-             <label class="radio">
+             <label class="radio" id="numbedBlock">
                  <label for="numofbed">Ile łóżek potrzenujesz?</label>
-                 <input type="number" id="numofbed" name="numofbed" min="0" step="1" value="1">
+                 <input type="number" id="numofbed" name="numofbed" min="0" step="1" th:value="${guest.numofbed}">
              </label>
          </div>
          <div>
              <button class="btn_settings">A K C E P T U J</button>
          </div>
+     </form>
+
+
+         <div class="settings_password">
+             <h3>USUŃ KONTO</h3>
+             <p th:if="${session.role.name() == 'HOST'}" >Ostrzeżenie: bal bla bla abla</p>
+             <p th:if="${session.role.name() == 'GUEST'}" >Ostrzeżenie: bal bla bla abla</p>
+
+             <form th:if="${session.role.name() == 'HOST'}" th:action="@{/host/settings/removeaccount}" method="post">
+                <button type="submit" name="removeaccount" th:value="${userid}" class="btn_settings">Usuń konto/ślub</button>
+             </form>
+             <form th:if="${session.role.name() == 'GUEST'}" th:action="@{/guest/settings/removeguest}" method="post">
+                 <button type="submit" name="removeaccount" th:value="${userid}" class="btn_settings">Usuń konto</button>
+             </form>
+         </div>
      </div>
+
     </section>
 
     <!-- ************************************************** -->
@@ -99,5 +144,96 @@
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 <script src="/js/uploadphoto.js"></script>
+<script>
 
+var partner = document.getElementById("partnerBlock");
+var childrenNum = document.getElementById("childrenBlock");
+var bed = document.getElementById("bedBlock");
+var numBed = document.getElementById("numbedBlock");
+
+
+if(document.getElementById("CONFIRMED").checked == true){
+    partner.style.display = "flex";
+    childrenNum.style.display = "flex";
+    bed.style.display = "flex";
+
+    if(bed.checked == true){
+        numBed.style.display = "flex";
+    }else{
+        numBed.style.display = "flex";
+    }
+}else{
+    partner.style.display = "none";
+    childrenNum.style.display = "none";
+    bed.style.display = "none";
+    numBed.style.display = "none";
+}
+
+
+document.getElementById("CONFIRMED").onchange = function(){
+    if(document.getElementById("CONFIRMED").checked == true){
+        partner.style.display = "flex";
+        childrenNum.style.display = "flex";
+        bed.style.display = "flex";
+
+        if(bed.checked == true){
+            numBed.style.display = "flex";
+        }else{
+            numBed.style.display = "none";
+        }
+    }
+}
+
+document.getElementById("NOTCONFIRMED").onchange = function(){
+		partner.style.display = "none";
+		childrenNum.style.display = "none";
+		bed.style.display = "none";
+		numBed.style.display = "none";
+}
+
+document.getElementById("REJECTED").onchange = function(){
+		partner.style.display = "none";
+		childrenNum.style.display = "none";
+		bed.style.display = "none";
+		numBed.style.display = "none";
+}
+
+document.getElementById("bed-true").onchange = function(){
+    numBed.style.display = "flex";
+
+}
+
+document.getElementById("bed-false").onchange = function(){
+    numBed.style.display = "none";
+}
+
+var extList = ['jpg', 'png', 'bmp'];
+
+function getProfilePhotoFile() {
+  console.log("before upload");
+  document.getElementById("upladaprofilefile").click();
+  console.log("after upload");
+}
+
+function submitProfilePhoto(obj) {
+    console.log(obj);
+  let file = obj.value;
+  console.log(file);
+  let fileNameArr = file.split("\\");
+  let fileName = fileNameArr[fileNameArr.length - 1];
+  console.log(fileName);
+
+  let ext = fileName.substring(fileName.length - 3);
+  console.log(ext);
+
+  if(!extList.includes(ext)){
+    alert("The file is not of img type.")
+    return;
+  }
+
+  document.getElementById("uploadProfileBtn").innerHTML = fileName;
+  document.profilePhotoForm.submit();
+  event.preventDefault();
+}
+</script>
 </html>

@@ -20,6 +20,7 @@ public class Host {
     private String lastname;
     private String realPath;
     private String webAppPath;
+    private String weddingcode;
 
     public Host(){
         this.firstname = "Państow Młodzi";
@@ -162,4 +163,11 @@ public class Host {
         this.webAppPath = webAppPath;
     }
 
+    public String getWeddingcode() {
+        return weddingcode;
+    }
+
+    public void setWeddingcode(String weddingcode) {
+        this.weddingcode = weddingcode;
+    }
 }

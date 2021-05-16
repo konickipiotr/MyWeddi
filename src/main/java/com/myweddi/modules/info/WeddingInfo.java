@@ -27,6 +27,7 @@ public class WeddingInfo {
     private String wAddress;
     private String wRealPath;
     private String wWebAppPath;
+    private String weddingcode;
 
     public void update(WeddingInfo weddingInfo) {
         this.churchname = weddingInfo.getChurchname();
@@ -169,5 +170,11 @@ public class WeddingInfo {
         this.wWebAppPath = wWebAppPath;
     }
 
+    public String getWeddingcode() {
+        return weddingcode;
+    }
 
+    public void setWeddingcode(String weddingcode) {
+        this.weddingcode = weddingcode;
+    }
 }
