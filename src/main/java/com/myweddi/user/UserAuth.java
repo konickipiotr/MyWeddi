@@ -77,7 +77,7 @@ public class UserAuth implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !this.status.equals(UserStatus.DISABLE);
     }
 
     public Long getId() {

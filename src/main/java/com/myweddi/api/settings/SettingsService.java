@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SettingsService {
 
@@ -39,12 +41,18 @@ public class SettingsService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> updateGuest(Guest guest) {
-        if(this.guestRepository.existsById(guest.getId())){
-            this.guestRepository.save(guest);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> updateGuest(Guest guest, String username) {
+        UserAuth user = userAuthRepository.findByUsername(username);
+
+        Optional<Guest> oGuest = this.guestRepository.findById(user.getId());
+        if(oGuest.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        Guest guestOld = oGuest.get();
+        guestOld.updateAdditionalInfo(guest);
+        this.guestRepository.save(guestOld);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
 }

@@ -11,7 +11,8 @@
         <a th:href="@{/}" th:text="#{appdomain}"></a>
       </div>
       <div class="header-top-settings">
-        <a th:href="www.google.pl"> <i class="fas fa-cog fa-1x"></i></a>
+        <a th:if="${session.role.name() == 'HOST'}" th:href="@{/host/settings}"> <i class="fas fa-cog fa-1x"></i></a>
+        <a th:if="${session.role.name() == 'GUEST'}" th:href="@{/guest/settings}"> <i class="fas fa-cog fa-1x"></i></a>
         <a th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-1x"></i></a>
       </div>
     </div>

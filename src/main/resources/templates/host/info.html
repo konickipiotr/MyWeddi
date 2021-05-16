@@ -41,6 +41,16 @@
             </div>
           </div>
 
+
+          <!--   ############################################################     -->
+
+        <div>
+          <p>Kod wesela</p>
+          <p th:text="${weddingInfo.weddingcode}"> tu będzie</p>
+        </div>
+          <!--   ############################################################     -->
+
+
         <div class="churchandplacedisplay">
 
           <div class="church_info">
@@ -71,15 +81,15 @@
               <input type="text" name="name" id="name" minlength="3" th:field="*{weddinghousename}" required>
             </div>
             <div>
-              <label for="address" th:text="#{label.address}"></label>
+              <label for="addressS" th:text="#{label.address}"></label>
               <input type="text" name="address" id="addressS" minlength="3" th:field="*{wAddress}" required>
             </div>
             <div>
-              <label for="latitude" th:text="#{label.latitude}"></label>
+              <label for="latitudeS" th:text="#{label.latitude}"></label>
               <input type="number" name="latitude" id="latitudeS" min="-180" max="180" step="0.000001" minlength="3" th:field="*{wLatitude}">
             </div>
             <div>
-              <label for="longitude" th:text="#{label.longitude}"></label>
+              <label for="longitudeS" th:text="#{label.longitude}"></label>
               <input type="number" name="longitude" id="longitudeS" min="-90" max="90" step="0.0000001" minlength="3" th:field="*{wLongitude}">
             </div>
             <div th:if="${weddingInfo.wWebAppPath != null}">

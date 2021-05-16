@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/host/gift")
@@ -43,7 +45,7 @@ public class HostGiftController {
         GiftWrapper wrapper = response.getBody();
 
         model.addAttribute("giftWrapper", wrapper);
-        model.addAttribute("giftIn", new GiftIn(wrapper.getSelectedGift()));
+        model.addAttribute("giftIn", new GiftIn(wrapper));
         model.addAttribute("menu", Menu.hostMenu);
         return "host/gifts";
     }
@@ -60,6 +62,8 @@ public class HostGiftController {
     public String addGift(@RequestParam("giftname") String giftname, Principal principal,  Model model){
         configRestTemplate(principal.getName());
         String path = Global.domain + "/api/gift/add";
+        Map<String, String> body = new HashMap<>();
+        body.put("name", giftname);
         restTemplate.postForEntity(path, giftname, Void.class);
         return "redirect:/host/gift";
     }

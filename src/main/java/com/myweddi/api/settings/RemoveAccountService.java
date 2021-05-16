@@ -34,7 +34,6 @@ public class RemoveAccountService {
 
     private WeddingInfoRepository weddingInfoRepository;
     private GeneralGiftRepository generalGiftRepository;
-    private WeddingCodeRepository weddingCodeRepository;
 
     private CommentRepository commentRepository;
     private PostRepository postRepository;
@@ -50,15 +49,13 @@ public class RemoveAccountService {
     private OneTimeRepository oneTimeRepository;
     private PasswordRestRepository passwordRestRepository;
 
-
     @Autowired
-    public RemoveAccountService(UserAuthRepository userAuthRepository, GuestRepository guestRepository, HostRepository hostRepository, WeddingInfoRepository weddingInfoRepository, GeneralGiftRepository generalGiftRepository, WeddingCodeRepository weddingCodeRepository, CommentRepository commentRepository, PostRepository postRepository, TablePlaceRepository tablePlaceRepository, TablesRepository tablesRepository, GiftRepository giftRepository, LikeRepository likeRepository, PhotoRepository photoRepository, FileService fileService, ActivationRepository activationRepository, OneTimeRepository oneTimeRepository, PasswordRestRepository passwordRestRepository) {
+    public RemoveAccountService(UserAuthRepository userAuthRepository, GuestRepository guestRepository, HostRepository hostRepository, WeddingInfoRepository weddingInfoRepository, GeneralGiftRepository generalGiftRepository, CommentRepository commentRepository, PostRepository postRepository, TablePlaceRepository tablePlaceRepository, TablesRepository tablesRepository, GiftRepository giftRepository, LikeRepository likeRepository, PhotoRepository photoRepository, FileService fileService, ActivationRepository activationRepository, OneTimeRepository oneTimeRepository, PasswordRestRepository passwordRestRepository) {
         this.userAuthRepository = userAuthRepository;
         this.guestRepository = guestRepository;
         this.hostRepository = hostRepository;
         this.weddingInfoRepository = weddingInfoRepository;
         this.generalGiftRepository = generalGiftRepository;
-        this.weddingCodeRepository = weddingCodeRepository;
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
         this.tablePlaceRepository = tablePlaceRepository;
@@ -103,9 +100,6 @@ public class RemoveAccountService {
 
         if(this.likeRepository.existsByUserid(weddingid))
             this.likeRepository.deleteByUserid(weddingid);
-
-        if(this.weddingCodeRepository.existsById(weddingid))
-            this.weddingCodeRepository.deleteById(weddingid);
 
         Optional<Host> oHost = this.hostRepository.findById(weddingid);
         if(oHost.isPresent()){

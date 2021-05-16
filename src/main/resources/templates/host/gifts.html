@@ -18,13 +18,6 @@
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" type="text/css" href="/css/addguest.css">
   <link rel="stylesheet" type="text/css" href="/css/addgifts.css">
-
-
-  <link rel="stylesheet" type="text/css" href="../../static/css/mainstyle.css">
-  <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
-  <link rel="stylesheet" type="text/css" href="../../static/css/menu.css">
-  <link rel="stylesheet" type="text/css" href="../../static/css/addguest.css">
-  <link rel="stylesheet" type="text/css" href="../../static/css/addgifts.css">
 </head>
 
 <body>
@@ -107,36 +100,36 @@
           <button type="submit" class="btn00">Z A P I S Z</button>
         </div>
       </form>
-      <div class ="textarea_addGifts2" >
-      <p class="p0"><strong>Jeśli zależy Ci na konkretnej rzeczy/książce itd. dodaj ja do listy</strong></p>
-      <div>
-        <input type="text" name="giftname" id="giftname" minlength="2">
-      </div>
-      </div>
-      <div class="enterbtn_addGifts2">
-        <button type="submit" class="btn00">D O D A J</button>
-      </div>
+      <form th:action="@{/host/gift/add}" method="post">
+        <div class ="textarea_addGifts2" >
+          <p class="p0"><strong>Jeśli zależy Ci na konkretnej rzeczy/książce itd. dodaj ja do listy</strong></p>
+
+          <div>
+            <input type="text" name="giftname" id="giftname" minlength="2">
+          </div>
+        </div>
+        <div class="enterbtn_addGifts2">
+          <button type="submit" class="btn00">D O D A J</button>
+        </div>
+      </form>
       <div class="down_of_addgifts">
 
-        <form th:action="@{/host/gift/add}" method="post">
-
-        </form>
         <div class="listofguest">
           <table class="table_gifts">
             <tr>
               <th>LP</th>
               <th>Prezent</th>
-              <th>REZERWUJ</th>
+              <th>REZERWACJE</th>
             </tr>
             <tr th:each="g, it : ${giftWrapper.gifts}">
 
               <td th:text="${it.count}"></td>
               <td th:text="${g.name}"></td>
-              <td th:if="${g.userid == null}">REZERWUJ</td>
+              <td th:if="${g.userid == null}">NIE ZAREZERWOWANE</td>
               <td th:unless="${g.userid == null}"></td>
               <td>
                 <form th:action="@{/host/gift/remove}" method="post">
-                  <button type="submit" name="giftid" th:value="${g.id}">Usuń</button>
+                  <button class="btn_delete_gifts" type="submit" name="giftid" th:value="${g.id}">Usuń</button>
                 </form>
               </td>
             </tr>
