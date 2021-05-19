@@ -82,3 +82,17 @@ margin-top: 55px;
     background-color: #582d58;
     color: white;
 }
+h1, h3{
+ display: block;
+    font-family: 'Nunito', sans-serif;
+    font-size: 40px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 10px;
+    }
+h3{
+font-size: 30px;}
+
+.input_children_width{
+width: 25px;
+}
