@@ -27,11 +27,17 @@
     <section class="content">
     <form th:action="@{/host/guest}" method="post" class="addguest_form">
         <div class="AddGuest">
-            <h1>DODAJ GOŚCIA</h1>
+            <h1>POTENCJALNI</h1>
+            <h3>DODAJ GOŚCIA</h3>
             <label for="firstname"> I M I Ę</label>
             <input type="text" name="firstname" id="firstname" minlength="3">
             <label for="lastname">N A Z W I S K O</label>
             <input type="text" name="lastname" id="lastname" minlength="3">
+            <label for="couple">O S O B A  T O W A R Z Y S Z A C A</label>
+            <input type="checkbox" name="couple" id="couple">
+            <label for="children_amount">D Z I E C I</label>
+            <input class="input_children_width" type="number" name="children_amount" id="children_amount">
+
         </div>
         <div class="enterbtn_addguest">
             <button type="submit" class="btn">D O D A J</button>
@@ -39,18 +45,36 @@
     </form>
         <div class="listofguest">
             <table class="table_addguest">
-                <tr><th>LP</th><th>OBECNOŚĆ</th><th>PROFIL</th><th>IMIĘ</th><th>NAZWISKO</th><th>GENERUJ</th><th>USUŃ</th></tr>
+                <tr><th>LP</th><th>IMIE</th><th>NAZWISKO</th><th>OS TOW</th><th>DZIECI</th><th>SUMA</th><th>USUŃ</th></tr>
                 <tr th:each="g, it : ${guestList}">
                   <td th:text="${it.count}"></td>
-                  <td><i th:class="${g.statusIco}"></i></td>
-                  <td><i class="far fa-user-circle"></td>
-                  <td th:text="${g.firstname}"></td>
-                  <td th:text="${g.lastname}"></td>
-                  <td><a><i class="fas fa-arrow-down"></i></a></td>
+                    <td th:text="${g.firstname}"></td>
+                    <td th:text="${g.lastname}"></td>
+                  <td><input type="checkbox"></td>
+                  <td><input class="input_children_width"  type="number"></td>
+                  <td>suma</td>
                   <td><a><i class="far fa-trash-alt"></i></a></td>
                 </tr>
             </table>
       </div>
+        <div class="listofguest">
+            <h1>ZAREJESTROWANI GOSCIE</h1>
+            <table class="table_addguest">
+                <tr><th>LP</th><th>IMIĘ</th><th>NAZWISKO</th><th>STATUS</th><th>OS TOW</th><th>DZIECI</th><th>LOZKA</th><th>PLEC</th><th>WIEK</th><th>USUŃ</th></tr>
+                <tr th:each="g, it : ${guestList}">
+                    <td th:text="${it.count}"></td>
+                    <td th:text="${g.firstname}"></td>
+                    <td th:text="${g.lastname}"></td>
+                    <td><i th:class="${g.statusIco}"></i></td>
+                    <td>TAK</td>
+                    <td>2</a></td>
+                    <td><a>5</a></td>
+                    <td><a>K</a></td>
+                    <td><a>25</a></td>
+                    <td><a><i class="far fa-trash-alt"></i></a></td>
+                </tr>
+            </table>
+        </div>
 
   </section>
 
