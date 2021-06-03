@@ -46,7 +46,7 @@ public class PostService {
     private PhotoRepository photoRepository;
     private LikeRepository likeRepository;
 
-    private static final int PAGE_SIZE = 2;
+    private static final int PAGE_SIZE = 10;
 
 
     @Autowired

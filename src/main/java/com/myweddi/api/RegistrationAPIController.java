@@ -112,7 +112,7 @@ public class RegistrationAPIController {
         Activation activationcode = this.activationRepository.findByActivationcode(activationCode);
         UserAuth user = this.userAuthRepository.findById(activationcode.getUserid()).get();
 
-        if(user.getRole().equals("GUEST"))
+        if(user.getRole().equals("NEWGUEST"))
             user.setStatus(UserStatus.FIRSTLOGIN);
         else
             user.setStatus(UserStatus.ACTIVE);
