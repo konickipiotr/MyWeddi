@@ -48,7 +48,7 @@ public class SettingController {
         model.addAttribute("errpassmessage", errpassmessage);
         model.addAttribute("green", green);
         model.addAttribute("userid", userAuth.getId());
-        model.addAttribute("menu", Menu.guestMenu);
+        model.addAttribute("menu", Menu.hostMenu);
         return "settings";
     }
 
@@ -64,7 +64,7 @@ public class SettingController {
         model.addAttribute("passPath", "/guest/password");
         model.addAttribute("returnView", "GUESTSETTINGS");
         model.addAttribute("userid", userAuth.getId());
-        model.addAttribute("menu", Menu.hostMenu);
+        model.addAttribute("menu", Menu.guestMenu);
         return "settings";
     }
 

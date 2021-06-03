@@ -4,6 +4,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,6 +17,8 @@ public class WeddingInfo {
     private String churchname;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime ceremenytime;
+    @Transient
+    private String sceremenytime;
     private double chLongitude;
     private double chLatitude;
     private String churchaddress;
@@ -48,6 +53,17 @@ public class WeddingInfo {
     }
 
     public WeddingInfo() {
+    }
+
+    public void convertDate(){
+        if(this.ceremenytime == null){
+            this.sceremenytime = "";
+            return;
+        }
+        SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy");
+        this.sceremenytime = sf.format(Date.valueOf(this.ceremenytime.toLocalDate()));
+        int minute = this.ceremenytime.getMinute();
+        this.sceremenytime += " " + this.ceremenytime.getHour() + ":" + (minute > 9 ? minute : "0" + minute) ;
     }
 
     public Long getWeddingid() {
@@ -176,5 +192,13 @@ public class WeddingInfo {
 
     public void setWeddingcode(String weddingcode) {
         this.weddingcode = weddingcode;
+    }
+
+    public String getSceremenytime() {
+        return sceremenytime;
+    }
+
+    public void setSceremenytime(String sceremenytime) {
+        this.sceremenytime = sceremenytime;
     }
 }

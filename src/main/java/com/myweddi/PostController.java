@@ -18,10 +18,7 @@ import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -66,6 +63,27 @@ public class PostController {
         model.addAttribute("posttype", Posttype.LOCAL);
         setMenu(user, model);
         return "home";
+    }
+
+    @GetMapping("/{postid}")
+    public String getParticularPost(@PathVariable("postid") Long postid, Model model, Principal principal){
+        UserAuth user = configRestTemplate(principal.getName());
+        Long weddingid;
+        if(user.getRole().equals("HOST"))
+            weddingid = user.getId();
+        else
+            weddingid = this.guestRepository.findById(user.getId()).get().getWeddingid();
+
+        String path = Global.domain + "/api/post/" + weddingid + "/post/" + postid;
+        ResponseEntity<PostView> response = restTemplate.getForEntity(path, PostView.class);
+
+        if(response.getStatusCode() == HttpStatus.OK){
+            PostView postView = response.getBody();
+            model.addAttribute("post", postView);
+        }else
+            model.addAttribute("post", new Post());
+        setMenu(user, model);
+        return "post";
     }
 
     @GetMapping("/public")
@@ -123,10 +141,13 @@ public class PostController {
     }
 
     @PostMapping("/addcomment")
-    public String addComment(Comment comment, @RequestParam("posttype") Posttype posttype, Principal principal){
+    public String addComment(Comment comment, Posttype posttype, Long postid, Principal principal){
         configRestTemplate(principal.getName());
         String path = Global.domain + "/api/post/addcomment";
         ResponseEntity<Long> response = restTemplate.postForEntity(path, comment, Long.class);
+        if(posttype == null)
+            return "redirect:/home/" + postid;
+
         if(posttype.equals(Posttype.LOCAL))
             return "redirect:/home";
         else
@@ -134,10 +155,13 @@ public class PostController {
     }
 
     @PostMapping("/star")
-    public String star(@RequestParam("postid") Long postid, @RequestParam("posttype") Posttype posttype, Principal principal){
+    public String star(@RequestParam("postid") Long postid, Posttype posttype, Principal principal){
         UserAuth user = configRestTemplate(principal.getName());
         String path = Global.domain + "/api/post/changestar";
         ResponseEntity<Boolean> response = restTemplate.postForEntity(path, new WeddiLike(postid, user.getId()), Boolean.class);
+        if(posttype == null)
+            return "redirect:/home/" + postid;
+
         if(posttype.equals(Posttype.LOCAL))
             return "redirect:/home";
         else
@@ -145,10 +169,13 @@ public class PostController {
     }
 
     @PostMapping("/deletepost")
-    public String deletePost(@RequestParam("postid") Long postid, @RequestParam("posttype") Posttype posttype, Principal principal){
+    public String deletePost(@RequestParam("postid") Long postid, Posttype posttype, Principal principal){
         configRestTemplate(principal.getName());
         String path = Global.domain + "/api/post/deletepost/" + postid;
         restTemplate.delete(path);
+        if(posttype == null)
+            return "redirect:/";
+
         if(posttype.equals(Posttype.LOCAL))
             return "redirect:/home";
         else
@@ -156,10 +183,13 @@ public class PostController {
     }
 
     @PostMapping("/deletecomment")
-    public String deletecomment(@RequestParam("commentid") Long commentid, @RequestParam("posttype") Posttype posttype, Principal principal){
+    public String deletecomment(@RequestParam("commentid") Long commentid, Long postid, Posttype posttype, Principal principal){
         configRestTemplate(principal.getName());
         String path = Global.domain + "/api/post/deletecomment/" + commentid;
         restTemplate.delete(path);
+        if(posttype == null)
+            return "redirect:/home/" + postid;
+
         if(posttype.equals(Posttype.LOCAL))
             return "redirect:/home";
         else

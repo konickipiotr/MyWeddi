@@ -169,9 +169,9 @@ public class RegistrationAPIController {
     }
 
     private String generateWeddingCode(){
-        String generatedString = RandomString.make(8);
+        String generatedString = RandomString.make(6);
         while (this.hostRepository.existsByWeddingcode(generatedString)){
-            generatedString = RandomString.make(8);
+            generatedString = RandomString.make(6);
         }
         return generatedString;
     }

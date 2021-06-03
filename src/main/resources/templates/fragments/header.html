@@ -21,8 +21,8 @@
 
       <div class="wedding-title-container">
         <span>
-          <h1 th:text="${session.bridename + ' i ' + session.groomname + ' 19.06.2021'}"></h1>
-          <p>Pobieramy się!</p>
+          <h1 th:text="${session.bridename + ' i ' + session.groomname + ' ' + session.weddingdate}"></h1>
+          <p th:text=#{wearegettinmerried}></p>
         </span>
       </div>
     </div>

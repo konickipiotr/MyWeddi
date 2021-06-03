@@ -22,52 +22,52 @@
     <div class="container_firstVisit">
       <form th:action="@{/firstlogin}" method="post">
         <div class="middle_cont_firstVisit">
-            <p>Czy potwierdzasz?<p></p>
+            <p th:text="#{firstvisit_confirm}"><p></p>
             <label class="radio">
                 <input id="confirm" name="confirm" type="radio" checked>
-                <label for="confirm">TAK</label>
+                <label for="confirm" th:text="#{button_yes}"></label>
             </label>
             <label class="radio">
                 <input id="reject" name="reject" type="radio">
-                <label for="reject">NIE</label>
+                <label for="reject" th:text="#{button_no}"></label>
             </label>
         </div>
         <div class="middle_cont_firstVisit">
             <a>INFO</a>
         </div>
         <div class="middle_cont_firstVisit">
-            <p>Czy będziesz z osobą towarzyszącą?</p>
+            <p th:text="#{firstvisit_withPartner}"></p>
             <label class="radio">
                 <input name="partner" id="partner-true" type="radio" checked>
-                <label for="partner-true">TAK</label>
+                <label for="partner-true" th:text="#{button_yes}"></label>
             </label>
             <label class="radio">
                 <input name="partner" id="partner-false" type="radio">
-                <label for="partner-false">NIE</label>
+                <label for="partner-false" th:text="#{button_no}"></label>
             </label>
         </div>
         <div class="middle_cont_firstVisit">
-            <p>Ile dzieci?</p>
+            <p th:text="#{firstvisit_howmanychildern}"></p>
             <input type="number" name="children" min="0" step="1" value="0">
         </div>
         <div class="middle_cont_firstVisit">
-            <p>Czy potrzebujesz noclegu?</p>
+            <p th:text="#{firstvisit_bedneeded}"></p>
             <label class="radio">
                 <input name="bed" id="bed-true"  type="radio" checked>
-                <label for="bed-true">TAK</label>
+                <label for="bed-true" th:text="#{button_yes}"></label>
             </label>
             <label class="radio">
                 <input name="bed" id="bed-false" type="radio">
-                <label for="bed-false">NIE</label>
+                <label for="bed-false" th:text="#{button_no}"></label>
             </label><br />
 
             <label class="radio">
-                <label for="numofbed">Ile łóżek potrzenujesz?</label>
+                <label for="numofbed" th:text="#{firstvisit_howManyBeds}"></label>
                 <input type="number" id="numofbed" name="numofbed" min="0" step="1" value="1">
             </label>
         </div>
         <div class="enter">
-            <button><span>A K C E P T U J</span></button>
+            <button><span th:text="#{firstvisit_save}"></span></button>
         </div>
         </form>
     </div>

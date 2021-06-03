@@ -51,6 +51,9 @@ public class GuestInfoController {
         }
 
         WeddingInfo weddingInfo = response.getBody();
+
+
+        weddingInfo.convertDate();
         model.addAttribute("weddingInfo", weddingInfo);
         model.addAttribute("menu", Menu.guestMenu);
         return "guest/infoview";

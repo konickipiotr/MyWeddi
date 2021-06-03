@@ -70,6 +70,9 @@ public class ProfilePhotoController {
 
         session.setAttribute("profilePhoto", user.getWebAppPath());
 
+        if(returnView == null)
+            return "redirect:/";
+
         switch (returnView){
             case "GUESTSETTINGS": return "redirect:/guest/settings";
             case "HOSTSETTINGS": return "redirect:/host/settings";

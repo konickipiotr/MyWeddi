@@ -6,6 +6,7 @@ import com.myweddi.user.UserAuth;
 import com.myweddi.user.reposiotry.GuestRepository;
 import com.myweddi.user.reposiotry.UserAuthRepository;
 import com.myweddi.utils.ListWrapper;
+import com.myweddi.webapp.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
@@ -42,6 +43,7 @@ public class GuestGiftController {
 
         GiftWrapper giftwrapper = response.getBody();
         model.addAttribute("giftwrapper", giftwrapper);
+        model.addAttribute("menu", Menu.guestMenu);
         return "guest/gifts";
     }
 

@@ -40,7 +40,7 @@
             <textarea class="writecomment" name="description" rows="3" cols="40"></textarea>
           </div>
           <div class="added_post_down">
-            <button type="submit" class="entercomment"><span th:text="#{button_add}"></span></button>
+            <button type="submit" class="entercomment"><span th:text="#{button_add_post}"></span></button>
             <div class="upload" onclick="choosePhoto()">
               <p style="margin:0px; padding:0px;"><i class="fas fa-image fa-1x"></i> <span id="uploadedPostPhotoLabel" th:text="#{button_add_photo}"></span></p>
               <input type="file" class="input_add_post" id="uploadedPostPhoto" name="images" multiple style="display: none;">
@@ -78,8 +78,11 @@
           </div>
           <!-- ************************************************** -->
           <div class="middle_post">
-            <img th:each="ph : ${p.photos}" th:src="@{${ph.webAppPath}}" width="80%">
+            <img th:src="@{${p.photos[0].webAppPath}}" width="80%">
             <p th:text="${p.description}"></p>
+          </div>
+          <div style="display: flex; justify-content: center;">
+            <a th:href="@{'/home/' + ${p.id}}" class="entercomment" style="width: 50%; text-align: center;" th:text="#{button_more}"></a>
           </div>
           <div>
 
